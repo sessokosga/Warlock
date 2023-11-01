@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bin3af2sm4ms3"]
+
+[ext_resource type="Script" path="res://node_2d.gd" id="1_ivd4n"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ivd4n")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1147.0
+offset_bottom = 267.0
+theme_override_font_sizes/font_size = 70
+text = "Warlock"
+horizontal_alignment = 1
+vertical_alignment = 1

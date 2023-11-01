@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccug2dsgo3vpl"]
+
+[ext_resource type="Script" path="res://addons/ccg_tools/scripts/hand.gd" id="1_l0hhw"]
+[ext_resource type="Curve" uid="uid://gmo2belo1636" path="res://addons/ccg_tools/resources/hand_rotation.tres" id="2_fhtw7"]
+[ext_resource type="Curve" uid="uid://cmwt6tg35mor0" path="res://addons/ccg_tools/resources/hand_spacing.tres" id="3_b3ih3"]
+[ext_resource type="Curve" uid="uid://byrq2hrnqppol" path="res://addons/ccg_tools/resources/hand_height.tres" id="4_ac626"]
+
+[node name="Hand" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l0hhw")
+curve_rotation = ExtResource("2_fhtw7")
+curve_spacing = ExtResource("3_b3ih3")
+curve_height = ExtResource("4_ac626")

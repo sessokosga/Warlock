@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ijbe0q0p8v6"]
+
+[ext_resource type="FontFile" uid="uid://fi20m8w5iaww" path="res://assets/fonts/BalooChettan2-SemiBold.ttf" id="1_bjfvt"]
+
+[resource]
+default_font = ExtResource("1_bjfvt")
+default_font_size = 16
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/shadow_offset_x = 4
+Label/constants/shadow_offset_y = 4
+Label/constants/shadow_outline_size = 5
