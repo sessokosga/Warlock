@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://2m0f8kh14tcc"
-path="res://.godot/imported/BalooChettan2-SemiBold.ttf-ca85dd1b248af3592c5925ef4f9c9557.fontdata"
+path="res://.godot/imported/BalooChettan2-SemiBold.ttf-e9057d6208ef4a34f4a8bf22630f1169.fontdata"
 
 [deps]
 
-source_file="res://interface/fonts/BalooChettan2-SemiBold.ttf"
-dest_files=["res://.godot/imported/BalooChettan2-SemiBold.ttf-ca85dd1b248af3592c5925ef4f9c9557.fontdata"]
+source_file="res://common/fonts/BalooChettan2-SemiBold.ttf"
+dest_files=["res://.godot/imported/BalooChettan2-SemiBold.ttf-e9057d6208ef4a34f4a8bf22630f1169.fontdata"]
 
 [params]
 

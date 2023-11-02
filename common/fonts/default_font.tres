@@ -1,6 +1,6 @@
 [gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://s1mxittnuran"]
 
-[ext_resource type="FontFile" uid="uid://2m0f8kh14tcc" path="res://interface/fonts/BalooChettan2-SemiBold.ttf" id="1_kdvsa"]
+[ext_resource type="FontFile" uid="uid://2m0f8kh14tcc" path="res://common/fonts/BalooChettan2-SemiBold.ttf" id="1_kdvsa"]
 
 [resource]
 base_font = ExtResource("1_kdvsa")

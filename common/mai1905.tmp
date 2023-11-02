@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://32akj7xygp1m"]
 
-[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://interface/theme/default_theme.tres" id="1_fw5nn"]
-[ext_resource type="Script" path="res://interface/main.gd" id="1_iifbm"]
+[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_fw5nn"]
+[ext_resource type="Script" path="res://common/main.gd" id="1_iifbm"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -26,6 +26,7 @@ theme_override_font_sizes/font_size = 70
 text = "Warlock"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,12 +42,14 @@ grow_vertical = 2
 theme_override_constants/separation = 40
 
 [node name="Start" type="Button" parent="VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
-text = "Start"
+text = "Play"
+
+[node name="My Collection" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "My Collection"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 text = "Credits"
 
@@ -58,7 +61,6 @@ offset_right = 158.0
 offset_bottom = 593.0
 
 [node name="Language Option" type="OptionButton" parent="HBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -67,4 +69,7 @@ popup/item_0/id = 0
 popup/item_1/text = "Français"
 popup/item_1/id = 1
 
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/My Collection" to="." method="_on_my_collection_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="item_selected" from="HBoxContainer/Language Option" to="." method="_on_language_option_item_selected"]

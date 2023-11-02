@@ -1,13 +1,5 @@
 extends Control
 
-@onready var language_option := $"%Language Option"
-@onready var start_btn := $"%Start"
-@onready var credits_btn := $"%Credits"
-
-func _ready() -> void:
-    pass
-
-
 func _on_language_option_item_selected(index:int) -> void:
     match index:
         0:
@@ -17,4 +9,17 @@ func _on_language_option_item_selected(index:int) -> void:
         _:
             TranslationServer.set_locale("en")
 
+    pass # Replace with function body.
+
+
+
+func _on_my_collection_pressed() -> void:
+    #get_tree().change_scene_to_file()
+    pass # Replace with function body.
+
+func _on_start_pressed() -> void:
+    pass # Replace with function body.
+
+
+func _on_credits_pressed() -> void:
     pass # Replace with function body.

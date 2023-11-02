@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://bs00b53m5f3ue"]
 
-[ext_resource type="FontVariation" uid="uid://s1mxittnuran" path="res://interface/fonts/default_font.tres" id="1_sg31o"]
+[ext_resource type="FontVariation" uid="uid://s1mxittnuran" path="res://common/fonts/default_font.tres" id="1_sg31o"]
 
 [resource]
 resource_name = "Default Theme"

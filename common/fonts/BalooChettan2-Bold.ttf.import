@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dxpadowm2y03n"
-path="res://.godot/imported/BalooChettan2-Bold.ttf-f16654f48f6046d38cfe88647817381d.fontdata"
+path="res://.godot/imported/BalooChettan2-Bold.ttf-62365ea7f53e1f535e41d6cdcfffab32.fontdata"
 
 [deps]
 
-source_file="res://interface/fonts/BalooChettan2-Bold.ttf"
-dest_files=["res://.godot/imported/BalooChettan2-Bold.ttf-f16654f48f6046d38cfe88647817381d.fontdata"]
+source_file="res://common/fonts/BalooChettan2-Bold.ttf"
+dest_files=["res://.godot/imported/BalooChettan2-Bold.ttf-62365ea7f53e1f535e41d6cdcfffab32.fontdata"]
 
 [params]
 
