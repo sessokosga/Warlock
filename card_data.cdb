@@ -1,0 +1,283 @@
+{
+	"sheets": [
+		{
+			"name": "Warlock",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				},
+				{
+					"typeStr": "1",
+					"name": "title",
+					"display": null
+				},
+				{
+					"typeStr": "5:Hero,Minion,Spell",
+					"name": "type"
+				},
+				{
+					"typeStr": "3",
+					"name": "health"
+				},
+				{
+					"typeStr": "13",
+					"name": "decoration"
+				},
+				{
+					"typeStr": "3",
+					"name": "mana"
+				},
+				{
+					"typeStr": "5:Help_Me,Harm_Opponent",
+					"name": "effect_on_actor",
+					"opt": true
+				},
+				{
+					"typeStr": "3",
+					"name": "attack"
+				},
+				{
+					"typeStr": "1",
+					"name": "description",
+					"display": null
+				},
+				{
+					"typeStr": "13",
+					"name": "emblem",
+					"opt": true
+				},
+				{
+					"typeStr": "13",
+					"name": "back",
+					"display": null
+				},
+				{
+					"typeStr": "13",
+					"name": "profile",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"id": "DeadlyStrike",
+					"title": "Deadly Strike",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 4,
+					"attack": 0,
+					"description": "Kills a random ennemy card",
+					"back": "assets/images/cards/backs/Alternate_2.png",
+					"profile": "assets/images/cards/profiles/Neutral_4.png",
+					"effect_on_actor": 1,
+					"emblem": "assets/images/cards/emblem/emblem_2.png"
+				},
+				{
+					"id": "ShadowBolt",
+					"title": "Shadow Bolt",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 1,
+					"attack": 0,
+					"description": "Add +1 attack to all player cards",
+					"back": "assets/images/cards/backs/Alternate_3.png",
+					"profile": "assets/images/cards/profiles/Warlock_2.png",
+					"effect_on_actor": 0,
+					"emblem": "assets/images/cards/emblem/emblem_2.png"
+				},
+				{
+					"id": "GoblinJunk",
+					"title": "Goblin Junk",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 1,
+					"attack": 0,
+					"description": "Remove -1 attack to a random ennemy card",
+					"back": "assets/images/cards/backs/Alternate_2.png",
+					"profile": "assets/images/cards/profiles/Neutral_2.png",
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"effect_on_actor": 1
+				},
+				{
+					"id": "Redemption",
+					"title": "Redemption",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 5,
+					"attack": 0,
+					"description": "Add +2 health to a random player card",
+					"back": "assets/images/cards/backs/minion_1.png",
+					"profile": "assets/images/cards/profiles/Paladin_2.png",
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"effect_on_actor": 0
+				},
+				{
+					"id": "DenofShadow",
+					"title": "Den of Shadow",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 1,
+					"attack": 0,
+					"description": "Add +2 health to a random card of mine",
+					"back": "assets/images/cards/backs/Alternate_1.png",
+					"profile": "assets/images/cards/profiles/Rogue_4.png",
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"effect_on_actor": 0
+				},
+				{
+					"id": "AbysalNexus",
+					"title": "Abysal Nexus",
+					"type": 2,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_spell.png",
+					"mana": 1,
+					"attack": 0,
+					"description": "Remove -1 health to all ennemy cards",
+					"back": "assets/images/cards/backs/Alternate_3.png",
+					"profile": "assets/images/cards/profiles/Warlock_3.png",
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"effect_on_actor": 1
+				},
+				{
+					"id": "Gladiator",
+					"title": "Gladiator",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_2.png",
+					"profile": "assets/images/cards/profiles/Neutral_1.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Ambush",
+					"title": "Ambush",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_1.png",
+					"profile": "assets/images/cards/profiles/Rogue_3.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Gigant",
+					"title": "Gigant",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_2.png",
+					"profile": "assets/images/cards/profiles/Neutral_3.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Hammer",
+					"title": "Hammer",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/minion_1.png",
+					"profile": "assets/images/cards/profiles/Paladin_3.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Retributor",
+					"title": "Retributor",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/minion_1.png",
+					"profile": "assets/images/cards/profiles/Paladin_4.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Nimble",
+					"title": "Nimble",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_1.png",
+					"profile": "assets/images/cards/profiles/Rogue_1.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Sneak",
+					"title": "Sneaker",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_1.png",
+					"profile": "assets/images/cards/profiles/Rogue_2.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "Summoner",
+					"title": "Summoner",
+					"type": 1,
+					"health": 4,
+					"decoration": "assets/images/cards/decoration_minion.png",
+					"mana": 1,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_3.png",
+					"profile": "assets/images/cards/profiles/Warlock_1.png",
+					"emblem": "assets/images/cards/emblem/emblem_4.png"
+				},
+				{
+					"id": "DemonicBargain",
+					"title": "Demonic Bargain",
+					"type": 0,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_hero.png",
+					"mana": 0,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/Alternate_3.png",
+					"profile": "assets/images/cards/profiles/hero_2.png",
+					"emblem": "assets/images/cards/emblem/emblem_1.png"
+				},
+				{
+					"id": "RadiantCrusader",
+					"title": "Radiant Crusader",
+					"type": 0,
+					"health": 0,
+					"decoration": "assets/images/cards/decoration_hero.png",
+					"mana": 0,
+					"attack": 1,
+					"description": "",
+					"back": "assets/images/cards/backs/minion_1.png",
+					"profile": "assets/images/cards/profiles/hero_1.png",
+					"emblem": "assets/images/cards/emblem/emblem_1.png"
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}

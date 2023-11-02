@@ -1,0 +1,14 @@
+[remap]
+
+importer="CastleDBImporter"
+type="Script"
+uid="uid://dpas40ul0v66m"
+path="res://.godot/imported/card_data.cdb-496615a6e1e470a71daf9f1bf9a8f393.gd"
+
+[deps]
+
+source_file="res://card_data.cdb"
+dest_files=["res://.godot/imported/card_data.cdb-496615a6e1e470a71daf9f1bf9a8f393.gd"]
+
+[params]
+

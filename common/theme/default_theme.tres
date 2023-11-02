@@ -6,4 +6,4 @@
 resource_name = "Default Theme"
 default_font = ExtResource("1_sg31o")
 default_font_size = 20
-Button/font_sizes/font_size = 40
+Button/font_sizes/font_size = 25

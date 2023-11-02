@@ -43,14 +43,17 @@ theme_override_constants/separation = 40
 
 [node name="Start" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Play"
 
 [node name="My Collection" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "My Collection"
 
 [node name="Credits" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Credits"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
