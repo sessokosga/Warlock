@@ -1,5 +1,13 @@
 # LANGUAGE translation for Warlock for the following files:
-# res://interface/main.tscn
+# res://common/back.tscn
+# res://common/level_selection.gd
+# res://common/level_selection.tscn
+# res://common/main.gd
+# res://common/main.tscn
+# res://common/my_collection.gd
+# res://common/my_collection.tscn
+# res://card_data.gd
+# res://common/utilities.gd
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -11,14 +19,75 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: interface/main.tscn
+#: common/back.tscn
+msgid "← Back"
+msgstr ""
+
+#: common/main.tscn
 msgid "Warlock"
 msgstr ""
 
-#: interface/main.tscn
-msgid "Start"
+#: common/main.tscn
+msgid "Play"
 msgstr ""
 
-#: interface/main.tscn
+#: common/main.tscn
+#: common/my_collection.tscn
+msgid "My Collection"
+msgstr ""
+
+#: common/main.tscn
 msgid "Credits"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Choose your hero"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Selected Card"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Choose"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "All cards"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Deck name"
+msgstr ""
+
+#: card_data.gd
+msgid "Kills a random ennemy card"
+msgstr ""
+
+#: card_data.gd
+msgid "Add +1 attack to all my cards"
+msgstr ""
+
+#: card_data.gd
+msgid "Remove -1 attack to a random ennemy card"
+msgstr ""
+
+#: card_data.gd
+msgid "Add +2 health to a random card of mine"
+msgstr ""
+
+#: card_data.gd
+msgid "Remove -1 health to all ennemy cards"
+msgstr ""
+
+#: common/utilities.gd
+msgid "Minion"
+msgstr ""
+
+#: common/utilities.gd
+msgid "Spell"
+msgstr ""
+
+#: common/utilities.gd
+msgid "Hero"
 msgstr ""

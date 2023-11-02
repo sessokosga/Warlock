@@ -24,7 +24,7 @@ func filter_but_hero(item)->bool:
 
 
 func load_hero()->void:
-	for row  in CardData.table_warlock.all.filter(filter_hero):
+	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_hero):
 		var card = Card.get_instance()
 		card.mode = Card.Mode.Field
 		card.title = row.title
@@ -39,7 +39,8 @@ func load_hero()->void:
 		hero_choice_container.add_child(card)
 
 func load_minions()->void:
-	for row  in CardData.table_warlock.all.filter(filter_minion):
+	
+	for row :CardData.Warlock.Row in CardData.table_warlock.all.filter(filter_minion):
 		var card = Card.get_instance()
 		card._scale = Vector2(.8,.8)
 		card.mode = Card.Mode.Full
@@ -53,7 +54,7 @@ func load_minions()->void:
 		card.description = row.description
 		card.back = row.back
 		card.sample = row.sample
-		card.type = CardData.Warlock.Type.keys()[row.type]
+		card.type = Utilities.card_type_string(row.type)
 		var label = Label.new()
 		label.text = str("x",card.sample)
 		label.position += Vector2(45,10)
@@ -61,7 +62,7 @@ func load_minions()->void:
 		cards_list.add_child(card)
 
 func load_spells()->void:
-	for row  in CardData.table_warlock.all.filter(filter_spells):
+	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_spells):
 		var card = Card.get_instance()
 		card._scale = Vector2(.8,.8)
 		card.mode = Card.Mode.Full
@@ -77,7 +78,7 @@ func load_spells()->void:
 		card.description = row.description
 		card.back = row.back
 		card.sample = row.sample
-		card.type = CardData.Warlock.Type.keys()[row.type]
+		card.type = Utilities.card_type_string(row.type)
 		var label = Label.new()
 		label.text = str("x",card.sample)
 		label.position += Vector2(45,10)

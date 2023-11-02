@@ -59,11 +59,12 @@ text = "Credits"
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 38.0
-offset_top = 553.0
+offset_top = 650.0
 offset_right = 158.0
-offset_bottom = 593.0
+offset_bottom = 690.0
 
 [node name="Language Option" type="OptionButton" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 item_count = 2
 selected = 0

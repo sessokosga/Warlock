@@ -16,14 +16,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: interface/main.tscn
-msgid "Warlock"
-msgstr ""
+#: common/back.tscn
+msgid "← Back"
+msgstr "← Retour"
 
-#: interface/main.tscn
-msgid "Start"
+#: common/main.tscn
+msgid "Warlock"
+msgstr "Warlock"
+
+#: common/main.tscn
+msgid "Play"
 msgstr "Jouer"
 
-#: interface/main.tscn
+#: common/main.tscn common/my_collection.tscn
+msgid "My Collection"
+msgstr "Ma Collection"
+
+#: common/main.tscn
 msgid "Credits"
 msgstr "Crédits"
+
+#: common/my_collection.tscn
+msgid "Choose your hero"
+msgstr "Choisis ton héro"
+
+#: common/my_collection.tscn
+msgid "Selected Card"
+msgstr "Cartes Choisies"
+
+#: common/my_collection.tscn
+msgid "Choose"
+msgstr "Choisir"
+
+#: common/my_collection.tscn
+msgid "All cards"
+msgstr "Toutes les cartes"
+
+#: common/my_collection.tscn
+msgid "Deck name"
+msgstr "Nom de Deck"
+
+#: card_data.gd
+msgid "Kills a random ennemy card"
+msgstr "Tue une carte ennemi au hasard"
+
+#: card_data.gd
+msgid "Add +1 attack to all my cards"
+msgstr "Ajoute +1 d'attaque à mes cartes"
+
+#: card_data.gd
+msgid "Remove -1 attack to a random ennemy card"
+msgstr "Enlève -1 d'attaque à une carte ennemi"
+
+#: card_data.gd
+msgid "Add +2 health to a random card of mine"
+msgstr "Ajoute +2 d'attaque à une de mes cartes"
+
+#: card_data.gd
+msgid "Remove -1 health to all ennemy cards"
+msgstr "Enlève -1 d'attaque aux cartes ennemies"
+
+#: common/utilities.gd
+msgid "Minion"
+msgstr "Minion"
+
+#: common/utilities.gd
+msgid "Spell"
+msgstr "Sort"
+
+#: common/utilities.gd
+msgid "Hero"
+msgstr "Héro"
+
+#~ msgid "Start"
+#~ msgstr "Jouer"

@@ -1,10 +1,13 @@
 extends Control
 
-var by_pass_menu = true
+var by_pass_menu = false
+@onready var language_btn :Button = $"%Language Option"
 
 func _ready() -> void:
 	if by_pass_menu:
 		_on_my_collection_pressed()
+	if TranslationServer.get_locale() == "fr":
+		language_btn.select(1)
 	pass
 
 func _on_language_option_item_selected(index:int) -> void:
