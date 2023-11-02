@@ -17,10 +17,10 @@ var spells : Array[Card]:
 		return cards.filter(is_a_spell)
 
 func is_a_minion(card:Card):
-	return card.type == Data.Warlock.Type.keys()[Data.Warlock.Type.Minion]
+	return card.type == CardData.Warlock.Type.keys()[CardData.Warlock.Type.Minion]
 	
 func is_a_spell(card:Card):
-	return card.type == Data.Warlock.Type.keys()[Data.Warlock.Type.Spell]
+	return card.type == CardData.Warlock.Type.keys()[CardData.Warlock.Type.Spell]
 	
 static func get_instance():
 	return deck_node.instantiate()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://b3168kgre3467"]
 
-[ext_resource type="Theme" uid="uid://cvwjhquk2k1au" path="res://ressources/warlock_theme.tres" id="1_v01lb"]
+[ext_resource type="Theme" uid="uid://ijbe0q0p8v6" path="res://addons/ccg_tools/ccg_tools_theme.tres" id="1_v01lb"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
 [ext_resource type="Texture2D" uid="uid://f5jxxiajhdcr" path="res://addons/ccg_tools/assets/images/Alternate_1.png" id="3_jbjhf"]
 [ext_resource type="Texture2D" uid="uid://dlobubl5o5ulg" path="res://assets/images/cards/card_template/back_circle.png" id="4_ik75j"]
@@ -16,7 +16,7 @@
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [node name="Card" type="Control"]
-custom_minimum_size = Vector2(240, 332.8)
+custom_minimum_size = Vector2(300, 416)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -264,7 +264,6 @@ disabled = true
 text = "Select"
 
 [node name="FieldMode" type="Control" parent="."]
-visible = false
 custom_minimum_size = Vector2(109, 115)
 anchors_preset = 0
 offset_right = 40.0
@@ -308,7 +307,8 @@ text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Healthback" type="TextureRect" parent="FieldMode"]
+[node name="HealthbackField" type="TextureRect" parent="FieldMode"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 72.24
 offset_top = 76.72
@@ -318,7 +318,7 @@ texture = ExtResource("12_ta40q")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HealthField" type="Label" parent="FieldMode/Healthback" groups=["Minion"]]
+[node name="HealthField" type="Label" parent="FieldMode/HealthbackField" groups=["Minion"]]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 9.0

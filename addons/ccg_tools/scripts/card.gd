@@ -147,15 +147,19 @@ func show_front():
 	
 func show_health():
 	$"%Health".show()
+	$"%HealthbackField".show()
 
 func hide_health():
 	$"%Health".hide()
+	$"%HealthbackField".hide()
 	
 func show_attack():
 	$"%Attack".show()
+	$"%AttackBackField".show()
 	
 func hide_attack():
 	$"%Attack".hide()
+	$"%AttackBackField".hide()
 
 func show_mana():
 	$"%Mana".show()
@@ -188,13 +192,13 @@ func update_size():
 	if mode == Mode.Field:
 #		pivot_offset = Vector2(40,40)* scale
 		pivot_offset = Vector2(0,0)
-#		custom_minimum_size = $FieldMode.size * scale
+		custom_minimum_size = $FieldMode.size * scale
 		size =  $FieldMode.size * scale
-		print(scale)
+		
 	else:
 		pivot_offset = Vector2(0,0)
 #		pivot_offset = Vector2(150,208)* scale
-#		custom_minimum_size = $FullMode.size* scale		
+		custom_minimum_size = $FullMode.size* scale
 		size =  $FullMode.size* scale
 	
 	
@@ -202,12 +206,16 @@ func update_size():
 static func get_instance():
 	return card_node.instantiate()
 
+func get_profile_texture()->Texture2D:
+	return $"%Profile".texture
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_size()
 	pass
 	
 func _physics_process(delta):
+	
 	update_size()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
