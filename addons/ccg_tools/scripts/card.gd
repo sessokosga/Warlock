@@ -88,6 +88,7 @@ var description:String :
 	set(value):
 		$"%Description".text = value
 		description = value
+var sample : int=0
 		
 var back:String:
 	get:
@@ -101,8 +102,9 @@ var _scale : Vector2:
 		return scale
 	set(value):
 		scale = value
-		custom_minimum_size = size *scale 
+		custom_minimum_size = size *value 
 		$FullMode.scale = value
+		update_size()
 
 
 var effect : StringName
@@ -190,16 +192,16 @@ func enable_remove(value):
 
 func update_size():
 	if mode == Mode.Field:
-#		pivot_offset = Vector2(40,40)* scale
+#		pivot_offset = Vector2(40,40)* _scale
 		pivot_offset = Vector2(0,0)
-		custom_minimum_size = $FieldMode.size * scale
-		size =  $FieldMode.size * scale
+		custom_minimum_size = $FieldMode.size * _scale
+		size =  $FieldMode.size * _scale
 		
 	else:
 		pivot_offset = Vector2(0,0)
-#		pivot_offset = Vector2(150,208)* scale
-		custom_minimum_size = $FullMode.size* scale
-		size =  $FullMode.size* scale
+#		pivot_offset = Vector2(150,208)* _scale
+		custom_minimum_size = $FullMode.size* _scale
+		size =  $FullMode.size* _scale
 	
 	
 
@@ -216,7 +218,8 @@ func _ready():
 	
 func _physics_process(delta):
 	
-	update_size()
+	#update_size()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

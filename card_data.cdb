@@ -56,6 +56,10 @@
 					"typeStr": "13",
 					"name": "profile",
 					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "sample"
 				}
 			],
 			"lines": [
@@ -71,7 +75,8 @@
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_4.png",
 					"effect_on_actor": 1,
-					"emblem": "assets/images/cards/emblem/emblem_2.png"
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"sample": 4
 				},
 				{
 					"id": "ShadowBolt",
@@ -85,7 +90,8 @@
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/Warlock_2.png",
 					"effect_on_actor": 0,
-					"emblem": "assets/images/cards/emblem/emblem_2.png"
+					"emblem": "assets/images/cards/emblem/emblem_2.png",
+					"sample": 4
 				},
 				{
 					"id": "GoblinJunk",
@@ -99,7 +105,8 @@
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"effect_on_actor": 1
+					"effect_on_actor": 1,
+					"sample": 4
 				},
 				{
 					"id": "Redemption",
@@ -113,7 +120,8 @@
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/Paladin_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"effect_on_actor": 0
+					"effect_on_actor": 0,
+					"sample": 4
 				},
 				{
 					"id": "DenofShadow",
@@ -127,7 +135,8 @@
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_4.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"effect_on_actor": 0
+					"effect_on_actor": 0,
+					"sample": 4
 				},
 				{
 					"id": "AbysalNexus",
@@ -141,7 +150,8 @@
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/Warlock_3.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"effect_on_actor": 1
+					"effect_on_actor": 1,
+					"sample": 4
 				},
 				{
 					"id": "Gladiator",
@@ -154,7 +164,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_1.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Ambush",
@@ -167,7 +178,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_3.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Gigant",
@@ -180,7 +192,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_3.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Hammer",
@@ -193,7 +206,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/Paladin_3.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Retributor",
@@ -206,7 +220,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/Paladin_4.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Nimble",
@@ -219,7 +234,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_1.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Sneak",
@@ -232,7 +248,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_2.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "Summoner",
@@ -245,7 +262,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/Warlock_1.png",
-					"emblem": "assets/images/cards/emblem/emblem_4.png"
+					"emblem": "assets/images/cards/emblem/emblem_4.png",
+					"sample": 4
 				},
 				{
 					"id": "DemonicBargain",
@@ -258,7 +276,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/hero_2.png",
-					"emblem": "assets/images/cards/emblem/emblem_1.png"
+					"emblem": "assets/images/cards/emblem/emblem_1.png",
+					"sample": 4
 				},
 				{
 					"id": "RadiantCrusader",
@@ -271,7 +290,8 @@
 					"description": "",
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/hero_1.png",
-					"emblem": "assets/images/cards/emblem/emblem_1.png"
+					"emblem": "assets/images/cards/emblem/emblem_1.png",
+					"sample": 4
 				}
 			],
 			"separators": [],
