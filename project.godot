@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 CardData="*res://card_data.gd"
 Utilities="*res://common/utilities.gd"
+AudioPlayer="*res://common/audio_player.tscn"
 
 [display]
 

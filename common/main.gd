@@ -11,6 +11,7 @@ func _ready() -> void:
 	pass
 
 func _on_language_option_item_selected(index:int) -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	match index:
 		0:
 			TranslationServer.set_locale("en")
@@ -24,12 +25,15 @@ func _on_language_option_item_selected(index:int) -> void:
 
 
 func _on_my_collection_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	get_tree().change_scene_to_file("res://common/my_collection.tscn")
 	pass # Replace with function body.
 
 func _on_start_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	pass # Replace with function body.
 
 
 func _on_credits_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	pass # Replace with function body.
