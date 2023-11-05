@@ -66,12 +66,10 @@ offset_bottom = 690.0
 [node name="Language Option" type="OptionButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-item_count = 2
+item_count = 1
 selected = 0
-popup/item_0/text = "English"
-popup/item_0/id = 0
-popup/item_1/text = "Français"
-popup/item_1/id = 1
+popup/item_0/text = "Français"
+popup/item_0/id = 1
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/My Collection" to="." method="_on_my_collection_pressed"]
