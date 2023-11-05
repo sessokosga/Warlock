@@ -17,10 +17,10 @@ msgstr ""
 "X-Generator: Poedit 3.3.2\n"
 
 #: common/back.tscn
-msgid "← Back"
-msgstr "← Retour"
+msgid "Back"
+msgstr "Retour"
 
-#: common/main.tscn
+#: common/main.tscn common/credits.tscn
 msgid "Warlock"
 msgstr "Warlock"
 
@@ -87,6 +87,29 @@ msgstr "Sort"
 #: common/utilities.gd
 msgid "Hero"
 msgstr "Héro"
+
+#: common/credits.tscn
+msgid "Code : Sesso Kosga"
+msgstr "Code : Sesso Kosga"
+
+#: common/credits.tscn
+msgid "SFX : "
+msgstr "SFX : "
+
+#: common/credits.tscn
+msgid "UI : "
+msgstr "UI : "
+
+#: common/credits.tscn
+msgid "Voice Over : Kenney.nl"
+msgstr "Voix Off : Kenney.nl"
+
+#: common/credits.tscn
+msgid "Cards images : "
+msgstr "Images des cartes : "
+
+#~ msgid "Graphics : "
+#~ msgstr "Graphiques : "
 
 #~ msgid "Start"
 #~ msgstr "Jouer"

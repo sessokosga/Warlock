@@ -8,6 +8,8 @@
 # res://common/my_collection.tscn
 # res://card_data.gd
 # res://common/utilities.gd
+# res://common/credits.gd
+# res://common/credits.tscn
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -20,10 +22,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: common/back.tscn
-msgid "← Back"
+msgid "Back"
 msgstr ""
 
 #: common/main.tscn
+#: common/credits.tscn
 msgid "Warlock"
 msgstr ""
 
@@ -90,4 +93,24 @@ msgstr ""
 
 #: common/utilities.gd
 msgid "Hero"
+msgstr ""
+
+#: common/credits.tscn
+msgid "Code : Sesso Kosga"
+msgstr ""
+
+#: common/credits.tscn
+msgid "SFX : "
+msgstr ""
+
+#: common/credits.tscn
+msgid "UI : "
+msgstr ""
+
+#: common/credits.tscn
+msgid "Voice Over : Kenney.nl"
+msgstr ""
+
+#: common/credits.tscn
+msgid "Cards images : "
 msgstr ""

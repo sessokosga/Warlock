@@ -36,4 +36,10 @@ func _on_start_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
+	get_tree().change_scene_to_file("res://common/credits.tscn")
+	pass # Replace with function body.
+
+
+func _on_leaderboard_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	pass # Replace with function body.
