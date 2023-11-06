@@ -10,6 +10,10 @@
 # res://common/utilities.gd
 # res://common/credits.gd
 # res://common/credits.tscn
+# res://common/audio_player.gd
+# res://common/audio_player.tscn
+# res://common/my_label.gd
+# res://common/my_label.tscn
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -47,12 +51,17 @@ msgstr ""
 msgid "Credits"
 msgstr ""
 
+#: common/my_collection.gd
+#: common/my_collection.tscn
+msgid "New Deck"
+msgstr ""
+
 #: common/my_collection.tscn
 msgid "Choose your hero"
 msgstr ""
 
 #: common/my_collection.tscn
-msgid "Selected Card"
+msgid "Selected Hero"
 msgstr ""
 
 #: common/my_collection.tscn
@@ -65,6 +74,14 @@ msgstr ""
 
 #: common/my_collection.tscn
 msgid "Deck name"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Done"
+msgstr ""
+
+#: common/my_collection.tscn
+msgid "Decks"
 msgstr ""
 
 #: card_data.gd

@@ -40,13 +40,17 @@ msgstr "Classements"
 msgid "Credits"
 msgstr "Crédits"
 
+#: common/my_collection.gd common/my_collection.tscn
+msgid "New Deck"
+msgstr "Nouveau Deck"
+
 #: common/my_collection.tscn
 msgid "Choose your hero"
 msgstr "Choisis ton héro"
 
 #: common/my_collection.tscn
-msgid "Selected Card"
-msgstr "Cartes Choisies"
+msgid "Selected Hero"
+msgstr "Hero Choisi"
 
 #: common/my_collection.tscn
 msgid "Choose"
@@ -59,6 +63,14 @@ msgstr "Toutes les cartes"
 #: common/my_collection.tscn
 msgid "Deck name"
 msgstr "Nom de Deck"
+
+#: common/my_collection.tscn
+msgid "Done"
+msgstr "Terminé"
+
+#: common/my_collection.tscn
+msgid "Decks"
+msgstr "Decks"
 
 #: card_data.gd
 msgid "Kills a random ennemy card"

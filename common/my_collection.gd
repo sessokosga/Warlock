@@ -8,6 +8,7 @@ extends Control
 @onready var cards_choice : Control= $"%CardsChoice"
 @onready var home : Control= $"%Home"
 @onready var cards_in_deck : Control= $"%CardsInDeck"
+@onready var deck_list : Control= $"%DeckList"
 @onready var cards_list : Control= $"%CardsList"
 @onready var home_cards_list : Control= $"%HomeCardsList"
 @onready var btn_done : Button= $"%Done"
@@ -15,8 +16,9 @@ extends Control
 @onready var le_deck_name : LineEdit= $"%DeckName"
 @onready var lab_title : Label= $"%Title"
 
-const FOLDER_NAME = "decks"
+const FOLDER_NAME = "deck"
 var curr_random_id : int
+var curr_deck=null
 
 func filter_hero(item)->bool:
 	return item.type == CardData.Warlock.Type.Hero
@@ -30,7 +32,10 @@ func filter_spells(item)->bool:
 func filter_but_hero(item)->bool:
 	return item.type != CardData.Warlock.Type.Hero
 
-
+func clean_children(parent):
+	for child in parent.get_children():
+		child.queue_free()
+		parent.remove_child(child)
 
 func load_hero()->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_hero):
@@ -47,7 +52,20 @@ func load_hero()->void:
 		card.add_child(label)
 		hero_choice_container.add_child(card)
 
-func load_minions(parent)->void:
+func add_sample_label(sample)->Label:
+	var label = Label.new()
+	label.text = str("x",sample)
+	label.position += Vector2(45,10)
+	return label
+
+func add_my_label(id,text)->MyLabel:
+	var lab = MyLabel.get_instance()
+	lab.text = text
+	lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lab.id = id
+	return lab
+
+func load_minions(parent,show_sample:bool=false)->void:
 	
 	for row :CardData.Warlock.Row in CardData.table_warlock.all.filter(filter_minion):
 		var card = Card.get_instance()
@@ -64,14 +82,13 @@ func load_minions(parent)->void:
 		card.back = row.back
 		card.sample = row.sample
 		card.type = Utilities.card_type_string(row.type)
-		var label = Label.new()
-		label.text = str("x",card.sample)
-		label.position += Vector2(45,10)
-		card.add_child(label)
+		if show_sample == true:
+			var label = add_sample_label(card.sample)
+			card.add_child(label)
 		parent.add_child(card)
 		
 
-func load_spells(parent)->void:
+func load_spells(parent,show_sample:bool=false)->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_spells):
 		var card = Card.get_instance()
 		card._scale = Vector2(.8,.8)
@@ -89,12 +106,55 @@ func load_spells(parent)->void:
 		card.back = row.back
 		card.sample = row.sample
 		card.type = Utilities.card_type_string(row.type)
-		var label = Label.new()
-		label.text = str("x",card.sample)
-		label.position += Vector2(45,10)
-		card.add_child(label)
+		if show_sample == true:
+			var label = add_sample_label(card.sample)
+			card.add_child(label)
 		parent.add_child(card)
 
+func load_cards_choice()->void:
+	home.hide()
+	cards_choice.show()
+	load_minions(cards_list,true)
+	load_spells(cards_list,true)
+	le_deck_name.text = curr_deck.title
+	
+	clean_children(cards_in_deck)
+	for id in curr_deck.cards:
+		var lab = add_my_label(id,id)
+		cards_in_deck.add_child(lab)
+		for card:Card in cards_list.get_children():
+			if card.id == id:
+				card.show_checkmark()
+				card.sample-=1
+				card.get_child(card.get_child_count()-1).text = str("x",card.sample)
+				if card.sample <=0 :
+					card.modulate = Color.DARK_GRAY
+	
+	update_cards_count()
+	update_check_marks()
+	validate_cards_number()
+
+func load_home()->void:
+	var decks = Utilities.load_decks()
+	home.show()
+	cards_choice.hide()
+	hero_choice.hide()
+
+	clean_children(deck_list)
+
+	for id in decks:
+		var btn = Button.new()
+		btn.add_theme_font_size_override('font_size',20)
+		var deck = decks[id]
+		btn.name = id
+		btn.text = deck.title
+		btn.pressed.connect(
+			func (): 
+				curr_deck = deck
+				load_cards_choice()
+				)
+		
+		deck_list.add_child(btn)
 
 
 func _ready() -> void:
@@ -103,6 +163,7 @@ func _ready() -> void:
 	load_spells(home_cards_list)
 	lab_cards_count.text = str(cards_in_deck.get_child_count(),"/",Deck.MAX_DECK_SIZE)
 	randomize()
+	load_home()
 	pass
 
 func _process(_delta: float) -> void:
@@ -125,10 +186,7 @@ func _input(event: InputEvent) -> void:
 			if card.sample >= 1:
 				var surf = Rect2(card.global_position,card.size)
 				if surf.has_point(event.position):
-					var lab = MyLabel.get_instance()
-					lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-					lab.text = card.title
-					lab.id = card.id
+					var lab = add_my_label(card.id,card.title)
 					cards_in_deck.add_child(lab)
 					card.sample-=1
 					card.get_child(card.get_child_count()-1).text = str("x",card.sample)
@@ -141,29 +199,33 @@ func _input(event: InputEvent) -> void:
 			if surf.has_point(event.position):
 				cards_in_deck.remove_child(lab)
 				for card:Card in cards_list.get_children():
-					if card.title == lab.text:
+					if card.id == lab.id:
 						card.sample+=1
 						card.modulate = Color.WHITE
 						card.get_child(card.get_child_count()-1).text = str("x",card.sample)
 				lab.queue_free()
+		update_cards_count()
+		update_check_marks()
+		validate_cards_number()
 
-		# Show checkmark on selected cards
-		for lab:Label in cards_in_deck.get_children():
-			for card:Card in cards_list.get_children():
-				if card.title == lab.text:
-					card.show_checkmark()
-		
-		# Check if there is enought cards in the deck
-		if cards_in_deck.get_child_count() < 4:
-		# if cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
-			btn_done.disabled = true
-		else:
-			btn_done.disabled = false
+# Show checkmark on selected cards
+func update_check_marks()->void:
+	for lab:Label in cards_in_deck.get_children():
+		for card:Card in cards_list.get_children():
+			if card.id == lab.id:
+				card.show_checkmark()
 
-		# Update cards count
-		lab_cards_count.text = str(cards_in_deck.get_child_count(),"/",Deck.MAX_DECK_SIZE)
-		
-			
+# Check if there is enought cards in the deck
+func validate_cards_number()->void:
+	if cards_in_deck.get_child_count() < 4:
+	# if cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
+		btn_done.disabled = true
+	else:
+		btn_done.disabled = false
+
+# Update cards count
+func update_cards_count()->void:
+	lab_cards_count.text = str(cards_in_deck.get_child_count(),"/",Deck.MAX_DECK_SIZE)
 
 
 
@@ -175,11 +237,14 @@ func _on_back_pressed() -> void:
 
 func _on_next_pressed() -> void:
 	curr_random_id = randi() % 10_000
+	var decks = Utilities.load_decks()
+	while decks.has(str("deck_",curr_random_id)):
+		curr_random_id = randi() % 10_000
 	le_deck_name.text = str("Deck_",curr_random_id)
 	hero_choice.hide()
 	cards_choice.show()
-	load_minions(cards_list)
-	load_spells(cards_list)
+	load_minions(cards_list,true)
+	load_spells(cards_list,true)
 	
 	pass # Replace with function body.
 
@@ -201,8 +266,6 @@ func save_deck(file_name:String,deck_title:String,hero_id:String,cards:Array[Str
 			id = file_name
 		}
 		save.store_pascal_string(var_to_str(data))
-		print("deck %s saved" % data.title)
-		print(data)
 		return true
 	return false
 
@@ -214,16 +277,21 @@ func gen_cards_id_from_label(labels:Array[Node])->Array[String]:
 
 func _on_done_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
-
-	var file_name = str("deck_",curr_random_id)
+	var file_name 
+	var hero_id 
 	var title = le_deck_name.text
-	var hero_id = lab_selected_hero_name.name
 	var cards = gen_cards_id_from_label(cards_in_deck.get_children())
+	if curr_deck == null :
+		file_name = str("deck_",curr_random_id)
+		hero_id = lab_selected_hero_name.name
+	else:
+		file_name = curr_deck.file_name
+		hero_id = curr_deck.hero
+		
 	save_deck(file_name,title,hero_id,cards)
-	cards_choice.hide()
-	home.show()
+	load_home()
 	lab_title.text = name
-	pass # Replace with function body.
+	curr_deck = null
 
 
 func _on_new_deck_pressed() -> void:
@@ -232,4 +300,6 @@ func _on_new_deck_pressed() -> void:
 	hero_choice.show()
 	cards_choice.hide()
 	lab_title.text = "New Deck"
+	clean_children(cards_in_deck)
+	
 	pass # Replace with function body.

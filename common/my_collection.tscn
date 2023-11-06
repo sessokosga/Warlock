@@ -109,7 +109,6 @@ text = "Choose"
 
 [node name="CardsChoice" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -202,7 +201,6 @@ custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 20
-text = "12/30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -307,7 +305,8 @@ texture = ExtResource("6_w3u4s")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CardsInDeck" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+[node name="DeckList" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 543)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -318,7 +317,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="NewDeck" type="Button" parent="Home/MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "New Deck"
