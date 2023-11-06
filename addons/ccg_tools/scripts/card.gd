@@ -89,7 +89,8 @@ var description:String :
 		$"%Description".text = value
 		description = value
 var sample : int=0
-		
+	
+	
 var back:String:
 	get:
 		return back
@@ -180,6 +181,11 @@ func hide_add_or_remove():
 
 func show_add_or_remove():
 	$"%AddOrRemove".show()
+
+func hide_checkmark()->void:
+	$"%Checkmark".hide()
+func show_checkmark()->void:
+	$"%Checkmark".show()
 	
 func update_count_label(value):
 	$"%CountLabel".text = "Count: %d" % value

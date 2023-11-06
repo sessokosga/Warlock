@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3168kgre3467"]
+[gd_scene load_steps=14 format=3 uid="uid://b3168kgre3467"]
 
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_kib8f"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://u8wqprko3gg0" path="res://addons/ccg_tools/assets/images/emblem_2.png" id="8_bc6pn"]
 [ext_resource type="Texture2D" uid="uid://c5h1onmye487f" path="res://assets/images/cards/card_template/attack.png" id="10_wsymt"]
 [ext_resource type="FontFile" uid="uid://s4jditl3moh2" path="res://assets/fonts/BalooChettan2-Bold.ttf" id="11_4ahwq"]
+[ext_resource type="Texture2D" uid="uid://cahy3pv70jf05" path="res://assets/images/icon/checkmark.png" id="12_5n88u"]
 [ext_resource type="Texture2D" uid="uid://buevtshnep34t" path="res://assets/images/cards/card_template/health.png" id="12_ta40q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w03s"]
@@ -29,7 +30,6 @@ offset_right = -340.0
 offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "Hello"
 theme = ExtResource("1_kib8f")
 script = ExtResource("2_dndha")
 
@@ -263,7 +263,14 @@ theme_override_font_sizes/font_size = 20
 disabled = true
 text = "Select"
 
+[node name="Checkmark" type="Sprite2D" parent="FullMode"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(65, 70)
+texture = ExtResource("12_5n88u")
+
 [node name="FieldMode" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(109, 115)
 anchors_preset = 0
 offset_right = 40.0
