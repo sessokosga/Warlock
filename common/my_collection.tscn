@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctiski8lwou8q"]
+[gd_scene load_steps=6 format=3 uid="uid://ctiski8lwou8q"]
 
 [ext_resource type="Script" path="res://common/my_collection.gd" id="1_ct7dj"]
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_o27hw"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="3_skfvy"]
+[ext_resource type="Texture2D" uid="uid://vnpmfvhli84b" path="res://assets/images/ui/barHorizontal_shadow_mid.png" id="5_btrq2"]
+[ext_resource type="Texture2D" uid="uid://cao8o1cm0h6it" path="res://assets/images/ui/barVertical_shadow_mid.png" id="6_w3u4s"]
 
 [node name="My Collection" type="Control"]
 layout_mode = 3
@@ -14,7 +16,8 @@ grow_vertical = 2
 theme = ExtResource("1_o27hw")
 script = ExtResource("1_ct7dj")
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -73,7 +76,7 @@ vertical_alignment = 1
 [node name="HeroChoiceContainer" type="HBoxContainer" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 100
 alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HeroChoice/MarginContainer/HBoxContainer"]
@@ -83,16 +86,16 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Selected Card"
+text = "Selected Hero"
 horizontal_alignment = 1
 
-[node name="SelectedCardTexture" type="TextureRect" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="SelectedHeroTexture" type="TextureRect" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(194, 205)
 layout_mode = 2
 stretch_mode = 5
 
-[node name="SelectedCardName" type="Label" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="SelectedHeroName" type="Label" parent="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_alignment = 1
@@ -106,6 +109,7 @@ text = "Choose"
 
 [node name="CardsChoice" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,56 +123,207 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 82.0
+offset_top = 14.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CardsChoice/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "All cards"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_w3u4s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CardsList" type="FlowContainer" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="CardsList" type="FlowContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 543)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CardsChoice/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "Deck name"
-horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CardsInDeck" type="VBoxContainer" parent="CardsChoice/MarginContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+[node name="DeckName" type="LineEdit" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+placeholder_text = "Deck name"
+alignment = 1
+clear_button_enabled = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
 size_flags_vertical = 3
+
+[node name="CardsInDeck" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 543)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 2
+
+[node name="CardsCount" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+text = "12/30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/CardsCount"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_btrq2")
+
+[node name="Done" type="Button" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "Done"
+
+[node name="Home" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 14.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Home/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Home/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "All cards"
+horizontal_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_w3u4s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HomeCardsList" type="FlowContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 543)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label2" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Decks"
+horizontal_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Label2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_w3u4s")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardsInDeck" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScrollContainer"]
+custom_minimum_size = Vector2(0, 543)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Home/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 2
+
+[node name="NewDeck" type="Button" parent="Home/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "New Deck"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/Done" to="." method="_on_done_pressed"]
+[connection signal="pressed" from="Home/MarginContainer/VBoxContainer/HBoxContainer2/NewDeck" to="." method="_on_new_deck_pressed"]

@@ -1,6 +1,6 @@
 extends Control
 
-var by_pass_menu = false
+var by_pass_menu = true
 @onready var language_btn :Button = $"%Language Option"
 
 func _ready() -> void:
@@ -8,7 +8,7 @@ func _ready() -> void:
 		_on_my_collection_pressed()
 	if TranslationServer.get_locale() == "fr":
 		language_btn.select(1)
-	pass
+	pass 
 
 func _on_language_option_item_selected(index:int) -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)

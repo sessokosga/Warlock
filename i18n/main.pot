@@ -40,6 +40,10 @@ msgid "My Collection"
 msgstr ""
 
 #: common/main.tscn
+msgid "Leaderboard"
+msgstr ""
+
+#: common/main.tscn
 msgid "Credits"
 msgstr ""
 

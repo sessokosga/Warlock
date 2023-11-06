@@ -33,6 +33,10 @@ msgid "My Collection"
 msgstr "Ma Collection"
 
 #: common/main.tscn
+msgid "Leaderboard"
+msgstr "Classements"
+
+#: common/main.tscn
 msgid "Credits"
 msgstr "Crédits"
 
