@@ -149,6 +149,10 @@ func load_home()->void:
 		var deck = decks[id]
 		btn.name = id
 		btn.text = deck.title
+		for hero:Card in hero_choice_container.get_children():
+			if hero.id == deck.hero:
+				btn.icon = hero.get_profile_texture()
+				btn.expand_icon = true
 		btn.pressed.connect(
 			func (): 
 				curr_deck = deck
