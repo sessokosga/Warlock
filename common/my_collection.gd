@@ -12,6 +12,7 @@ extends Control
 @onready var cards_list : Control= $"%CardsList"
 @onready var home_cards_list : Control= $"%HomeCardsList"
 @onready var btn_done : Button= $"%Done"
+@onready var btn_delete : Button= $"%Delete"
 @onready var lab_cards_count : Label= $"%CardsCount"
 @onready var le_deck_name : LineEdit= $"%DeckName"
 @onready var lab_title : Label= $"%Title"
@@ -118,7 +119,7 @@ func load_cards_choice()->void:
 	load_minions(cards_list,true)
 	load_spells(cards_list,true)
 	le_deck_name.text = curr_deck.title
-	
+	btn_delete.disabled = false
 	clean_children(cards_in_deck)
 	for id in curr_deck.cards:
 		var lab = add_my_label(id,id)
@@ -155,6 +156,7 @@ func load_home()->void:
 				btn.expand_icon = true
 		btn.pressed.connect(
 			func (): 
+				AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 				curr_deck = deck
 				load_cards_choice()
 				)
@@ -300,6 +302,7 @@ func _on_done_pressed() -> void:
 		
 	save_deck(file_name,title,hero_id,cards)
 	load_home()
+	btn_delete.disabled = true
 	lab_title.text = name
 	curr_deck = null
 
@@ -317,10 +320,12 @@ func _on_new_deck_pressed() -> void:
 
 
 func _on_delete_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	if curr_deck != null:
 		confirm_deck_delition.show()
 
 func _on_confirm_deck_deletion_confirmed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	if curr_deck!= null:
 		delete_deck(curr_deck.file_name)
 		load_home()

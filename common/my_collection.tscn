@@ -39,10 +39,12 @@ offset_bottom = 58.0
 
 [node name="HeroChoice" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 71.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -224,9 +226,10 @@ text = "Done"
 
 [node name="Delete" type="Button" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
+disabled = true
 text = "Delete"
 icon = ExtResource("6_xy6q5")
 alignment = 0
@@ -237,11 +240,11 @@ unique_name_in_owner = true
 initial_position = 4
 size = Vector2i(489, 101)
 ok_button_text = "Delete"
-dialog_text = "Are you sure to delete your deck. This can't be undone"
+dialog_text = "Are you sure to delete your deck ? 
+This can't be undone"
 
 [node name="Home" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

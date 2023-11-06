@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ntlmx3w46vmg" path="res://assets/images/icon/arrowLeft.png" id="1_hek3v"]
 
 [node name="Back" type="Button"]
+custom_minimum_size = Vector2(140, 0)
 offset_left = 19.0
 offset_top = 30.0
 offset_right = 133.0

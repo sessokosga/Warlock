@@ -69,6 +69,18 @@ msgid "Done"
 msgstr "Terminé"
 
 #: common/my_collection.tscn
+msgid "Delete"
+msgstr "Supprimer"
+
+#: common/my_collection.tscn
+msgid ""
+"Are you sure to delete your deck ? \n"
+"This can't be undone"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer votre deck ? \n"
+"Cette action ne peut être annulée"
+
+#: common/my_collection.tscn
 msgid "Decks"
 msgstr "Decks"
 
