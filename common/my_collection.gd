@@ -269,6 +269,11 @@ func save_deck(file_name:String,deck_title:String,hero_id:String,cards:Array[Str
 		return true
 	return false
 
+func delete_deck(file_name:String)->bool:
+	var path = "user://%s/%s.deck" % [FOLDER_NAME,file_name]
+	DirAccess.remove_absolute(path)
+	return false
+
 func gen_cards_id_from_label(labels:Array[Node])->Array[String]:
 	var result :Array[String]=[]
 	for lab:Label in labels:
@@ -302,4 +307,12 @@ func _on_new_deck_pressed() -> void:
 	lab_title.text = "New Deck"
 	clean_children(cards_in_deck)
 	
+	pass # Replace with function body.
+
+
+
+func _on_delete_pressed() -> void:
+	if curr_deck != null:
+		delete_deck(curr_deck.file_name)
+		load_home()
 	pass # Replace with function body.
