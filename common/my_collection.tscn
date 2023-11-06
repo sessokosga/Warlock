@@ -231,6 +231,13 @@ icon = ExtResource("6_xy6q5")
 alignment = 0
 expand_icon = true
 
+[node name="ConfirmDeckDeletion" type="ConfirmationDialog" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/Delete"]
+unique_name_in_owner = true
+initial_position = 4
+size = Vector2i(489, 101)
+ok_button_text = "Delete"
+dialog_text = "Are you sure to delete your deck. This can't be undone"
+
 [node name="Home" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -337,4 +344,5 @@ text = "New Deck"
 [connection signal="pressed" from="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2/Next" to="." method="_on_next_pressed"]
 [connection signal="pressed" from="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/Done" to="." method="_on_done_pressed"]
 [connection signal="pressed" from="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/Delete" to="." method="_on_delete_pressed"]
+[connection signal="confirmed" from="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/Delete/ConfirmDeckDeletion" to="." method="_on_confirm_deck_deletion_confirmed"]
 [connection signal="pressed" from="Home/MarginContainer/VBoxContainer/HBoxContainer2/NewDeck" to="." method="_on_new_deck_pressed"]

@@ -15,6 +15,7 @@ extends Control
 @onready var lab_cards_count : Label= $"%CardsCount"
 @onready var le_deck_name : LineEdit= $"%DeckName"
 @onready var lab_title : Label= $"%Title"
+@onready var confirm_deck_delition : ConfirmationDialog= $"%ConfirmDeckDeletion"
 
 const FOLDER_NAME = "deck"
 var curr_random_id : int
@@ -313,6 +314,9 @@ func _on_new_deck_pressed() -> void:
 
 func _on_delete_pressed() -> void:
 	if curr_deck != null:
+		confirm_deck_delition.show()
+
+func _on_confirm_deck_deletion_confirmed() -> void:
+	if curr_deck!= null:
 		delete_deck(curr_deck.file_name)
 		load_home()
-	pass # Replace with function body.
