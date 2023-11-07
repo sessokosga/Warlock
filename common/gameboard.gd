@@ -1,7 +1,15 @@
 extends Control
 
+func _load_hero()->void:
+    pass
+    
+func _load_opponent()->void:
+    pass
+
 func _ready() -> void:
-    print("Selected deck : %s \n Selected opp : %s" % [Utilities.get_hero_deck(), Utilities.get_opponent_deck()])
+    Utilities.load_test_data()
+    _load_hero()
+    _load_opponent()
 
 
 func _on_back_pressed() -> void:

@@ -45,6 +45,7 @@ func load_hero()->void:
 		card.mode = Card.Mode.Field
 		var label = Label.new()
 		label.text = card.title
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.position.y -= 20
 		card.add_child(label)
 		hero_choice_container.add_child(card)

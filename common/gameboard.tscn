@@ -25,9 +25,10 @@ offset_right = 59.5
 offset_bottom = 30.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
-text = "New Game"
+text = "Game Board"
 
 [node name="Back" parent="." instance=ExtResource("3_pjh5d")]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 13.0
 offset_right = 124.0

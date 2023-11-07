@@ -20,6 +20,34 @@ msgstr ""
 msgid "Back"
 msgstr "Retour"
 
+#: common/level_selection.tscn
+msgid "New Game"
+msgstr "Nouvelle Partie"
+
+#: common/level_selection.tscn
+msgid "Choose your Deck"
+msgstr "Choisis ton Deck"
+
+#: common/level_selection.tscn
+msgid "Selected Deck"
+msgstr "Deck Choisi"
+
+#: common/level_selection.tscn common/my_collection.tscn
+msgid "Choose"
+msgstr "Choisir"
+
+#: common/level_selection.tscn
+msgid "Choose your opponent"
+msgstr "Choisis ton adversaire"
+
+#: common/level_selection.tscn
+msgid "Selected Opponent"
+msgstr "AdversaireChoisi"
+
+#: common/level_selection.tscn
+msgid "Start"
+msgstr "Jouer"
+
 #: common/main.tscn common/credits.tscn
 msgid "Warlock"
 msgstr "Warlock"
@@ -51,10 +79,6 @@ msgstr "Choisis ton héro"
 #: common/my_collection.tscn
 msgid "Selected Hero"
 msgstr "Hero Choisi"
-
-#: common/my_collection.tscn
-msgid "Choose"
-msgstr "Choisir"
 
 #: common/my_collection.tscn
 msgid "All cards"
@@ -136,8 +160,13 @@ msgstr "Voix Off : Kenney.nl"
 msgid "Cards images : "
 msgstr "Images des cartes : "
 
+#: common/deck_node.tscn
+msgid "Deck Name"
+msgstr "Nom du Deck"
+
+#: common/gameboard.tscn
+msgid "Game Board"
+msgstr "Table de jeu"
+
 #~ msgid "Graphics : "
 #~ msgstr "Graphiques : "
-
-#~ msgid "Start"
-#~ msgstr "Jouer"

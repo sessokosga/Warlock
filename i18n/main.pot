@@ -14,6 +14,10 @@
 # res://common/audio_player.tscn
 # res://common/my_label.gd
 # res://common/my_label.tscn
+# res://common/deck_node.gd
+# res://common/deck_node.tscn
+# res://common/gameboard.gd
+# res://common/gameboard.tscn
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -27,6 +31,35 @@ msgstr ""
 
 #: common/back.tscn
 msgid "Back"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "New Game"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "Choose your Deck"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "Selected Deck"
+msgstr ""
+
+#: common/level_selection.tscn
+#: common/my_collection.tscn
+msgid "Choose"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "Choose your opponent"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "Selected Opponent"
+msgstr ""
+
+#: common/level_selection.tscn
+msgid "Start"
 msgstr ""
 
 #: common/main.tscn
@@ -62,10 +95,6 @@ msgstr ""
 
 #: common/my_collection.tscn
 msgid "Selected Hero"
-msgstr ""
-
-#: common/my_collection.tscn
-msgid "Choose"
 msgstr ""
 
 #: common/my_collection.tscn
@@ -144,4 +173,12 @@ msgstr ""
 
 #: common/credits.tscn
 msgid "Cards images : "
+msgstr ""
+
+#: common/deck_node.tscn
+msgid "Deck Name"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "Game Board"
 msgstr ""

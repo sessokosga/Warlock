@@ -10,8 +10,6 @@ extends Control
 @onready var btn_choose_deck :  = $"%ChooseD"
 @onready var btn_choose_opp :  = $"%ChooseOpp"
 
-var by_pass = true
-
 func _on_deck_pressed(deck:DeckNode):
 	selected_deck_texture.texture = deck.get_profile()
 	lab_selected_deck_name.text = deck.title
@@ -35,10 +33,6 @@ func load_decks()->void:
 		deck_list.add_child(deck_node)
 
 func _ready() -> void:
-	if by_pass:
-		Utilities.set_hero_deck("deck_2409")
-		Utilities.set_opponent_deck("deck_8728")
-		_on_choose_opp_pressed()
 	deck_choice.show()
 	opponent_choise.hide()
 	load_decks()
