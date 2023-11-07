@@ -5,7 +5,7 @@ var by_pass_menu = true
 
 func _ready() -> void:
 	if by_pass_menu:
-		_on_start_pressed()
+		_on_my_collection_pressed()
 	if TranslationServer.get_locale() == "fr":
 		language_btn.select(1)
 	pass 
