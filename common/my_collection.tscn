@@ -133,7 +133,7 @@ theme_override_constants/margin_right = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -196,7 +196,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 alignment = 2
 

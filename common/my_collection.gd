@@ -21,7 +21,6 @@ extends Control
 const FOLDER_NAME = "deck"
 var curr_random_id : int
 var curr_deck=null
-var screen_size
 
 func filter_hero(item)->bool:
 	return item.type == CardData.Warlock.Type.Hero
@@ -137,8 +136,6 @@ func load_home()->void:
 
 
 func _ready() -> void:
-	screen_size = get_window().size
-	print(screen_size)
 	load_hero()
 	load_minions(home_cards_list)
 	load_spells(home_cards_list)
@@ -151,6 +148,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
+	var mouse_input_zone := Rect2(Vector2(20,131),Vector2(1260,530))
 	if event.is_action_pressed("left_click"):
 		# Select hero
 		for card :Card in hero_choice_container.get_children():
@@ -166,7 +164,7 @@ func _input(event: InputEvent) -> void:
 			card.hide_checkmark()
 			if card.sample >= 1 and cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
 				var surf = Rect2(card.global_position,card.size)
-				if surf.has_point(event.position):
+				if mouse_input_zone.has_point(event.position) and surf.has_point(event.position):
 					var lab = add_my_label(card.id,card.title)
 					cards_in_deck.add_child(lab)
 					card.sample-=1
@@ -177,10 +175,7 @@ func _input(event: InputEvent) -> void:
 		# Cancel cards selection
 		for lab:Label in cards_in_deck.get_children():
 			var surf := Rect2(lab.global_position,lab.size)
-			var pos = lab.global_position.y+lab.size.y
-			var pos2 =   lab.global_position.y
-			if surf.has_point(event.position) and pos <= cards_in_deck.global_position.y+530 \
-				and pos2 >= cards_in_deck.global_position.y:
+			if mouse_input_zone.has_point(event.position) and surf.has_point(event.position) :
 				cards_in_deck.remove_child(lab)
 				for card:Card in cards_list.get_children():
 					if card.id == lab.id:
