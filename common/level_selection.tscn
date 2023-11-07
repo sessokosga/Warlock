@@ -170,6 +170,8 @@ alignment = 1
 
 [node name="DeckNode" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList" instance=ExtResource("4_q5fyv")]
 layout_mode = 2
+id = &"Deck123"
+title = "Demonic Bargain"
 
 [node name="Profile" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode" index="0"]
 texture = ExtResource("5_ftm28")
@@ -179,6 +181,8 @@ text = "Demonic Bargain"
 
 [node name="DeckNode2" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList" instance=ExtResource("4_q5fyv")]
 layout_mode = 2
+id = &"Deck3212"
+title = "Radiant Crusader"
 
 [node name="Button" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode2/NinePatchRect" index="0"]
 text = "Radiant Crusader"
@@ -226,6 +230,8 @@ text = "Start"
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="MarginContainer/DeckChoice/ChoosenDeck/ChooseD" to="." method="_on_choose_d_pressed"]
+[connection signal="pressed" from="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode" to="." method="_on_opponent_pressed"]
+[connection signal="pressed" from="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode2" to="." method="_on_opponent_pressed"]
 [connection signal="pressed" from="MarginContainer/OpponentChoice/ChoosenDeck/ChooseOpp" to="." method="_on_choose_opp_pressed"]
 
 [editable path="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode"]

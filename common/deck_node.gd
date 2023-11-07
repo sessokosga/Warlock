@@ -4,8 +4,8 @@ signal pressed(deck_node)
 
 static var node = preload("res://common/deck_node.tscn")
 
-var id :StringName
-var title:String:
+@export var id :StringName
+@export var title:String:
 	get:
 		return title
 	set(value):

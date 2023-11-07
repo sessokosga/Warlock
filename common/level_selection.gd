@@ -3,14 +3,22 @@ extends Control
 @onready var deck_choice : HBoxContainer = $"%DeckChoice"
 @onready var deck_list : FlowContainer = $"%DeckList"
 @onready var selected_deck_texture :TextureRect  = $"%SelectedDeckTexture"
+@onready var selected_opp_texture :TextureRect  = $"%SelectedOppTexture"
 @onready var lab_selected_deck_name : Label = $"%SelectedDeckName"
+@onready var lab_selected_opp_name : Label = $"%SelectedOppName"
 @onready var opponent_choise : HBoxContainer = $"%OpponentChoice"
 @onready var btn_choose_deck :  = $"%ChooseD"
+@onready var btn_choose_opp :  = $"%ChooseOpp"
 
 func _on_deck_pressed(deck:DeckNode):
 	selected_deck_texture.texture = deck.get_profile()
 	lab_selected_deck_name.text = deck.title
 	btn_choose_deck.disabled = false
+
+func _on_opponent_pressed(deck:DeckNode):
+	selected_opp_texture.texture = deck.get_profile()
+	lab_selected_opp_name.text = deck.title
+	btn_choose_opp.disabled = false
 
 func load_decks()->void:
 	var decks = Utilities.load_decks_instances_hero_only()
