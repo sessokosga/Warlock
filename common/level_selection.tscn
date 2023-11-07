@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyhaw84wvc2xt"]
+[gd_scene load_steps=7 format=3 uid="uid://dyhaw84wvc2xt"]
 
+[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_k2vhn"]
 [ext_resource type="Script" path="res://common/level_selection.gd" id="1_ni3vj"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="2_g4y6w"]
 [ext_resource type="Texture2D" uid="uid://cao8o1cm0h6it" path="res://assets/images/ui/barVertical_shadow_mid.png" id="3_l0w73"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_k2vhn")
 script = ExtResource("1_ni3vj")
 
 [node name="Title" type="Label" parent="."]

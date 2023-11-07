@@ -1,6 +1,7 @@
 extends Node
 
 const FOLDER_NAME = "deck"
+var selected ={}
 
 func card_type_string(id:int)->String:
 	match id:
@@ -63,3 +64,17 @@ func load_card(row:CardData.Warlock.Row)->Card:
 		card.health = row.health
 
 	return card
+
+func set_hero_deck(deck_id:StringName)->void:
+	selected.hero_deck = deck_id
+
+func get_hero_deck()->StringName:
+	return selected.hero_deck
+
+func set_opponent_deck(deck_id:StringName)->void:
+	selected.opp_deck = deck_id
+
+func get_opponent_deck()->StringName:
+	return selected.opp_deck
+
+	
