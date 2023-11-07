@@ -32,3 +32,34 @@ func load_decks()->Dictionary:
 		print("An error occurred when trying to access %s ." % FOLDER_NAME)
 	return result
 
+func load_decks_instances_hero_only()->Array[Deck]:
+	var result :Array[Deck] = []
+	var d = load_decks()
+	for id in d:
+		var dk = d[id]
+		var deck := Deck.get_instance()
+		deck.id = dk.id
+		deck.title = dk.title
+		deck.hero = load_card(CardData.table_warlock.get_value(dk.hero))
+		result.append(deck)
+	return result
+
+func load_card(row:CardData.Warlock.Row)->Card:
+	var card = Card.get_instance()
+	card.title = row.title
+	card.id = row.id
+	card.profile = row.profile
+	card.mana = row.mana
+	card.decoration = row.decoration
+	card.description = row.description
+	card.back = row.back
+	card.sample = row.sample
+	card.type = row.type
+	if row.type != CardData.Warlock.Type.Minion:
+		card.hide_attack()
+		card.hide_health()
+	else:
+		card.attack = row.attack
+		card.health = row.health
+
+	return card

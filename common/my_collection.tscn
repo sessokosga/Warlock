@@ -144,19 +144,21 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "All cards"
-horizontal_alignment = 1
+texture = ExtResource("6_w3u4s")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+[node name="Label" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_w3u4s")
+text = "All cards"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -198,23 +200,23 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 alignment = 2
 
-[node name="CardsCount" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 20
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("5_btrq2")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/CardsCount"]
+[node name="CardsCount" type="Label" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2/NinePatchRect"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_btrq2")
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Done" type="Button" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
@@ -277,19 +279,21 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "All cards"
-horizontal_alignment = 1
+texture = ExtResource("6_w3u4s")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label"]
+[node name="Label" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_w3u4s")
+text = "All cards"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -309,19 +313,21 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label2" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "Decks"
-horizontal_alignment = 1
+texture = ExtResource("6_w3u4s")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Label2"]
+[node name="Label" type="Label" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_w3u4s")
+text = "Decks"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2

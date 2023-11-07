@@ -41,13 +41,8 @@ func clean_children(parent):
 
 func load_hero()->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_hero):
-		var card = Card.get_instance()
+		var card = Utilities.load_card(row)
 		card.mode = Card.Mode.Field
-		card.title = row.title
-		card.id = row.id
-		card.profile = row.profile
-		card.hide_attack()
-		card.hide_health()
 		var label = Label.new()
 		label.text = card.title
 		label.position.y -= 20
@@ -70,20 +65,9 @@ func add_my_label(id,text)->MyLabel:
 func load_minions(parent,show_sample:bool=false)->void:
 	
 	for row :CardData.Warlock.Row in CardData.table_warlock.all.filter(filter_minion):
-		var card = Card.get_instance()
+		var card = Utilities.load_card(row)
 		card._scale = Vector2(.8,.8)
 		card.mode = Card.Mode.Full
-		card.title = row.title
-		card.id = row.id
-		card.profile = row.profile
-		card.attack = row.attack
-		card.mana = row.mana
-		card.health = row.health
-		card.decoration = row.decoration
-		card.description = row.description
-		card.back = row.back
-		card.sample = row.sample
-		card.type = Utilities.card_type_string(row.type)
 		if show_sample == true:
 			var label = add_sample_label(card.sample)
 			card.add_child(label)
@@ -92,22 +76,9 @@ func load_minions(parent,show_sample:bool=false)->void:
 
 func load_spells(parent,show_sample:bool=false)->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_spells):
-		var card = Card.get_instance()
+		var card = Utilities.load_card(row)
 		card._scale = Vector2(.8,.8)
 		card.mode = Card.Mode.Full
-		card.title = row.title
-		card.id = row.id
-		card.profile = row.profile
-		card.hide_attack()
-		card.hide_health()
-		card.attack = row.attack
-		card.mana = row.mana
-		card.health = row.health
-		card.decoration = row.decoration
-		card.description = row.description
-		card.back = row.back
-		card.sample = row.sample
-		card.type = Utilities.card_type_string(row.type)
 		if show_sample == true:
 			var label = add_sample_label(card.sample)
 			card.add_child(label)
@@ -190,7 +161,7 @@ func _input(event: InputEvent) -> void:
 		# Select cards
 		for card:Card in cards_list.get_children():
 			card.hide_checkmark()
-			if card.sample >= 1:
+			if card.sample >= 1 and cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
 				var surf = Rect2(card.global_position,card.size)
 				if surf.has_point(event.position):
 					var lab = add_my_label(card.id,card.title)
@@ -224,8 +195,7 @@ func update_check_marks()->void:
 
 # Check if there is enought cards in the deck
 func validate_cards_number()->void:
-	if cards_in_deck.get_child_count() < 4:
-	# if cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
+	if cards_in_deck.get_child_count() < Deck.MAX_DECK_SIZE:
 		btn_done.disabled = true
 	else:
 		btn_done.disabled = false

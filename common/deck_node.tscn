@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgrbi4d3l3k3f"]
+
+[ext_resource type="Texture2D" uid="uid://67gk3g7lofqb" path="res://assets/images/cards/profiles/hero_1.png" id="1_26jhq"]
+[ext_resource type="Script" path="res://common/deck_node.gd" id="1_huvad"]
+[ext_resource type="Texture2D" uid="uid://djytpbxmjggtg" path="res://assets/images/ui/back.png" id="2_bnijt"]
+
+[node name="DeckNode" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(160, 70)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_huvad")
+
+[node name="Profile" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -39.0
+offset_right = 60.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_26jhq")
+stretch_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.717647)
+custom_minimum_size = Vector2(140, 30)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 41.0
+offset_right = 4.0
+offset_bottom = 41.0
+texture = ExtResource("2_bnijt")
+
+[node name="Button" type="Button" parent="NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Deck Name"
+
+[connection signal="pressed" from="NinePatchRect/Button" to="." method="_on_button_pressed"]
