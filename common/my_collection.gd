@@ -275,7 +275,11 @@ func _on_done_pressed() -> void:
 	btn_delete.disabled = true
 	lab_title.text = name
 	curr_deck = null
+	reset_cards_sample()
 
+func reset_cards_sample()->void:
+	for card :Card in cards_list.get_children():
+		card.sample = 4
 
 func _on_new_deck_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
@@ -284,6 +288,7 @@ func _on_new_deck_pressed() -> void:
 	cards_choice.hide()
 	lab_title.text = "New Deck"
 	clean_children(cards_in_deck)
+	reset_cards_sample()
 	
 	pass # Replace with function body.
 
