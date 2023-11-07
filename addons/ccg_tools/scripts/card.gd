@@ -109,10 +109,10 @@ var _scale : Vector2:
 
 
 var effect : StringName
-var type : StringName:
+var type : CardData.Warlock.Type:
 	set(value):
 		type = value
-		$"%Type".text = value
+		$"%Type".text = Utilities.card_type_string(type)
 	
 var emblem:String :
 	set(file_name):
