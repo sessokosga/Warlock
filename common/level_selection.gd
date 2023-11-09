@@ -10,6 +10,9 @@ extends Control
 @onready var btn_choose_deck :  = $"%ChooseD"
 @onready var btn_choose_opp :  = $"%ChooseOpp"
 
+enum ScreenState  {DeckChoice, OppChoice}
+var curr_screen_state :ScreenState
+
 func _on_deck_pressed(deck:DeckNode):
 	selected_deck_texture.texture = deck.get_profile()
 	lab_selected_deck_name.text = deck.title
@@ -33,18 +36,27 @@ func load_decks()->void:
 		deck_list.add_child(deck_node)
 
 func _ready() -> void:
+	curr_screen_state = ScreenState.DeckChoice
 	deck_choice.show()
 	opponent_choise.hide()
 	load_decks()
+	curr_screen_state = ScreenState.DeckChoice
 	pass
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://common/main.tscn")
+	match curr_screen_state:
+		ScreenState.DeckChoice:
+			get_tree().change_scene_to_file("res://common/main.tscn")
+		ScreenState.OppChoice:
+			deck_choice.show()
+			opponent_choise.hide()
+			curr_screen_state = ScreenState.DeckChoice
 
 
 
 func _on_choose_d_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
+	curr_screen_state = ScreenState.OppChoice
 	opponent_choise.show()
 	deck_choice.hide()
 

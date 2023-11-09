@@ -1,15 +1,15 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://c1u6ldkkjwsgj"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://c1u6ldkkjwsgj"]
 
 [ext_resource type="StyleBox" uid="uid://71bojts14amt" path="res://common/theme/res/btn_style_disabled.tres" id="1_11oan"]
 [ext_resource type="StyleBox" uid="uid://dfgiwtl5n0dr6" path="res://common/theme/res/btn_style_normal.tres" id="1_chgb1"]
-[ext_resource type="Texture2D" uid="uid://bahkubnrtlpjp" path="res://assets/images/ui/Hangar/Table_02.png" id="1_isc4r"]
 [ext_resource type="FontFile" uid="uid://d8h3kuhtd4l1" path="res://assets/fonts/ethnocentric rg.otf" id="2_efda0"]
 [ext_resource type="StyleBox" uid="uid://lliui0cl2q1t" path="res://common/theme/res/btn_style_click.tres" id="2_f6lse"]
+[ext_resource type="Texture2D" uid="uid://cpc1k3xet38mm" path="res://assets/images/ui/Rating/Table_02_.png" id="4_xbuy3"]
 [ext_resource type="StyleBox" uid="uid://chp03o4tdob2n" path="res://common/theme/res/btn_style_disabled_small.tres" id="5_yh0gm"]
 [ext_resource type="StyleBox" uid="uid://2vrhbwjwi16d" path="res://common/theme/res/btn_style_click_small.tres" id="6_u0n1f"]
 [ext_resource type="StyleBox" uid="uid://bgjsr58tdqxgj" path="res://common/theme/res/btn_style_normal_small.tres" id="7_300au"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0poaq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fp1dm"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -30,12 +30,29 @@ expand_margin_top = 10.0
 expand_margin_right = 10.0
 expand_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvx5g"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyu3s"]
-texture = ExtResource("1_isc4r")
-texture_margin_left = 30.0
-texture_margin_top = 25.0
-texture_margin_right = 30.0
-texture_margin_bottom = 35.0
+texture = ExtResource("4_xbuy3")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6asc"]
 content_margin_left = 4.0
@@ -58,6 +75,11 @@ corner_detail = 5
 default_font = ExtResource("2_efda0")
 BigButton/base_type = &"Button"
 BigButton/font_sizes/font_size = 40
+BigButton/styles/disabled = ExtResource("1_11oan")
+BigButton/styles/focus = SubResource("StyleBoxFlat_fp1dm")
+BigButton/styles/hover = ExtResource("2_f6lse")
+BigButton/styles/normal = ExtResource("1_chgb1")
+BigButton/styles/pressed = ExtResource("2_f6lse")
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -74,12 +96,12 @@ Button/colors/icon_pressed_color = Color(1, 0.756863, 0.301961, 1)
 Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
-Button/font_sizes/font_size = 20
-Button/styles/disabled = ExtResource("1_11oan")
-Button/styles/focus = SubResource("StyleBoxFlat_0poaq")
-Button/styles/hover = ExtResource("2_f6lse")
-Button/styles/normal = ExtResource("1_chgb1")
-Button/styles/pressed = ExtResource("2_f6lse")
+Button/font_sizes/font_size = 17
+Button/styles/disabled = ExtResource("5_yh0gm")
+Button/styles/focus = SubResource("StyleBoxFlat_tvx5g")
+Button/styles/hover = ExtResource("6_u0n1f")
+Button/styles/normal = ExtResource("7_300au")
+Button/styles/pressed = ExtResource("6_u0n1f")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_hyu3s")
 SmallButton/base_type = &"Button"
 SmallButton/font_sizes/font_size = 17

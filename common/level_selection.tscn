@@ -49,12 +49,13 @@ theme_override_constants/margin_bottom = 20
 
 [node name="DeckChoice" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DeckChoice"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/DeckChoice/VBoxContainer"]
 layout_mode = 2
@@ -119,13 +120,12 @@ text = "Choose"
 
 [node name="OpponentChoice" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/OpponentChoice"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OpponentChoice/VBoxContainer"]
 layout_mode = 2

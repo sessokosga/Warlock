@@ -4,10 +4,8 @@
 [ext_resource type="Script" path="res://common/back.gd" id="2_qc0ie"]
 
 [node name="Back" type="Button"]
-offset_left = 35.0
-offset_top = 43.0
-offset_right = 150.0
-offset_bottom = 77.0
+offset_right = 121.0
+offset_bottom = 40.0
 theme_type_variation = &"SmallButton"
 text = "Back"
 icon = ExtResource("1_hek3v")
