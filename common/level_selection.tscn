@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyhaw84wvc2xt"]
+[gd_scene load_steps=5 format=3 uid="uid://dyhaw84wvc2xt"]
 
 [ext_resource type="Script" path="res://common/level_selection.gd" id="1_ni3vj"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="2_g4y6w"]
-[ext_resource type="Texture2D" uid="uid://cao8o1cm0h6it" path="res://assets/images/ui/barVertical_shadow_mid.png" id="3_l0w73"]
 [ext_resource type="PackedScene" uid="uid://cgrbi4d3l3k3f" path="res://common/deck_node.tscn" id="4_q5fyv"]
 [ext_resource type="Texture2D" uid="uid://cb14hg0v2kb7y" path="res://assets/images/cards/profiles/hero_2.png" id="5_ftm28"]
 
@@ -57,18 +56,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/DeckChoice/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/DeckChoice/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("3_l0w73")
 
-[node name="Label" type="Label" parent="MarginContainer/DeckChoice/VBoxContainer/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="MarginContainer/DeckChoice/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 text = "Choose your Deck"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -93,18 +86,12 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/DeckChoice/ChoosenDeck"]
-custom_minimum_size = Vector2(0, 30)
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/DeckChoice/ChoosenDeck"]
 layout_mode = 2
-texture = ExtResource("3_l0w73")
 
-[node name="Label" type="Label" parent="MarginContainer/DeckChoice/ChoosenDeck/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="MarginContainer/DeckChoice/ChoosenDeck/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 text = "Selected Deck"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -140,18 +127,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/OpponentChoice/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OpponentChoice/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("3_l0w73")
 
-[node name="Label" type="Label" parent="MarginContainer/OpponentChoice/VBoxContainer/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="MarginContainer/OpponentChoice/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 text = "Choose your opponent"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -189,18 +170,12 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/OpponentChoice/ChoosenDeck"]
-custom_minimum_size = Vector2(0, 30)
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OpponentChoice/ChoosenDeck"]
 layout_mode = 2
-texture = ExtResource("3_l0w73")
 
-[node name="Label" type="Label" parent="MarginContainer/OpponentChoice/ChoosenDeck/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="MarginContainer/OpponentChoice/ChoosenDeck/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
 text = "Selected Opponent"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -219,8 +194,10 @@ horizontal_alignment = 1
 
 [node name="ChooseOpp" type="Button" parent="MarginContainer/OpponentChoice/ChoosenDeck"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 size_flags_vertical = 8
+theme_type_variation = &"SmallButton"
 disabled = true
 text = "Start"
 

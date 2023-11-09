@@ -9,10 +9,7 @@ func _on_pressed() -> void:
 
 func _ready() -> void:
 	has_resized=false
+	custom_minimum_size = size + Vector2(26,0)
 
 
-func _on_resized() -> void:
-	if not has_resized:
-		custom_minimum_size = size + Vector2(26,0)
-		has_resized = true
-	
+

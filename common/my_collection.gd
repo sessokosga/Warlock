@@ -128,6 +128,7 @@ func load_home()->void:
 	for id in decks:
 		var btn := btn_node.instantiate()
 		var deck = decks[id]
+		btn.has_resized = true
 		btn.name = id
 		btn.text = deck.title
 		for hero:Card in hero_choice_container.get_children():

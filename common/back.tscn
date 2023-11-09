@@ -16,4 +16,3 @@ expand_icon = true
 script = ExtResource("2_qc0ie")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
-[connection signal="resized" from="." to="." method="_on_resized"]
