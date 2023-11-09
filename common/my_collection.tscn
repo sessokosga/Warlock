@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctiski8lwou8q"]
+[gd_scene load_steps=5 format=3 uid="uid://ctiski8lwou8q"]
 
 [ext_resource type="Script" path="res://common/my_collection.gd" id="1_ct7dj"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="3_skfvy"]
+[ext_resource type="PackedScene" uid="uid://c276jum1r5rh4" path="res://common/bg.tscn" id="4_puxgt"]
 [ext_resource type="Texture2D" uid="uid://dtjl8rk34qirf" path="res://assets/images/icon/trashcanOpen.png" id="6_xy6q5"]
 
 [node name="My Collection" type="Control"]
@@ -340,6 +341,11 @@ custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "New Deck"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="BG" parent="CanvasLayer" instance=ExtResource("4_puxgt")]
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="HeroChoice/MarginContainer/HBoxContainer/VBoxContainer2/Next" to="." method="_on_next_pressed"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyhaw84wvc2xt"]
+[gd_scene load_steps=6 format=3 uid="uid://dyhaw84wvc2xt"]
 
 [ext_resource type="Script" path="res://common/level_selection.gd" id="1_ni3vj"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="2_g4y6w"]
 [ext_resource type="PackedScene" uid="uid://cgrbi4d3l3k3f" path="res://common/deck_node.tscn" id="4_q5fyv"]
+[ext_resource type="PackedScene" uid="uid://c276jum1r5rh4" path="res://common/bg.tscn" id="5_34cpf"]
 [ext_resource type="Texture2D" uid="uid://cb14hg0v2kb7y" path="res://assets/images/cards/profiles/hero_2.png" id="5_ftm28"]
 
 [node name="Level Selection" type="Control"]
@@ -200,6 +201,11 @@ size_flags_vertical = 8
 theme_type_variation = &"SmallButton"
 disabled = true
 text = "Start"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="BG" parent="CanvasLayer" instance=ExtResource("5_34cpf")]
 
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="MarginContainer/DeckChoice/ChoosenDeck/ChooseD" to="." method="_on_choose_d_pressed"]
