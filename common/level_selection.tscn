@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyhaw84wvc2xt"]
+[gd_scene load_steps=6 format=3 uid="uid://dyhaw84wvc2xt"]
 
-[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_k2vhn"]
 [ext_resource type="Script" path="res://common/level_selection.gd" id="1_ni3vj"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="2_g4y6w"]
 [ext_resource type="Texture2D" uid="uid://cao8o1cm0h6it" path="res://assets/images/ui/barVertical_shadow_mid.png" id="3_l0w73"]
@@ -14,7 +13,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_k2vhn")
 script = ExtResource("1_ni3vj")
 
 [node name="Title" type="Label" parent="."]
@@ -52,7 +50,6 @@ theme_override_constants/margin_bottom = 20
 
 [node name="DeckChoice" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DeckChoice"]
@@ -93,7 +90,7 @@ theme_override_constants/v_separation = 20
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/DeckChoice/ChoosenDeck"]
@@ -126,13 +123,16 @@ horizontal_alignment = 1
 
 [node name="ChooseD" type="Button" parent="MarginContainer/DeckChoice/ChoosenDeck"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 49)
 layout_mode = 2
 size_flags_vertical = 8
+theme_type_variation = &"SmallButton"
 disabled = true
 text = "Choose"
 
 [node name="OpponentChoice" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/OpponentChoice"]
@@ -178,21 +178,15 @@ title = "Demonic Bargain"
 [node name="Profile" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode" index="0"]
 texture = ExtResource("5_ftm28")
 
-[node name="Button" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode/NinePatchRect" index="0"]
-text = "Demonic Bargain"
-
 [node name="DeckNode2" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList" instance=ExtResource("4_q5fyv")]
 layout_mode = 2
 id = &"Deck3212"
 title = "Radiant Crusader"
 
-[node name="Button" parent="MarginContainer/OpponentChoice/VBoxContainer/ScrollContainer/OpponentList/DeckNode2/NinePatchRect" index="0"]
-text = "Radiant Crusader"
-
 [node name="ChoosenDeck" type="VBoxContainer" parent="MarginContainer/OpponentChoice"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/OpponentChoice/ChoosenDeck"]

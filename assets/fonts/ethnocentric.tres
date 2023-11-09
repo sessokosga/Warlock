@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://7sx4svouvg40"]
+
+[ext_resource type="FontFile" uid="uid://d8h3kuhtd4l1" path="res://font/ethnocentric rg.otf" id="1_pvhu4"]
+
+[resource]
+base_font = ExtResource("1_pvhu4")

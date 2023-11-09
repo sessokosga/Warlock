@@ -18,6 +18,11 @@ extends Control
 @onready var lab_title : Label= $"%Title"
 @onready var confirm_deck_delition : ConfirmationDialog= $"%ConfirmDeckDeletion"
 
+enum ScreenState  {Home, Edit, HeroChoice}
+var curr_screen_state: ScreenState
+var prev_screen_state:ScreenState
+var btn_node = preload("res://common/back.tscn")
+
 const FOLDER_NAME = "deck"
 var curr_random_id : int
 var curr_deck=null
@@ -38,6 +43,10 @@ func clean_children(parent):
 	for child in parent.get_children():
 		child.queue_free()
 		parent.remove_child(child)
+
+func set_screen_state(state:ScreenState)->void:
+	prev_screen_state= curr_screen_state
+	curr_screen_state = state
 
 func load_hero()->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_hero):
@@ -117,8 +126,7 @@ func load_home()->void:
 	clean_children(deck_list)
 
 	for id in decks:
-		var btn = Button.new()
-		btn.add_theme_font_size_override('font_size',20)
+		var btn := btn_node.instantiate()
 		var deck = decks[id]
 		btn.name = id
 		btn.text = deck.title
@@ -126,10 +134,10 @@ func load_home()->void:
 			if hero.id == deck.hero:
 				btn.icon = hero.get_profile_texture()
 				btn.expand_icon = true
-		btn.pressed.connect(
-			func (): 
-				AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
+		btn.was_pressed.connect(
+			func ():
 				curr_deck = deck
+				set_screen_state(ScreenState.Edit)
 				load_cards_choice()
 				)
 		
@@ -137,6 +145,8 @@ func load_home()->void:
 
 
 func _ready() -> void:
+	prev_screen_state = ScreenState.Home
+	curr_screen_state = ScreenState.Home
 	load_hero()
 	load_minions(home_cards_list)
 	load_spells(home_cards_list)
@@ -204,17 +214,30 @@ func validate_cards_number()->void:
 
 # Update cards count
 func update_cards_count()->void:
-	lab_cards_count.text = str(cards_in_deck.get_child_count(),"/",Deck.MAX_DECK_SIZE)
+	lab_cards_count.text = str(cards_in_deck.get_child_count(),"/",Deck.MAX_DECK_SIZE) 
 
 
 
 func _on_back_pressed() -> void:
-	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
-	get_tree().change_scene_to_file("res://common/main.tscn")
-
-
+	match curr_screen_state:
+		ScreenState.Home:
+			get_tree().change_scene_to_file("res://common/main.tscn")
+		ScreenState.Edit:
+			if prev_screen_state == ScreenState.Home:
+				load_home()
+				set_screen_state(ScreenState.Home)
+				pass
+			elif prev_screen_state == ScreenState.HeroChoice:
+				hero_choice.show()
+				cards_choice.hide()
+				set_screen_state(ScreenState.HeroChoice)
+		ScreenState.HeroChoice:
+			load_home()
+			set_screen_state(ScreenState.Home)
 
 func _on_next_pressed() -> void:
+	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
+	set_screen_state(ScreenState.Edit)
 	curr_random_id = randi() % 10_000
 	var decks = Utilities.load_decks()
 	while decks.has(str("deck_",curr_random_id)):
@@ -285,6 +308,7 @@ func reset_cards_sample()->void:
 
 func _on_new_deck_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
+	set_screen_state(ScreenState.HeroChoice)
 	home.hide()
 	hero_choice.show()
 	cards_choice.hide()
@@ -306,3 +330,10 @@ func _on_confirm_deck_deletion_confirmed() -> void:
 	if curr_deck!= null:
 		delete_deck(curr_deck.file_name)
 		load_home()
+
+
+func _on_btn_resized() -> void:
+	
+	if $"%Delete".custom_minimum_size != $"%Delete".size:
+		$"%Delete".custom_minimum_size = $"%Delete".size + Vector2(26,0)
+

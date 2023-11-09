@@ -1,16 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgrbi4d3l3k3f"]
+[gd_scene load_steps=3 format=3 uid="uid://cgrbi4d3l3k3f"]
 
 [ext_resource type="Texture2D" uid="uid://67gk3g7lofqb" path="res://assets/images/cards/profiles/hero_1.png" id="1_26jhq"]
-[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_ggpod"]
 [ext_resource type="Script" path="res://common/deck_node.gd" id="1_huvad"]
-[ext_resource type="Texture2D" uid="uid://djytpbxmjggtg" path="res://assets/images/ui/back.png" id="2_bnijt"]
 
 [node name="DeckNode" type="Control"]
 clip_contents = true
-custom_minimum_size = Vector2(160, 70)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 3
 anchors_preset = 0
-theme = ExtResource("1_ggpod")
+offset_right = 178.0
+offset_bottom = 100.0
 script = ExtResource("1_huvad")
 
 [node name="Profile" type="TextureRect" parent="."]
@@ -19,34 +18,29 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -14.0
-offset_top = -39.0
-offset_right = 60.0
-offset_bottom = 96.0
+offset_left = -91.0
+offset_top = -73.0
+offset_right = 90.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_26jhq")
-stretch_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-self_modulate = Color(1, 1, 1, 0.717647)
-custom_minimum_size = Vector2(152, 30)
-layout_mode = 0
-offset_left = 4.0
-offset_top = 41.0
-offset_right = 4.0
-offset_bottom = 41.0
-texture = ExtResource("2_bnijt")
-
-[node name="Button" type="Button" parent="NinePatchRect"]
+[node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -28.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 18
+grow_vertical = 0
+theme_type_variation = &"SmallButton"
 text = "Deck Name"
+text_overrun_behavior = 3
 
-[connection signal="pressed" from="NinePatchRect/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

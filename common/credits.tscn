@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://by3xlhcxepcbg"]
+[gd_scene load_steps=3 format=3 uid="uid://by3xlhcxepcbg"]
 
-[ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_jui7h"]
 [ext_resource type="Script" path="res://common/credits.gd" id="1_tcex7"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="2_vdp34"]
 
@@ -11,7 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_jui7h")
 script = ExtResource("1_tcex7")
 
 [node name="Back" parent="." instance=ExtResource("2_vdp34")]

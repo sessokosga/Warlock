@@ -32,6 +32,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/ccg_tools/plugin.cfg", "res://addons/gdcastledb/plugin.cfg")
 
+[gui]
+
+theme/custom="res://common/theme/ui.tres"
+
 [input]
 
 left_click={

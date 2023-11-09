@@ -1,15 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds2w76ty8pjis"]
+[gd_scene load_steps=3 format=3 uid="uid://ds2w76ty8pjis"]
 
 [ext_resource type="Texture2D" uid="uid://ntlmx3w46vmg" path="res://assets/images/icon/arrowLeft.png" id="1_hek3v"]
+[ext_resource type="Script" path="res://common/back.gd" id="2_qc0ie"]
 
 [node name="Back" type="Button"]
-custom_minimum_size = Vector2(140, 0)
-offset_left = 19.0
-offset_top = 30.0
-offset_right = 133.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 25
+offset_left = 35.0
+offset_top = 43.0
+offset_right = 150.0
+offset_bottom = 77.0
+theme_type_variation = &"SmallButton"
 text = "Back"
 icon = ExtResource("1_hek3v")
 alignment = 0
 expand_icon = true
+script = ExtResource("2_qc0ie")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="resized" from="." to="." method="_on_resized"]

@@ -42,7 +42,7 @@ msgstr "Choisis ton adversaire"
 
 #: common/level_selection.tscn
 msgid "Selected Opponent"
-msgstr "AdversaireChoisi"
+msgstr "Adversaire Choisi"
 
 #: common/level_selection.tscn
 msgid "Start"
