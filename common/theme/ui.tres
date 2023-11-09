@@ -4,9 +4,9 @@
 [ext_resource type="StyleBox" uid="uid://dfgiwtl5n0dr6" path="res://common/theme/res/btn_style_normal.tres" id="1_chgb1"]
 [ext_resource type="FontFile" uid="uid://d8h3kuhtd4l1" path="res://assets/fonts/ethnocentric rg.otf" id="2_efda0"]
 [ext_resource type="StyleBox" uid="uid://lliui0cl2q1t" path="res://common/theme/res/btn_style_click.tres" id="2_f6lse"]
-[ext_resource type="Texture2D" uid="uid://cpc1k3xet38mm" path="res://assets/images/ui/Rating/Table_02_.png" id="4_xbuy3"]
 [ext_resource type="StyleBox" uid="uid://chp03o4tdob2n" path="res://common/theme/res/btn_style_disabled_small.tres" id="5_yh0gm"]
 [ext_resource type="StyleBox" uid="uid://2vrhbwjwi16d" path="res://common/theme/res/btn_style_click_small.tres" id="6_u0n1f"]
+[ext_resource type="StyleBox" uid="uid://dih06c8s40htt" path="res://common/theme/res/panel_container_style_box.tres" id="7_7txi3"]
 [ext_resource type="StyleBox" uid="uid://bgjsr58tdqxgj" path="res://common/theme/res/btn_style_normal_small.tres" id="7_300au"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fp1dm"]
@@ -47,12 +47,8 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyu3s"]
-texture = ExtResource("4_xbuy3")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sd2l"]
+bg_color = Color(0.266667, 0.4, 0.662745, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6asc"]
 content_margin_left = 4.0
@@ -102,7 +98,11 @@ Button/styles/focus = SubResource("StyleBoxFlat_tvx5g")
 Button/styles/hover = ExtResource("6_u0n1f")
 Button/styles/normal = ExtResource("7_300au")
 Button/styles/pressed = ExtResource("6_u0n1f")
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_hyu3s")
+LineEdit/styles/normal = ExtResource("7_7txi3")
+PanelContainer/styles/panel = ExtResource("7_7txi3")
+PopupMenu/colors/font_hover_color = Color(1, 0.756863, 0.301961, 1)
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_7sd2l")
+PopupMenu/styles/panel = ExtResource("7_7txi3")
 SmallButton/base_type = &"Button"
 SmallButton/font_sizes/font_size = 17
 SmallButton/styles/disabled = ExtResource("5_yh0gm")
