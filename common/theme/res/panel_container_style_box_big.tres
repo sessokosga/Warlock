@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dibi3nuql1b4e"]
+
+[ext_resource type="Texture2D" uid="uid://b2b1kky33p35t" path="res://assets/images/ui/Ship_Parts/Table.png" id="1_s85a6"]
+
+[resource]
+texture = ExtResource("1_s85a6")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0

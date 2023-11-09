@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://c1u6ldkkjwsgj"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://c1u6ldkkjwsgj"]
 
 [ext_resource type="StyleBox" uid="uid://71bojts14amt" path="res://common/theme/res/btn_style_disabled.tres" id="1_11oan"]
 [ext_resource type="StyleBox" uid="uid://dfgiwtl5n0dr6" path="res://common/theme/res/btn_style_normal.tres" id="1_chgb1"]
 [ext_resource type="FontFile" uid="uid://d8h3kuhtd4l1" path="res://assets/fonts/ethnocentric rg.otf" id="2_efda0"]
 [ext_resource type="StyleBox" uid="uid://lliui0cl2q1t" path="res://common/theme/res/btn_style_click.tres" id="2_f6lse"]
+[ext_resource type="StyleBox" uid="uid://dibi3nuql1b4e" path="res://common/theme/res/panel_container_style_box_big.tres" id="4_88asx"]
 [ext_resource type="StyleBox" uid="uid://chp03o4tdob2n" path="res://common/theme/res/btn_style_disabled_small.tres" id="5_yh0gm"]
 [ext_resource type="StyleBox" uid="uid://2vrhbwjwi16d" path="res://common/theme/res/btn_style_click_small.tres" id="6_u0n1f"]
 [ext_resource type="StyleBox" uid="uid://dih06c8s40htt" path="res://common/theme/res/panel_container_style_box.tres" id="7_7txi3"]
@@ -76,7 +77,9 @@ BigButton/styles/focus = SubResource("StyleBoxFlat_fp1dm")
 BigButton/styles/hover = ExtResource("2_f6lse")
 BigButton/styles/normal = ExtResource("1_chgb1")
 BigButton/styles/pressed = ExtResource("2_f6lse")
-Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+BigPanelContainer/base_type = &"PanelContainer"
+BigPanelContainer/styles/panel = ExtResource("4_88asx")
+Button/colors/font_color = Color(0.898039, 0.968627, 0.964706, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)

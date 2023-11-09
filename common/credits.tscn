@@ -32,51 +32,56 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 70
 text = "Warlock"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(600, 400)
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = 127.0
-offset_right = 300.0
+offset_top = 88.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_type_variation = &"BigPanelContainer"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Code" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="Code" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Code : Sesso Kosga"
 horizontal_alignment = 1
 
-[node name="sfx" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="sfx" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "SFX : "
 horizontal_alignment = 1
 
-[node name="UI" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="UI" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "UI : "
 horizontal_alignment = 1
 
-[node name="VoiceOver" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="VoiceOver" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Voice Over : Kenney.nl"
 horizontal_alignment = 1
 
-[node name="CardsImages" type="Label" parent="ScrollContainer/VBoxContainer"]
+[node name="CardsImages" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Cards images : "

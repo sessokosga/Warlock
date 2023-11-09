@@ -76,7 +76,7 @@ func load_minions(parent,show_sample:bool=false)->void:
 	
 	for row :CardData.Warlock.Row in CardData.table_warlock.all.filter(filter_minion):
 		var card = Utilities.load_card(row)
-		card._scale = Vector2(.8,.8)
+		card._scale = Vector2(.7,.7)
 		card.mode = Card.Mode.Full
 		if show_sample == true:
 			var label = add_sample_label(card.sample)
@@ -87,7 +87,7 @@ func load_minions(parent,show_sample:bool=false)->void:
 func load_spells(parent,show_sample:bool=false)->void:
 	for row :CardData.Warlock.Row  in CardData.table_warlock.all.filter(filter_spells):
 		var card = Utilities.load_card(row)
-		card._scale = Vector2(.8,.8)
+		card._scale = Vector2(.7,.7)
 		card.mode = Card.Mode.Full
 		if show_sample == true:
 			var label = add_sample_label(card.sample)
