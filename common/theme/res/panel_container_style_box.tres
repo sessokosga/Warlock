@@ -5,7 +5,7 @@
 [resource]
 texture = ExtResource("1_3vai0")
 texture_margin_left = 8.0
-texture_margin_top = 8.0
+texture_margin_top = 7.0
 texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 axis_stretch_horizontal = 2

@@ -1,4 +1,3 @@
-@tool
 extends  Control
 class_name Card 
 
@@ -33,16 +32,17 @@ enum Mode { Full, Field, Hero}
 	set(value):
 		match value:
 			Mode.Full:
-				$FullMode.show()
+				$"%FullMode".show()
 				$FieldMode.hide()
-				size = $FullMode.size
-				scale = $FullMode.scale
+				size = $"%FullMode".size
+				scale = $"%FullMode".scale
 			_:
-				$FullMode.hide()
+				$"%FullMode".hide()
 				$FieldMode.show()
 				size = $FieldMode.size
 				scale = $FieldMode.scale
 		mode  = value
+		update_size()
 
 var timer : float
 var mana:int:
@@ -105,14 +105,16 @@ var back:String:
 		$"%Back".texture = load(file_name )
 		back = file_name
 
-@export var _scale : Vector2: 
+var _scale : Vector2: 
 	get:
+		if _scale <= Vector2.ZERO:
+			_scale = Vector2.ONE
 		return _scale
 	set(value):
 		scale = value
 		_scale = value
 		custom_minimum_size = size *value 
-		$FullMode.scale = value
+		$"%FullMode".scale = value
 		update_size()
 			
 
@@ -219,8 +221,8 @@ func update_size():
 		
 	else:
 		pivot_offset = Vector2(0,0)
-		custom_minimum_size = $FullMode.size* _scale
-		size =  $FullMode.size* _scale
+		custom_minimum_size = $"%FullMode".size* _scale
+		size =  $"%FullMode".size* _scale
 	pivot_offset = size / 2
 	
 
@@ -232,8 +234,8 @@ func get_profile_texture()->Texture2D:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if mode == Mode.Full:
-		_scale = Vector2(1,1)
+	#if mode == Mode.Full:
+	#	_scale = Vector2(1,1)
 	update_size()
 	pass
 	

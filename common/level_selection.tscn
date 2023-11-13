@@ -178,16 +178,18 @@ theme_override_constants/v_separation = 20
 alignment = 1
 
 [node name="DeckNode" parent="MarginContainer/OpponentChoice/VBoxContainer/PanelContainer2/ScrollContainer/OpponentList" instance=ExtResource("4_q5fyv")]
+visible = false
 layout_mode = 2
-id = &"Deck123"
+id = &"Deck2028"
 title = "Demonic Bargain"
 
 [node name="Profile" parent="MarginContainer/OpponentChoice/VBoxContainer/PanelContainer2/ScrollContainer/OpponentList/DeckNode" index="0"]
 texture = ExtResource("5_ftm28")
 
 [node name="DeckNode2" parent="MarginContainer/OpponentChoice/VBoxContainer/PanelContainer2/ScrollContainer/OpponentList" instance=ExtResource("4_q5fyv")]
+visible = false
 layout_mode = 2
-id = &"Deck3212"
+id = &"Deck_2548"
 title = "Radiant Crusader"
 
 [node name="ChoosenDeck" type="VBoxContainer" parent="MarginContainer/OpponentChoice"]

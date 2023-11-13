@@ -25,9 +25,9 @@ offset_bottom = 416.0
 pivot_offset = Vector2(150, 208)
 theme = ExtResource("1_kib8f")
 script = ExtResource("2_dndha")
-_scale = Vector2(1, 1)
 
 [node name="FullMode" type="Control" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 416)
 layout_mode = 1
 anchors_preset = 15

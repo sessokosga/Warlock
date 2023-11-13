@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4x453hq8a26i"]
 
 [ext_resource type="Script" path="res://common/gameboard.gd" id="1_wgxgu"]
-[ext_resource type="PackedScene" uid="uid://b3168kgre3467" path="res://addons/ccg_tools/scenes/card.tscn" id="3_4n667"]
 [ext_resource type="PackedScene" uid="uid://ds2w76ty8pjis" path="res://common/back.tscn" id="3_pjh5d"]
 [ext_resource type="PackedScene" uid="uid://ccug2dsgo3vpl" path="res://addons/ccg_tools/scenes/hand.tscn" id="4_0nn2k"]
 [ext_resource type="PackedScene" uid="uid://c276jum1r5rh4" path="res://common/bg.tscn" id="4_8ccbc"]
 [ext_resource type="Texture2D" uid="uid://dkfauxw568bgm" path="res://assets/images/ui/Pause/Hangar_BTN.png" id="5_xsmka"]
+[ext_resource type="Texture2D" uid="uid://c50paqeogjqdt" path="res://assets/images/ui/You_Lose/Star_02.png" id="6_unutp"]
 
 [node name="Gameboard" type="Control"]
 layout_mode = 3
@@ -52,36 +52,6 @@ offset_right = 1280.0
 offset_bottom = 344.0
 alignment = 1
 
-[node name="Card" parent="Opponent/OppTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(359, 224)
-
-[node name="Card2" parent="Opponent/OppTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(472, 224)
-
-[node name="Card3" parent="Opponent/OppTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(585, 224)
-
-[node name="Card4" parent="Opponent/OppTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(698, 224)
-
-[node name="Card5" parent="Opponent/OppTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(811, 224)
-
 [node name="OppHand" parent="Opponent" instance=ExtResource("4_0nn2k")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -90,69 +60,6 @@ offset_right = -1280.0
 offset_bottom = 69.0
 type = 1
 
-[node name="Card22" parent="Opponent/OppHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 376.0
-offset_top = -245.0
-offset_right = 586.0
-offset_bottom = 46.2
-rotation = 0.20944
-scale = Vector2(0.7, -0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(387.916, 54.0113)
-_scale = Vector2(0.7, 0.7)
-rota = 12.0
-
-[node name="Card24" parent="Opponent/OppHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 456.0
-offset_top = -226.209
-offset_right = 666.0
-offset_bottom = 64.9907
-rotation = 0.10472
-scale = Vector2(0.7, -0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(477.249, 82.0695)
-_scale = Vector2(0.7, 0.7)
-rota = 6.0
-
-[node name="Card26" parent="Opponent/OppHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 536.0
-offset_top = -210.0
-offset_right = 746.0
-offset_bottom = 81.2
-scale = Vector2(0.7, -0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(567.5, 106.52)
-_scale = Vector2(0.7, 0.7)
-
-[node name="Card27" parent="Opponent/OppHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 616.0
-offset_top = -221.834
-offset_right = 826.0
-offset_bottom = 69.3656
-rotation = -0.10472
-scale = Vector2(0.7, -0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(658.556, 101.81)
-_scale = Vector2(0.7, 0.7)
-rota = -6.0
-
-[node name="Card28" parent="Opponent/OppHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 696.0
-offset_top = -245.0
-offset_right = 906.0
-offset_bottom = 46.2
-rotation = -0.20944
-scale = Vector2(0.7, -0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(750.297, 84.5743)
-_scale = Vector2(0.7, 0.7)
-rota = -12.0
-
 [node name="OppHero" type="HBoxContainer" parent="Opponent"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -160,12 +67,6 @@ offset_top = 84.0
 offset_right = 1280.0
 offset_bottom = 318.0
 alignment = 1
-
-[node name="Card" parent="Opponent/OppHero" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 2
-pos = Vector2(585, 84)
 
 [node name="Player" type="Control" parent="."]
 unique_name_in_owner = true
@@ -183,36 +84,6 @@ offset_right = 1280.0
 offset_bottom = 518.0
 alignment = 1
 
-[node name="Card" parent="Player/PlayerTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(359, 402)
-
-[node name="Card2" parent="Player/PlayerTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(472, 402)
-
-[node name="Card3" parent="Player/PlayerTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(585, 402)
-
-[node name="Card4" parent="Player/PlayerTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(698, 402)
-
-[node name="Card5" parent="Player/PlayerTabletop" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 1
-pos = Vector2(811, 402)
-
 [node name="PlayerHero" type="HBoxContainer" parent="Player"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -221,79 +92,13 @@ offset_right = 1280.0
 offset_bottom = 740.0
 alignment = 1
 
-[node name="Card" parent="Player/PlayerHero" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(109, 115)
-layout_mode = 2
-mode = 2
-pos = Vector2(585, 510)
-
 [node name="PlayerHand" parent="Player" instance=ExtResource("4_0nn2k")]
+unique_name_in_owner = true
+z_index = -1
 layout_mode = 1
 offset_top = 574.0
 offset_right = -1280.0
 offset_bottom = 574.0
-
-[node name="Card22" parent="Player/PlayerHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 376.0
-offset_top = 35.0
-offset_right = 586.0
-offset_bottom = 326.2
-rotation = -0.20944
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(387.916, 674.189)
-_scale = Vector2(0.7, 0.7)
-rota = -12.0
-
-[node name="Card23" parent="Player/PlayerHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 456.0
-offset_top = 16.2094
-offset_right = 666.0
-offset_bottom = 307.409
-rotation = -0.10472
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(477.249, 646.131)
-_scale = Vector2(0.7, 0.7)
-rota = -6.0
-
-[node name="Card24" parent="Player/PlayerHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 536.0
-offset_right = 746.0
-offset_bottom = 291.2
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(567.5, 621.68)
-_scale = Vector2(0.7, 0.7)
-
-[node name="Card26" parent="Player/PlayerHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 616.0
-offset_top = 11.8344
-offset_right = 826.0
-offset_bottom = 303.034
-rotation = 0.10472
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(658.556, 626.39)
-_scale = Vector2(0.7, 0.7)
-rota = 6.0
-
-[node name="Card27" parent="Player/PlayerHand" instance=ExtResource("3_4n667")]
-custom_minimum_size = Vector2(210, 291.2)
-offset_left = 696.0
-offset_top = 35.0
-offset_right = 906.0
-offset_bottom = 326.2
-rotation = 0.20944
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(105, 145.6)
-pos = Vector2(750.297, 643.626)
-_scale = Vector2(0.7, 0.7)
-rota = 12.0
 
 [node name="GameboardUI" type="CanvasLayer" parent="."]
 
@@ -376,6 +181,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Name" type="PanelContainer" parent="GameboardUI/VBoxContainer/Player"]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 236.0
 offset_right = 211.0
@@ -389,6 +195,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Mana" type="PanelContainer" parent="GameboardUI/VBoxContainer/Player"]
+layout_mode = 0
 offset_left = 880.0
 offset_top = 234.0
 offset_right = 955.0
@@ -405,12 +212,36 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 963.0
 offset_top = 234.0
-offset_right = 1217.0
+offset_right = 1226.0
 offset_bottom = 271.0
 
 [node name="ManaDiamonds" type="HFlowContainer" parent="GameboardUI/VBoxContainer/Player/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameboardUI/VBoxContainer/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="GameboardUI/VBoxContainer/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="GameboardUI/VBoxContainer/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="GameboardUI/VBoxContainer/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
 
 [node name="DeckImage" type="Control" parent="GameboardUI/VBoxContainer/Player"]
 clip_contents = true

@@ -2,6 +2,7 @@ extends Control
 
 @onready var deck_choice : HBoxContainer = $"%DeckChoice"
 @onready var deck_list : FlowContainer = $"%DeckList"
+@onready var opp_list : FlowContainer = $"%OpponentList"
 @onready var selected_deck_texture :TextureRect  = $"%SelectedDeckTexture"
 @onready var selected_opp_texture :TextureRect  = $"%SelectedOppTexture"
 @onready var lab_selected_deck_name : Label = $"%SelectedDeckName"
@@ -35,11 +36,24 @@ func load_decks()->void:
 		deck_node.pressed.connect(_on_deck_pressed)
 		deck_list.add_child(deck_node)
 
+func load_opp_decks()->void:
+	var decks = Utilities.load_decks_instances_hero_only(true)
+	for deck in decks:
+		var deck_node = DeckNode.get_instance()
+		deck_node.set_profile(deck.hero.get_profile_texture())
+		deck_node.title = deck.title
+		deck_node.id = deck.id
+		deck_node.pressed.connect(_on_opponent_pressed)
+		opp_list.add_child(deck_node)
+
+
+
 func _ready() -> void:
 	curr_screen_state = ScreenState.DeckChoice
 	deck_choice.show()
 	opponent_choise.hide()
 	load_decks()
+	load_opp_decks()
 	curr_screen_state = ScreenState.DeckChoice
 	pass
 
