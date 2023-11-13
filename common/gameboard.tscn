@@ -261,6 +261,7 @@ stretch_mode = 4
 
 [node name="Victory" type="Control" parent="Interface"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,7 +280,9 @@ text = "You Won !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="Interface"]
+[node name="Failure" type="Control" parent="Interface"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,10 +290,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buttons" type="HBoxContainer" parent="Interface/Control"]
+[node name="Label" type="Label" parent="Interface/Failure"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 255.0
+grow_horizontal = 2
+theme_type_variation = &"GiantLabel"
+text = "You Loose !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Surrender" type="Control" parent="Interface"]
 unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Interface/Surrender"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 255.0
+grow_horizontal = 2
+theme_type_variation = &"GiantLabel"
+text = "You Surrendered !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause" type="Control" parent="Interface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Interface/Pause"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 255.0
+grow_horizontal = 2
+theme_type_variation = &"GiantLabel"
+text = "pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Pause"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -275.0
+offset_bottom = -241.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Resume" parent="Interface/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
+layout_mode = 2
+text = "resume"
+icon = null
+alignment = 1
+
+[node name="Menu" parent="Interface/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
+layout_mode = 2
+text = "Menu"
+icon = null
+alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Interface"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -302,11 +383,11 @@ grow_vertical = 0
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Back" parent="Interface/Control/Buttons" instance=ExtResource("3_pjh5d")]
+[node name="PlayAgain" parent="Interface/Buttons" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "play again"
 
-[node name="Back2" parent="Interface/Control/Buttons" instance=ExtResource("3_pjh5d")]
+[node name="Menu" parent="Interface/Buttons" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "menu"
 icon = null
@@ -314,5 +395,7 @@ alignment = 1
 
 [node name="BG" parent="." instance=ExtResource("4_8ccbc")]
 
-[connection signal="pressed" from="Interface/Control/Buttons/Back" to="." method="_on_back_pressed"]
-[connection signal="was_pressed" from="Interface/Control/Buttons/Back2" to="." method="_on_menu_pressed"]
+[connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Resume" to="." method="_on_resume_was_pressed"]
+[connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Interface/Buttons/PlayAgain" to="." method="_on_back_pressed"]
+[connection signal="was_pressed" from="Interface/Buttons/Menu" to="." method="_on_menu_pressed"]
