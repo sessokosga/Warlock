@@ -4,9 +4,9 @@ extends Control
 
 class_name Hand
 
-const CARD_FAN_SPACING = [0,40,80,120,160,200] # last
-const CARD_FAN_ROTATION = [0,2,5,12,12,15] # last
-const CARD_FAN_HEIGHT = [0,10,15,25,35,40] # last
+const CARD_FAN_SPACING = [0,40,80,120,160,200] 
+const CARD_FAN_ROTATION = [0,2,5,12,12,15] 
+const CARD_FAN_HEIGHT = [0,10,15,25,35,40] 
 
 @export var curve_rotation : Curve
 @export var curve_spacing : Curve
@@ -47,10 +47,10 @@ func fan():
 		else:
 			idx=CARD_FAN_SPACING.size()-1
 		width=curve_spacing.sample(card_ratio) * CARD_FAN_SPACING[idx]
-		card.global_position.x = (screen_size.x - card.size.x * card.scale.x*2)/2.5 + width
+		var card_size = card.size.x * card.scale.x*1.4
+		card.global_position.x = (screen_size.x - card_size)/2 + width 
 		if type == HandType.Opponent:
 			card.position.y = -210
-			card.position += curve_height.sample(card_ratio)* 40 *Vector2.DOWN
 			card.position += curve_height.sample(card_ratio)* CARD_FAN_HEIGHT[idx] *Vector2.DOWN
 			card.rotation = curve_rotation.sample(card_ratio)*deg_to_rad(CARD_FAN_ROTATION[idx])
 			card.scale.y = - abs(card.scale.y)

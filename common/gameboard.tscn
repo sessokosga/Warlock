@@ -84,65 +84,88 @@ pos = Vector2(46, 249)
 [node name="Hand" parent="Placeholders/VBoxContainer/Control" instance=ExtResource("4_0nn2k")]
 layout_mode = 1
 offset_top = 498.0
+offset_right = -1280.0
 offset_bottom = 498.0
 
-[node name="Card" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 106.4
+[node name="Card13" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 273.0
 offset_top = 40.0
-offset_right = 406.4
+offset_right = 573.0
 offset_bottom = 456.0
 rotation = -0.261799
-pos = Vector2(57.6768, 583.91)
+pos = Vector2(224.277, 583.91)
 rota = -15.0
 
-[node name="Card2" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 173.067
-offset_top = 24.9185
-offset_right = 473.067
-offset_bottom = 440.919
-rotation = -0.174533
-pos = Vector2(139.227, 552.126)
-rota = -10.0
+[node name="Card14" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 323.0
+offset_top = 28.3406
+offset_right = 623.0
+offset_bottom = 444.341
+rotation = -0.19635
+pos = Vector2(285.303, 559.601)
+rota = -11.25
 
-[node name="Card7" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 239.733
-offset_top = 12.4593
-offset_right = 539.733
-offset_bottom = 428.459
-rotation = -0.0872664
-pos = Vector2(222.176, 524.324)
-rota = -5.0
+[node name="Card15" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 373.0
+offset_top = 18.525
+offset_right = 673.0
+offset_bottom = 434.525
+rotation = -0.1309
+pos = Vector2(347.134, 537.883)
+rota = -7.5
 
-[node name="Card3" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 306.4
-offset_right = 606.4
-pos = Vector2(306.4, 498)
+[node name="Card16" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 423.0
+offset_top = 9.44687
+offset_right = 723.0
+offset_bottom = 425.447
+rotation = -0.0654498
+pos = Vector2(409.717, 517.703)
+rota = -3.75
 
-[node name="Card4" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 373.067
-offset_top = 6.53333
-offset_right = 673.067
-offset_bottom = 422.533
-rotation = 0.0872665
-pos = Vector2(391.766, 492.251)
-rota = 5.0
+[node name="Card17" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 473.0
+offset_right = 773.0
+pos = Vector2(473, 498)
 
-[node name="Card5" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 439.733
-offset_top = 21.9556
-offset_right = 739.733
-offset_bottom = 437.956
-rotation = 0.174533
-pos = Vector2(478.131, 497.068)
-rota = 10.0
+[node name="Card18" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 523.0
+offset_top = 3.82187
+offset_right = 823.0
+offset_bottom = 419.822
+rotation = 0.0654498
+pos = Vector2(536.925, 492.457)
+rota = 3.75
 
-[node name="Card6" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
-offset_left = 506.4
+[node name="Card19" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+custom_minimum_size = Vector2(300, 416)
+offset_left = 573.0
+offset_top = 13.525
+offset_right = 873.0
+offset_bottom = 429.525
+rotation = 0.1309
+pivot_offset = Vector2(150, 208)
+pos = Vector2(601.433, 493.726)
+rota = 7.5
+
+[node name="Card20" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+offset_left = 623.0
+offset_top = 26.4656
+offset_right = 923.0
+offset_bottom = 442.466
+rotation = 0.19635
+pos = Vector2(666.461, 499.199)
+rota = 11.25
+
+[node name="Card21" parent="Placeholders/VBoxContainer/Control/Hand" instance=ExtResource("3_4n667")]
+custom_minimum_size = Vector2(300, 416)
+offset_left = 673.0
 offset_top = 40.0
-offset_right = 806.4
+offset_right = 973.0
 offset_bottom = 456.0
 rotation = 0.261799
-pos = Vector2(565.345, 506.265)
+pivot_offset = Vector2(150, 208)
+pos = Vector2(731.945, 506.265)
 rota = 15.0
 
 [node name="BG" parent="." instance=ExtResource("4_8ccbc")]
