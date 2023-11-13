@@ -11,6 +11,22 @@ extends Control
 var player_deck :Deck
 var opp_deck :Deck
 
+enum GameState {Victory, Failure, Surrender, Playing, Paused}
+var game_state : GameState:
+	set(state):
+		match state:
+			GameState.Victory:
+				pass
+			GameState.Failure:
+				pass
+			GameState.Surrender:
+				pass
+			GameState.Playing:
+				pass
+			GameState.Paused:
+				pass
+			_:
+				pass
 
 func _load_player()->void:
 	var id = Utilities.get_hero_deck()
@@ -33,6 +49,7 @@ func _load_opponent()->void:
 	for i in range (6):
 		var card := opp_deck.cards[i]
 		card._scale = Vector2(.7,.7)
+		card.show_back()
 		opp_hand.add_child(card)
 	for i in range (6):
 		var card := opp_deck.cards[6+i]
@@ -40,10 +57,15 @@ func _load_opponent()->void:
 		opp_table_top.add_child(card)
 
 func _ready() -> void:
-	#Utilities.load_test_data()
+	Utilities.load_test_data()
 	_load_player()
 	_load_opponent()
 
 
 func _on_back_pressed() -> void:
+
 	get_tree().change_scene_to_file("res://common/level_selection.tscn")
+
+
+func _on_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://common/main.tscn")

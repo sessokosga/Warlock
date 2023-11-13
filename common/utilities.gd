@@ -133,5 +133,5 @@ func get_opponent_deck()->StringName:
 
 func load_test_data()->void:
 	set_hero_deck("deck_2409")
-	set_opponent_deck("deck_8728")
+	set_opponent_deck("deck_2548")
 	
