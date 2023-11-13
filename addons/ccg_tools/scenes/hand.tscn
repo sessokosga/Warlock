@@ -16,3 +16,5 @@ script = ExtResource("1_l0hhw")
 curve_rotation = ExtResource("2_fhtw7")
 curve_spacing = ExtResource("3_b3ih3")
 curve_height = ExtResource("4_ac626")
+
+[connection signal="child_order_changed" from="." to="." method="_on_child_order_changed"]

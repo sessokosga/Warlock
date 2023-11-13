@@ -29,7 +29,7 @@ var is_selected := false:
 
 enum Mode { Full, Field, Hero}
 
-var mode : Mode:
+@export var mode : Mode:
 	set(value):
 		match value:
 			Mode.Full:
@@ -37,7 +37,7 @@ var mode : Mode:
 				$FieldMode.hide()
 				size = $FullMode.size
 				scale = $FullMode.scale
-			Mode.Field:
+			_:
 				$FullMode.hide()
 				$FieldMode.show()
 				size = $FieldMode.size
@@ -51,6 +51,13 @@ var mana:int:
 	set(value):
 		$"%Mana".text = str(value)
 		mana = value
+
+@export var pos:Vector2:
+	get:
+		return global_position
+	set(value):
+		global_position = value
+
 
 var title:String :
 	get:
@@ -82,7 +89,7 @@ var health:int:
 		$"%HealthField".text = str(value)
 		health = value
 		
-var description:String :
+@export var description:String :
 	get:
 		return description
 	set(value):
@@ -98,14 +105,22 @@ var back:String:
 		$"%Back".texture = load(file_name )
 		back = file_name
 
-var _scale : Vector2:
+@export var _scale : Vector2: 
 	get:
-		return scale
+		return _scale
 	set(value):
 		scale = value
+		_scale = value
 		custom_minimum_size = size *value 
 		$FullMode.scale = value
 		update_size()
+			
+
+@export var rota:float:
+	get:
+		return rad_to_deg(rotation)
+	set(value):
+		rotation = value
 
 
 var effect : StringName
@@ -197,18 +212,16 @@ func enable_remove(value):
 	$"%Remove".disabled = not value
 
 func update_size():
-	if mode == Mode.Field:
-#		pivot_offset = Vector2(40,40)* _scale
+	if mode == Mode.Field or mode == Mode.Hero:
 		pivot_offset = Vector2(0,0)
 		custom_minimum_size = $FieldMode.size * _scale
 		size =  $FieldMode.size * _scale
 		
 	else:
 		pivot_offset = Vector2(0,0)
-#		pivot_offset = Vector2(150,208)* _scale
 		custom_minimum_size = $FullMode.size* _scale
 		size =  $FullMode.size* _scale
-	
+	pivot_offset = size / 2
 	
 
 static func get_instance():
@@ -219,6 +232,8 @@ func get_profile_texture()->Texture2D:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if mode == Mode.Full:
+		_scale = Vector2(1,1)
 	update_size()
 	pass
 	
