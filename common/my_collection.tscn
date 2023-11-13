@@ -141,7 +141,6 @@ text = "Choose"
 
 [node name="CardsChoice" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -200,6 +199,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 543)
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CardsChoice/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
@@ -277,6 +277,7 @@ This can't be undone"
 
 [node name="Home" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -335,6 +336,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Home/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(240, 0)
