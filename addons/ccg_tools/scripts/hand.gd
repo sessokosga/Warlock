@@ -46,20 +46,17 @@ func fan():
 			idx = hand_count-1
 		else:
 			idx=CARD_FAN_SPACING.size()-1
-		#var card_size = card.size.x *1.4
-		#width=curve_spacing.sample(card_ratio) * card_size
 		width=curve_spacing.sample(card_ratio) * CARD_FAN_SPACING[idx]
 		var card_size = card.size.x * card._scale.x*2
 		card.position.x = (screen_size.x - card_size)/2 + width
 		if type == HandType.Opponent:
-			card.position.y = -200
+			card.position.y = -250
 			#card.position.y = -420
 			card.position += curve_height.sample(card_ratio)* CARD_FAN_HEIGHT[idx] *Vector2.DOWN
 			card.rotation = curve_rotation.sample(card_ratio)*deg_to_rad(CARD_FAN_ROTATION[idx])
 			card.scale.y = - abs(card.scale.y)
 		else:
 			card.position.y = 35
-			#card.position.y = 550
 			card.position += curve_height.sample(card_ratio)*CARD_FAN_HEIGHT[idx]*Vector2.UP
 			card.rotation = curve_rotation.sample(card_ratio)*deg_to_rad(-CARD_FAN_ROTATION[idx])
 			

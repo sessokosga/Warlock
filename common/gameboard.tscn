@@ -55,9 +55,9 @@ type = 1
 [node name="OppHero" type="HBoxContainer" parent="Opponent"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_top = 84.0
+offset_top = 49.0
 offset_right = 1280.0
-offset_bottom = 318.0
+offset_bottom = 283.0
 alignment = 1
 
 [node name="Player" type="Control" parent="."]
@@ -79,9 +79,9 @@ alignment = 1
 [node name="PlayerHero" type="HBoxContainer" parent="Player"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_top = 506.0
+offset_top = 574.0
 offset_right = 1280.0
-offset_bottom = 740.0
+offset_bottom = 808.0
 alignment = 1
 
 [node name="PlayerHand" parent="Player" instance=ExtResource("4_0nn2k")]
@@ -109,10 +109,10 @@ size_flags_vertical = 3
 
 [node name="Name" type="PanelContainer" parent="Interface/UI/Opponent"]
 layout_mode = 2
-offset_left = 40.0
-offset_top = 60.0
-offset_right = 201.0
-offset_bottom = 97.0
+offset_left = 48.0
+offset_top = 6.0
+offset_right = 209.0
+offset_bottom = 43.0
 
 [node name="OppName" type="Label" parent="Interface/UI/Opponent/Name"]
 unique_name_in_owner = true
@@ -123,10 +123,10 @@ vertical_alignment = 1
 
 [node name="Mana" type="PanelContainer" parent="Interface/UI/Opponent"]
 layout_mode = 0
-offset_left = 880.0
-offset_top = 58.0
-offset_right = 955.0
-offset_bottom = 99.0
+offset_left = 888.0
+offset_top = 4.0
+offset_right = 963.0
+offset_bottom = 45.0
 
 [node name="OppManaTurn" type="Label" parent="Interface/UI/Opponent/Mana"]
 unique_name_in_owner = true
@@ -176,9 +176,9 @@ size_flags_vertical = 3
 [node name="Name" type="PanelContainer" parent="Interface/UI/Player"]
 layout_mode = 0
 offset_left = 40.0
-offset_top = 236.0
+offset_top = 264.0
 offset_right = 211.0
-offset_bottom = 273.0
+offset_bottom = 301.0
 
 [node name="PlayerName" type="Label" parent="Interface/UI/Player/Name"]
 unique_name_in_owner = true
@@ -190,9 +190,9 @@ vertical_alignment = 1
 [node name="Mana" type="PanelContainer" parent="Interface/UI/Player"]
 layout_mode = 0
 offset_left = 880.0
-offset_top = 234.0
+offset_top = 262.0
 offset_right = 955.0
-offset_bottom = 271.0
+offset_bottom = 299.0
 
 [node name="PlayerManaTurn" type="Label" parent="Interface/UI/Player/Mana"]
 unique_name_in_owner = true
@@ -204,9 +204,9 @@ vertical_alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="Interface/UI/Player"]
 layout_mode = 0
 offset_left = 963.0
-offset_top = 234.0
+offset_top = 262.0
 offset_right = 1226.0
-offset_bottom = 271.0
+offset_bottom = 299.0
 
 [node name="ManaDiamonds" type="HFlowContainer" parent="Interface/UI/Player/PanelContainer"]
 unique_name_in_owner = true
