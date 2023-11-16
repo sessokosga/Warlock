@@ -14,12 +14,18 @@ extends Control
 @onready var ctlr_surrender : = $"%Surrender"
 @onready var hbc_buttons : = $"%Buttons"
 @onready var ui : = $"%UI"
+@onready var targetting : = $"%Targetting"
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
 
 
-#@onready var  : = $"%"
+
 var player_deck :Deck
 var opp_deck :Deck
+var target := {
+	from = Vector2.ZERO,
+	to = Vector2.ZERO,
+	is_active = false
+}
 
 enum GameState {Victory, Failure, Surrender, Playing, Paused}
 
@@ -130,7 +136,8 @@ func show_card_details():
 		var rect = Rect2(card.position,card.size)
 		if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 			var detail := card.get_full_size()
-			if rect.has_point(get_local_mouse_position() - player_table_top.position):
+			if rect.has_point(get_local_mouse_position() - player_table_top.position) \
+				and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 				detail.show()
 				detail.global_position = Vector2(0,130)
 			else:
@@ -141,19 +148,40 @@ func show_card_details():
 		var rect = Rect2(card.position,card.size)
 		if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 			var detail := card.get_full_size()
-			if rect.has_point(get_local_mouse_position() - opp_table_top.position):
+			if rect.has_point(get_local_mouse_position() - opp_table_top.position) \
+				and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 				detail.show()
 				detail.global_position = Vector2(0,130)
 			else:
 				detail.hide()
 	
+func draw_target():
+	for card:Card in player_table_top.get_children():
+		var rect = Rect2(card.position,card.size)
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
+				if rect.has_point(get_local_mouse_position() - player_table_top.position) \
+					and target.is_active == false:
+					target.from = card.global_position + card.size/2
+					target.is_active = true
+		else:
+			target.is_active = false
+			targetting.clear_points()
 
+	if target.is_active:
+		target.to = get_local_mouse_position()
+		var curve = Curve2D.new()
+		curve.add_point(target.from)
+		curve.add_point(target.to,Vector2(0,-150),Vector2(00,00))
+		targetting.points = curve.get_baked_points()
+				
 
 
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
 	handle_card_out_of_hover_in_hand()
 	show_card_details()
+	draw_target()
 	pass
 
 func _on_back_pressed() -> void:
