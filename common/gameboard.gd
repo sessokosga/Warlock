@@ -124,9 +124,36 @@ func handle_card_out_of_hover_in_hand():
 					card.play_animation(Card.Animations.ZoomOut)
 					card.hover_state = Card.HoverState.Out
 
+func show_card_details():
+	# Player cards
+	for card:Card in player_table_top.get_children():
+		var rect = Rect2(card.position,card.size)
+		if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
+			var detail := card.get_full_size()
+			if rect.has_point(get_local_mouse_position() - player_table_top.position):
+				detail.show()
+				detail.global_position = Vector2(0,130)
+			else:
+				detail.hide()
+	
+	# Opponent cards
+	for card:Card in opp_table_top.get_children():
+		var rect = Rect2(card.position,card.size)
+		if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
+			var detail := card.get_full_size()
+			if rect.has_point(get_local_mouse_position() - opp_table_top.position):
+				detail.show()
+				detail.global_position = Vector2(0,130)
+			else:
+				detail.hide()
+	
+
+
+
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
 	handle_card_out_of_hover_in_hand()
+	show_card_details()
 	pass
 
 func _on_back_pressed() -> void:

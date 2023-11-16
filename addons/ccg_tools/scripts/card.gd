@@ -147,6 +147,8 @@ var _scale : Vector2:
 		$"%FullMode".scale = value
 		update_size()
 			
+func get_full_size()->Control:
+	return $"%FullMode"
 
 @export var rota:float:
 	get:
