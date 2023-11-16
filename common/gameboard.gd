@@ -14,6 +14,9 @@ extends Control
 @onready var ctlr_surrender : = $"%Surrender"
 @onready var hbc_buttons : = $"%Buttons"
 @onready var ui : = $"%UI"
+@onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
+
+
 #@onready var  : = $"%"
 var player_deck :Deck
 var opp_deck :Deck
@@ -59,6 +62,7 @@ func _load_player()->void:
 	for i in range (6):
 		var card := player_deck.cards[i]
 		card._scale = Vector2(.7,.7)
+		card.initial_scale = card._scale
 		player_hand.add_child(card)
 	for i in range (6):
 		var card := player_deck.cards[6+i]
@@ -73,6 +77,7 @@ func _load_opponent()->void:
 	for i in range (6):
 		var card := opp_deck.cards[i]
 		card._scale = Vector2(.7,.7)
+		card.initial_scale = card._scale
 		card.show_back()
 		opp_hand.add_child(card)
 	for i in range (6):
@@ -89,6 +94,40 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		game_state = GameState.Paused
+
+func kill_other_active_hovers(exception:Card):
+	for card:Card in player_hand.get_children():
+		if card != exception:
+			if card.scale > card.initial_scale:
+				card.play_animation(Card.Animations.ZoomOut)
+				card.hover_state = Card.HoverState.Out
+
+func handle_card_hover_in_hand():
+	for card:Card in player_hand.get_children():
+		var rect = Rect2(card.position+Vector2(44+40,30),Vector2(84,300))
+		if card.rotation_state == Card.RotationState.Idle and card.moving_state == Card.MovingState.Idle \
+			and card.hover_state == Card.HoverState.Out:
+			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
+				if rect.has_point(get_local_mouse_position() - player_hand.position):
+					if card.scale == card.initial_scale:
+						card.play_animation(Card.Animations.ZoomIn)
+						card.hover_state = Card.HoverState.Entered
+						kill_other_active_hovers(card)
+						
+
+func handle_card_out_of_hover_in_hand():
+	for card:Card in player_hand.get_children():
+		var rect = Rect2(card.position,card.size+Vector2(0,70))
+		if card.hover_state == Card.HoverState.Entered:
+			if rect.has_point(get_local_mouse_position() - player_hand.position) == false:
+				if card.scale > card.initial_scale:
+					card.play_animation(Card.Animations.ZoomOut)
+					card.hover_state = Card.HoverState.Out
+
+func _physics_process(_delta: float) -> void:
+	handle_card_hover_in_hand()
+	handle_card_out_of_hover_in_hand()
+	pass
 
 func _on_back_pressed() -> void:
 

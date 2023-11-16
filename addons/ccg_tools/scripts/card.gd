@@ -1,6 +1,11 @@
 extends  Control
 class_name Card 
 
+enum Animations {ZoomIn, ZoomOut}
+enum RotationState {RotatingIn, RotatingOut,Idle}
+enum MovingState {MovingIn, MovingOut,Idle}
+enum HoverState {Entered, Out}
+
 signal select_box_toggled(card)
 signal add_pressed(card)
 signal remove_pressed(card)
@@ -18,7 +23,28 @@ var is_traveling := false
 var is_going_to_hand := false
 var id:StringName
 
+var rotation_state :RotationState
+var moving_state : MovingState
+var hover_state : HoverState
+var target_rotation := {
+	from=0,
+	to=0
+}
+var target_move := {
+	from = Vector2.ZERO,
+	to = Vector2.ZERO
+}
+var elapsed_time := {
+	rotation = 0,
+	move = 0
+}
+var speed := {
+	rotation = 10,
+	move = 4
+}
+
 @onready var select_box := $"%SelectBox"
+@onready var animation_player := $AnimationPlayer
 
 
 var is_selected := false:
@@ -80,7 +106,11 @@ var attack:int:
 		$"%Attack".text = str(value)
 		$"%AttackField".text = str(value)
 		attack = value
-		
+
+var full_mode_scale:Vector2:
+	get:
+		return $"%FullMode".scale
+
 var health:int:
 	get:
 		return health
@@ -213,6 +243,30 @@ func enable_add(value):
 func enable_remove(value):
 	$"%Remove".disabled = not value
 
+func start_moving():
+	target_move.to = Vector2(position.x, -200)
+	target_move.from = initial_position
+	moving_state = MovingState.MovingIn
+	elapsed_time.move =  0
+
+func reset_move():
+	target_move.from = target_move.to
+	target_move.to = initial_position
+	moving_state = MovingState.MovingOut
+	elapsed_time.move =  0
+
+func start_rotating():
+	target_rotation.to = 0
+	target_rotation.from = initial_rotation
+	rotation_state = RotationState.RotatingIn
+	elapsed_time.rotation =0
+
+func reset_rotation():
+	target_rotation.from = target_rotation.to
+	target_rotation.to = initial_rotation
+	rotation_state = RotationState.RotatingOut
+	elapsed_time.rotation =0
+
 func update_size():
 	if mode == Mode.Field or mode == Mode.Hero:
 		pivot_offset = Vector2(0,0)
@@ -234,14 +288,49 @@ func get_profile_texture()->Texture2D:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#if mode == Mode.Full:
-	#	_scale = Vector2(1,1)
 	update_size()
+	rotation_state = RotationState.Idle
+	moving_state = MovingState.Idle
+	hover_state = HoverState.Out
 	pass
+
+func update_moves(delta:float)->void:
+	if moving_state != MovingState.Idle:
+		var progress = elapsed_time.move*speed.move
+		if progress<1:
+			position = target_move.from.lerp(target_move.to,progress)
+		else:
+			moving_state = MovingState.Idle
+		elapsed_time.move += delta
+
+	match moving_state:
+		MovingState.MovingIn:
+			pass
+		MovingState.MovingOut:
+			pass
+		MovingState.Idle:
+			pass
+
+func update_rotation(delta:float)->void:
+	if rotation_state != RotationState.Idle:
+		var progress = elapsed_time.rotation*speed.rotation
+		if progress<1:
+			rotation = lerp_angle(target_rotation.from,target_rotation.to,progress)
+		else:
+			rotation_state = RotationState.Idle
+		elapsed_time.rotation+=delta
+
+	match rotation_state:
+		RotationState.RotatingIn:
+			pass
+		RotationState.RotatingOut:
+			pass
+		RotationState.Idle:
+			pass
 	
-func _physics_process(delta):
-	
-	#update_size()
+func _physics_process(delta:float)->void:
+	update_moves(delta)
+	update_rotation(delta)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -263,3 +352,15 @@ func _on_add_pressed():
 
 func _on_remove_pressed():
 	remove_pressed.emit(self)
+
+func play_animation(anim:Animations)->bool:
+	match anim:
+		Animations.ZoomIn:
+			
+			animation_player.play("zoom_in")
+		Animations.ZoomOut:
+			animation_player.play("zoom_out")
+		_:
+			print("Animation not found")
+			return false
+	return true

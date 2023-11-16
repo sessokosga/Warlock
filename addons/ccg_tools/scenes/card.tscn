@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3168kgre3467"]
+[gd_scene load_steps=18 format=3 uid="uid://b3168kgre3467"]
 
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_kib8f"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
@@ -16,12 +16,160 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w03s"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
 
+[sub_resource type="Animation" id="Animation_yjg7a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_miw6m"]
+resource_name = "zoom_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.7, 0.7), Vector2(0.9, 0.9), Vector2(1.4, 1.4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_moving"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_rotating"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_1dg11"]
+resource_name = "zoom_out"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.4, 1.4), Vector2(1.1, 1.1), Vector2(0.7, 0.7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_move"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_rotation"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebe"]
+_data = {
+"RESET": SubResource("Animation_yjg7a"),
+"zoom_in": SubResource("Animation_miw6m"),
+"zoom_out": SubResource("Animation_1dg11")
+}
+
 [node name="Card" type="Control"]
 custom_minimum_size = Vector2(300, 416)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 416.0
+offset_left = -44.0
+offset_top = -62.0
+offset_right = 256.0
+offset_bottom = 354.0
 pivot_offset = Vector2(150, 208)
 theme = ExtResource("1_kib8f")
 script = ExtResource("2_dndha")
@@ -331,6 +479,11 @@ theme_override_fonts/font = ExtResource("11_4ahwq")
 theme_override_font_sizes/font_size = 23
 text = "2"
 horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o6ebe")
+}
 
 [connection signal="pressed" from="FullMode/AddOrRemove/Remove" to="." method="_on_remove_pressed"]
 [connection signal="pressed" from="FullMode/AddOrRemove/Add" to="." method="_on_add_pressed"]
