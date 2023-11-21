@@ -113,9 +113,11 @@ func load_card(row:CardData.Warlock.Row)->Card:
 	if row.type != CardData.Warlock.Type.Minion:
 		card.hide_attack()
 		card.hide_health()
+		card.effect = row.effect
 	else:
 		card.attack = row.attack
 		card.health = row.health
+		
 
 	return card
 

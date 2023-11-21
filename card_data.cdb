@@ -29,6 +29,10 @@
 					"name": "mana"
 				},
 				{
+					"typeStr": "5:KillRandomOpp,Add1AttackToCards,Remove1AttackToOpp,Add2Health,Add2Attack,Rem1HealthToOppCards",
+					"name": "effect"
+				},
+				{
 					"typeStr": "5:Help_Me,Harm_Opponent",
 					"name": "effect_on_actor",
 					"opt": true
@@ -76,7 +80,8 @@
 					"profile": "assets/images/cards/profiles/Neutral_4.png",
 					"effect_on_actor": 1,
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "ShadowBolt",
@@ -91,7 +96,8 @@
 					"profile": "assets/images/cards/profiles/Warlock_2.png",
 					"effect_on_actor": 0,
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 1
 				},
 				{
 					"id": "GoblinJunk",
@@ -106,7 +112,8 @@
 					"profile": "assets/images/cards/profiles/Neutral_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
 					"effect_on_actor": 1,
-					"sample": 4
+					"sample": 4,
+					"effect": 2
 				},
 				{
 					"id": "Redemption",
@@ -121,7 +128,8 @@
 					"profile": "assets/images/cards/profiles/Paladin_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
 					"effect_on_actor": 0,
-					"sample": 4
+					"sample": 4,
+					"effect": 3
 				},
 				{
 					"id": "DenofShadow",
@@ -131,12 +139,13 @@
 					"decoration": "assets/images/cards/decoration_spell.png",
 					"mana": 1,
 					"attack": 0,
-					"description": "tr(Add +2 health to a random card of mine#)",
+					"description": "tr(Add +2 attack to a random card of mine#)",
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_4.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
 					"effect_on_actor": 0,
-					"sample": 4
+					"sample": 4,
+					"effect": 4
 				},
 				{
 					"id": "AbysalNexus",
@@ -151,7 +160,8 @@
 					"profile": "assets/images/cards/profiles/Warlock_3.png",
 					"emblem": "assets/images/cards/emblem/emblem_2.png",
 					"effect_on_actor": 1,
-					"sample": 4
+					"sample": 4,
+					"effect": 5
 				},
 				{
 					"id": "Gladiator",
@@ -165,7 +175,8 @@
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_1.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Ambush",
@@ -179,7 +190,8 @@
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_3.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Gigant",
@@ -193,7 +205,8 @@
 					"back": "assets/images/cards/backs/Alternate_2.png",
 					"profile": "assets/images/cards/profiles/Neutral_3.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Hammer",
@@ -207,7 +220,8 @@
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/Paladin_3.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Retributor",
@@ -221,7 +235,8 @@
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/Paladin_4.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Nimble",
@@ -235,7 +250,8 @@
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_1.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Sneak",
@@ -249,7 +265,8 @@
 					"back": "assets/images/cards/backs/Alternate_1.png",
 					"profile": "assets/images/cards/profiles/Rogue_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "Summoner",
@@ -263,7 +280,8 @@
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/Warlock_1.png",
 					"emblem": "assets/images/cards/emblem/emblem_4.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "DemonicBargain",
@@ -277,7 +295,8 @@
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/hero_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_1.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				},
 				{
 					"id": "RadiantCrusader",
@@ -291,7 +310,8 @@
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/hero_1.png",
 					"emblem": "assets/images/cards/emblem/emblem_1.png",
-					"sample": 4
+					"sample": 4,
+					"effect": 0
 				}
 			],
 			"separators": [],

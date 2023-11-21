@@ -1,7 +1,7 @@
 extends  Control
 class_name Card 
 
-enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget, Destroy, OnDrag}
+enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget, Destroy, OnDrag,Hurt,Bless}
 enum RotationState {RotatingIn, RotatingOut,Idle}
 enum MovingState {MovingIn, MovingOut,Idle}
 enum HoverState {Entered, Out}
@@ -106,9 +106,12 @@ var attack:int:
 	get:
 		return attack
 	set(value):
-		$"%Attack".text = str(value)
-		$"%AttackField".text = str(value)
 		attack = value
+		if attack <0:
+			attack=0
+		$"%Attack".text = str(attack)
+		$"%AttackField".text = str(attack)
+		
 
 var full_mode_scale:Vector2:
 	get:
@@ -160,7 +163,7 @@ func get_full_size()->Control:
 		rotation = value
 
 
-var effect : StringName
+var effect : CardData.Warlock.Effect
 var type : CardData.Warlock.Type:
 	set(value):
 		type = value
@@ -376,8 +379,11 @@ func play_animation(anim:Animations)->bool:
 			animation_player.stop()
 			animation_player.play("destroy")
 		Animations.OnDrag:
-			
 			animation_player.play("on_drag")
+		Animations.Hurt:
+			animation_player.play("hurt")
+		Animations.Bless:
+			animation_player.play("bless")
 		_:
 			print("Animation not found")
 			return false
