@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3168kgre3467"]
+[gd_scene load_steps=20 format=3 uid="uid://b3168kgre3467"]
 
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_kib8f"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
@@ -155,9 +155,43 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_fowq4"]
+resource_name = "off_target"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_oo2ij"]
+resource_name = "on_target"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebe"]
 _data = {
 "RESET": SubResource("Animation_yjg7a"),
+"off_target": SubResource("Animation_fowq4"),
+"on_target": SubResource("Animation_oo2ij"),
 "zoom_in": SubResource("Animation_miw6m"),
 "zoom_out": SubResource("Animation_1dg11")
 }

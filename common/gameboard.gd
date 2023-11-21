@@ -181,6 +181,25 @@ func draw_target():
 		curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
 		targetting.points = curve.get_baked_points()
 
+func handle_cards_targetted():
+	if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
+		return
+	
+	# Targete on opponent
+	for card:Card in opp_table_top.get_children():
+		var rect = Rect2(card.position,card.size)
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if rect.has_point(get_local_mouse_position() - opp_table_top.position):
+				if card.scale <=Vector2.ONE:
+					card.play_animation(Card.Animations.OnTarget)
+			else:
+				if card.scale > Vector2.ONE:
+					card.play_animation(Card.Animations.OffTarget)
+		else:
+			if card.scale > Vector2.ONE:
+				card.play_animation(Card.Animations.OffTarget)
+	
+
 func clear_target()->void:
 	target.is_active = false
 	targetting.clear_points()
@@ -197,13 +216,12 @@ func find_victim()->void:
 			target.victim = card
 	
 	# clean the targetting if no victim is found
-	if target.victim == null:
-		clear_target()
-	else:
+	if target.victim :
 		apply_damage()
+	clear_target()
 
 func apply_damage()->void:
-	if target.is_active == false:
+	if target.is_active == false or target.offender == target.victim:
 		return
 	var offender :Card = target.offender
 	var victim :Card = target.victim
@@ -217,6 +235,7 @@ func _physics_process(_delta: float) -> void:
 	show_card_details()
 	draw_target()
 	find_victim()
+	handle_cards_targetted()
 	pass
 
 func _on_back_pressed() -> void:

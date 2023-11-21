@@ -1,7 +1,7 @@
 extends  Control
 class_name Card 
 
-enum Animations {ZoomIn, ZoomOut}
+enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget}
 enum RotationState {RotatingIn, RotatingOut,Idle}
 enum MovingState {MovingIn, MovingOut,Idle}
 enum HoverState {Entered, Out}
@@ -361,10 +361,13 @@ func _on_remove_pressed():
 func play_animation(anim:Animations)->bool:
 	match anim:
 		Animations.ZoomIn:
-			
 			animation_player.play("zoom_in")
 		Animations.ZoomOut:
 			animation_player.play("zoom_out")
+		Animations.OnTarget:
+			animation_player.play("on_target")
+		Animations.OffTarget:
+			animation_player.play("off_target")
 		_:
 			print("Animation not found")
 			return false
