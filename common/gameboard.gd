@@ -24,6 +24,8 @@ var opp_deck :Deck
 var target := {
 	from = Vector2.ZERO,
 	to = Vector2.ZERO,
+	victim=null,
+	offender=null,
 	is_active = false
 }
 
@@ -81,13 +83,13 @@ func _load_opponent()->void:
 	opp_deck = Utilities.load_deck_instance(id,true)
 	opp_hero.add_child(opp_deck.hero)
 	for i in range (6):
-		var card := opp_deck.cards[i]
+		var card := opp_deck.spells[i]
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
 		card.show_back()
 		opp_hand.add_child(card)
 	for i in range (6):
-		var card := opp_deck.cards[6+i]
+		var card := opp_deck.minions[i]
 		card.mode = Card.Mode.Field
 		opp_table_top.add_child(card)
 
@@ -162,7 +164,6 @@ func draw_target():
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 				if rect.has_point(get_local_mouse_position() - player_table_top.position) \
 					and target.is_active == false:
-					#target.from = card.global_position + Vector2(card.size.x/2,30)
 					target.is_active = true
 					var pos = card.size/2 - Vector2(0,9)
 					var image :=card.get_profile_texture().get_image()
@@ -170,10 +171,8 @@ func draw_target():
 					var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
 
 					target.from = card.global_position + pos
+					target.offender = card
 					targetting.modulate = color
-		else:
-			target.is_active = false
-			targetting.clear_points()
 
 	if target.is_active:
 		target.to = get_local_mouse_position()
@@ -181,14 +180,43 @@ func draw_target():
 		curve.add_point(target.from)
 		curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
 		targetting.points = curve.get_baked_points()
-				
 
+func clear_target()->void:
+	target.is_active = false
+	targetting.clear_points()
+
+func find_victim()->void:
+	if target.is_active == false or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) \
+		or Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
+		return
+	
+	# Attack on opponent
+	for card:Card in opp_table_top.get_children():
+		var rect = Rect2(card.position,card.size)
+		if rect.has_point(get_local_mouse_position() - opp_table_top.position):
+			target.victim = card
+	
+	# clean the targetting if no victim is found
+	if target.victim == null:
+		clear_target()
+	else:
+		apply_damage()
+
+func apply_damage()->void:
+	if target.is_active == false:
+		return
+	var offender :Card = target.offender
+	var victim :Card = target.victim
+	offender.take_damage(victim.attack)
+	victim.take_damage(offender.attack)
+	clear_target()
 
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
 	handle_card_out_of_hover_in_hand()
 	show_card_details()
 	draw_target()
+	find_victim()
 	pass
 
 func _on_back_pressed() -> void:

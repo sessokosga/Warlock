@@ -330,6 +330,9 @@ func update_rotation(delta:float)->void:
 		RotationState.Idle:
 			pass
 	
+func take_damage(damage:int)->void:
+	health-=damage
+
 func _physics_process(delta:float)->void:
 	update_moves(delta)
 	update_rotation(delta)
