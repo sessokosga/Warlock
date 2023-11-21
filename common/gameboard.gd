@@ -91,19 +91,22 @@ func _load_player()->void:
 	var id = Utilities.get_hero_deck()
 	player_deck = Utilities.load_deck_instance(id)
 	player_hero.add_child(player_deck.hero)
-	for card:Card in player_deck.spells:
+	
+	for i in range (3):
+		var card := player_deck.spells[i]
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
 		player_hand.add_child(card)
-	"""for i in range (6):
-		var card := player_deck.cards[i]
+	for i in range (3):
+		var card := player_deck.minions[i]
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
-		player_hand.add_child(card)"""
-	for i in range (6):
+		player_hand.add_child(card)
+	
+		"""for i in range (6):
 		var card := player_deck.minions[i]
 		card.mode = Card.Mode.Field
-		player_table_top.add_child(card)
+		player_table_top.add_child(card)"""
 	
 	
 func _load_opponent()->void:
@@ -353,23 +356,25 @@ func apply_spell_effect(c:Card,offender_table, victim_table)->void:
 func handle_drag_n_drop():
 	for card:Card in player_hand.get_children():
 		if card.hover_state == Card.HoverState.Entered:
-			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and card.mana <= player_mana:
 				card.drag_state = Card.DragState.On
 				board_state = BoardState.Drag
 				card.global_position = get_global_mouse_position() - card.size/2
 				if card.scale > card.initial_scale:
 					card.play_animation(Card.Animations.OnDrag)
 			else:
-				if card.drag_state == Card.DragState.On:
+				if card.drag_state == Card.DragState.On :
+					card.drag_state = Card.DragState.Off
+					board_state = BoardState.None
+					player_hand.remove_child(card)
+					player_mana -= card.mana
 					if card.type == CardData.Warlock.Type.Minion:
 						player_table_top.add_child(card)
 						card.mode = Card.Mode.Field
 						card._scale = Vector2.ONE
 					elif card.type == CardData.Warlock.Type.Spell:
 						apply_spell_effect(card,player_table_top,opp_table_top)
-					card.drag_state = Card.DragState.Off
-					board_state = BoardState.None
-					player_hand.remove_child(card)
+					
 				
 
 func _physics_process(_delta: float) -> void:
