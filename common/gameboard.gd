@@ -99,7 +99,7 @@ func _load_opponent()->void:
 		opp_table_top.add_child(card)
 
 func _ready() -> void:
-	Utilities.load_test_data()
+	#Utilities.load_test_data()
 	_load_player()
 	_load_opponent()
 	game_state = GameState.Playing
