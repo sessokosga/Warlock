@@ -1,10 +1,11 @@
 extends  Control
 class_name Card 
 
-enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget, Destroy}
+enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget, Destroy, OnDrag}
 enum RotationState {RotatingIn, RotatingOut,Idle}
 enum MovingState {MovingIn, MovingOut,Idle}
 enum HoverState {Entered, Out}
+enum DragState {On, Off}
 
 signal select_box_toggled(card)
 signal add_pressed(card)
@@ -27,6 +28,7 @@ var id:StringName
 var rotation_state :RotationState
 var moving_state : MovingState
 var hover_state : HoverState
+var drag_state :DragState
 var target_rotation := {
 	from=0,
 	to=0
@@ -295,6 +297,7 @@ func _ready():
 	rotation_state = RotationState.Idle
 	moving_state = MovingState.Idle
 	hover_state = HoverState.Out
+	drag_state = DragState.Off
 	pass
 
 func update_moves(delta:float)->void:
@@ -372,6 +375,9 @@ func play_animation(anim:Animations)->bool:
 		Animations.Destroy:
 			animation_player.stop()
 			animation_player.play("destroy")
+		Animations.OnDrag:
+			
+			animation_player.play("on_drag")
 		_:
 			print("Animation not found")
 			return false

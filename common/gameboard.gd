@@ -17,8 +17,10 @@ extends Control
 @onready var targetting : = $"%Targetting"
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
 
+enum BoardState{Drag,None}
 
 
+var board_state:BoardState
 var player_deck :Deck
 var opp_deck :Deck
 var target := {
@@ -74,10 +76,10 @@ func _load_player()->void:
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
 		player_hand.add_child(card)
-	for i in range (6):
-		var card := player_deck.cards[6+i]
-		card.mode = Card.Mode.Field
-		player_table_top.add_child(card)
+	#for i in range (6):
+	#	var card := player_deck.cards[6+i]
+	#	card.mode = Card.Mode.Field
+	#	player_table_top.add_child(card)
 	
 	
 func _load_opponent()->void:
@@ -100,6 +102,7 @@ func _ready() -> void:
 	_load_player()
 	_load_opponent()
 	game_state = GameState.Playing
+	board_state = BoardState.None
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -119,7 +122,7 @@ func handle_card_hover_in_hand():
 			and card.hover_state == Card.HoverState.Out:
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 				if rect.has_point(get_local_mouse_position() - player_hand.position):
-					if card.scale == card.initial_scale:
+					if card.scale == card.initial_scale and card.drag_state == Card.DragState.Off:
 						card.play_animation(Card.Animations.ZoomIn)
 						card.hover_state = Card.HoverState.Entered
 						kill_other_active_hovers(card)
@@ -128,7 +131,7 @@ func handle_card_hover_in_hand():
 func handle_card_out_of_hover_in_hand():
 	for card:Card in player_hand.get_children():
 		var rect = Rect2(card.position,card.size+Vector2(0,70))
-		if card.hover_state == Card.HoverState.Entered:
+		if card.hover_state == Card.HoverState.Entered and card.drag_state == Card.DragState.Off:
 			if rect.has_point(get_local_mouse_position() - player_hand.position) == false:
 				if card.scale > card.initial_scale:
 					card.play_animation(Card.Animations.ZoomOut)
@@ -160,6 +163,9 @@ func show_card_details():
 				detail.hide()
 	
 func draw_target():
+	if board_state != BoardState.None:
+		return
+
 	for card:Card in player_table_top.get_children():
 		var rect = Rect2(card.position,card.size)
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -191,7 +197,7 @@ func handle_cards_targetted():
 	# Target on opponent
 	for card:Card in opp_table_top.get_children():
 		var rect = Rect2(card.position,card.size)
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and target.is_active:
 			if rect.has_point(get_local_mouse_position() - opp_table_top.position):
 				if card.scale <=Vector2.ONE:
 					card.play_animation(Card.Animations.OnTarget)
@@ -253,6 +259,24 @@ func clear_cards()->void:
 			player_table_top.remove_child(card)
 			card.queue_free()
 	
+func handle_drag_n_drop():
+	for card:Card in player_hand.get_children():
+		if card.hover_state == Card.HoverState.Entered:
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				card.drag_state = Card.DragState.On
+				board_state = BoardState.Drag
+				card.global_position = get_global_mouse_position() - card.size/2
+				if card.scale > card.initial_scale:
+					card.play_animation(Card.Animations.OnDrag)
+			else:
+				if card.drag_state == Card.DragState.On:
+					player_hand.remove_child(card)
+					player_table_top.add_child(card)
+					card.mode = Card.Mode.Field
+					card._scale = Vector2.ONE
+					card.drag_state = Card.DragState.Off
+					board_state = BoardState.None
+				
 
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
@@ -262,6 +286,7 @@ func _physics_process(_delta: float) -> void:
 	find_victim()
 	handle_cards_targetted()
 	clear_cards()
+	handle_drag_n_drop()
 
 func _on_back_pressed() -> void:
 
