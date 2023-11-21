@@ -168,14 +168,14 @@ stretch_mode = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/UI"]
 layout_mode = 2
-theme_override_constants/margin_right = 30
+theme_override_constants/margin_right = 10
 
 [node name="Middle" type="HBoxContainer" parent="Interface/UI/MarginContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="Interface/UI/MarginContainer/Middle"]
+[node name="TurnBtn" type="Button" parent="Interface/UI/MarginContainer/Middle"]
 layout_mode = 2
 text = "Turn btn"
 
@@ -241,6 +241,42 @@ texture = ExtResource("6_unutp")
 expand_mode = 2
 
 [node name="TextureRect4" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect10" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+texture = ExtResource("6_unutp")
+expand_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Interface/UI/Player/PanelContainer/ManaDiamonds"]
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
 texture = ExtResource("6_unutp")
@@ -403,6 +439,7 @@ alignment = 1
 
 [node name="BG" parent="." instance=ExtResource("4_8ccbc")]
 
+[connection signal="pressed" from="Interface/UI/MarginContainer/Middle/TurnBtn" to="." method="_on_turn_btn_pressed"]
 [connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Resume" to="." method="_on_resume_was_pressed"]
 [connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Interface/Buttons/PlayAgain" to="." method="_on_back_pressed"]

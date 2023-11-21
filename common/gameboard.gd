@@ -15,11 +15,16 @@ extends Control
 @onready var hbc_buttons : = $"%Buttons"
 @onready var ui : = $"%UI"
 @onready var targetting : = $"%Targetting"
+@onready var player_mana_turn := $"%PlayerManaTurn" 
+@onready var opp_mana_turn := $"%OppManaTurn" 
+@onready var player_mana_diamonds := $"%ManaDiamonds" 
+
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
 
 enum BoardState{Drag,None}
+enum TurnOwnner {Player, Opponent}
 
-
+var turn_owner : TurnOwnner
 var board_state:BoardState
 var player_deck :Deck
 var opp_deck :Deck
@@ -32,6 +37,24 @@ var target := {
 	victim_parent = null,
 	offender_parent = null
 }
+
+var player_mana :int:
+	set(value):
+		player_mana = value
+		update_mana_turn()
+var player_turn : int:
+	set(value):
+		player_turn = value
+		update_mana_turn()
+var opp_mana :int:
+	set(value):
+		opp_mana = value
+		update_mana_turn()
+var opp_turn : int:
+	set(value):
+		opp_turn = value
+		update_mana_turn()
+
 
 enum GameState {Victory, Failure, Surrender, Playing, Paused}
 
@@ -98,13 +121,43 @@ func _load_opponent()->void:
 		card.mode = Card.Mode.Field
 		opp_table_top.add_child(card)
 
+func update_mana_turn()->void:
+	player_mana_turn.text = "%d/%d" % [player_mana,player_turn]
+	opp_mana_turn.text = "%d/%d" % [opp_mana,opp_turn]
+	for i in range(player_mana):
+		var diamond = player_mana_diamonds.get_child(i)
+		diamond.show()
+	
+
+func init_mana_turn()->void:
+	player_mana=0
+	player_turn=0
+	opp_mana=0
+	opp_turn=0
+	for diamond:TextureRect in player_mana_diamonds.get_children():
+		diamond.hide()
+
+func pick_turn_owner()->void:
+	var pick_turn = randi() %1000
+	if pick_turn % 2 == 0 :
+		player_turn = 1
+		player_mana = 1
+		turn_owner = TurnOwnner.Player
+	else:
+		opp_turn = 1
+		opp_mana = 1
+		turn_owner = TurnOwnner.Opponent
+
 func _ready() -> void:
-	#Utilities.load_test_data()
+	Utilities.load_test_data()
 	_load_player()
 	_load_opponent()
+	init_mana_turn()
 	game_state = GameState.Playing
 	board_state = BoardState.None
 	randomize()
+	pick_turn_owner()
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -343,3 +396,20 @@ func _on_resume_was_pressed() -> void:
 	ui.show()
 	player.show()
 	opp.show()
+
+
+func _on_turn_btn_pressed() -> void:
+	match turn_owner:
+		TurnOwnner.Player:
+			if opp_turn < 10:
+				opp_turn +=1
+				opp_mana = opp_turn
+				turn_owner = TurnOwnner.Opponent
+		TurnOwnner.Opponent:
+			if player_turn < 10:
+				player_turn +=1
+				player_mana = player_turn
+				turn_owner = TurnOwnner.Player
+		_:
+			pass
+
