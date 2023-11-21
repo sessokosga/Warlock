@@ -9,7 +9,7 @@ func _ready() -> void:
 	if TranslationServer.get_locale() == "fr":
 		language_btn.select(1)
 	pass 
-
+	
 func _on_language_option_item_selected(index:int) -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	match index:

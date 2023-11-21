@@ -162,8 +162,15 @@ func draw_target():
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 				if rect.has_point(get_local_mouse_position() - player_table_top.position) \
 					and target.is_active == false:
-					target.from = card.global_position + card.size/2
+					#target.from = card.global_position + Vector2(card.size.x/2,30)
 					target.is_active = true
+					var pos = card.size/2 - Vector2(0,9)
+					var image :=card.get_profile_texture().get_image()
+					var ratio = card.size/Vector2( image.get_size())
+					var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
+
+					target.from = card.global_position + pos
+					targetting.modulate = color
 		else:
 			target.is_active = false
 			targetting.clear_points()
@@ -172,7 +179,7 @@ func draw_target():
 		target.to = get_local_mouse_position()
 		var curve = Curve2D.new()
 		curve.add_point(target.from)
-		curve.add_point(target.to,Vector2(0,-150),Vector2(00,00))
+		curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
 		targetting.points = curve.get_baked_points()
 				
 
