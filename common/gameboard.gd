@@ -97,11 +97,13 @@ func _load_player()->void:
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
 		player_hand.add_child(card)
+		player_deck.remove_card(card)
 	for i in range (3):
 		var card := player_deck.minions[i]
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
 		player_hand.add_child(card)
+		player_deck.remove_card(card)
 	
 		"""for i in range (6):
 		var card := player_deck.minions[i]
@@ -410,11 +412,21 @@ func _on_turn_btn_pressed() -> void:
 				opp_turn +=1
 				opp_mana = opp_turn
 				turn_owner = TurnOwnner.Opponent
+				var card:Card = opp_deck.cards.pick_random()
+				card._scale = Vector2(.7,.7)
+				card.initial_scale = card._scale
+				opp_hand.add_child(card)
+				opp_deck.remove_card(card)
 		TurnOwnner.Opponent:
 			if player_turn < 10:
 				player_turn +=1
 				player_mana = player_turn
 				turn_owner = TurnOwnner.Player
+				var card:Card = player_deck.cards.pick_random()
+				card._scale = Vector2(.7,.7)
+				card.initial_scale = card._scale
+				player_hand.add_child(card)
+				player_deck.remove_card(card)
 		_:
 			pass
 
