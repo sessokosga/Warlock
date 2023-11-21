@@ -26,7 +26,9 @@ var target := {
 	to = Vector2.ZERO,
 	victim=null,
 	offender=null,
-	is_active = false
+	is_active = false,
+	victim_parent = null,
+	offender_parent = null
 }
 
 enum GameState {Victory, Failure, Surrender, Playing, Paused}
@@ -172,6 +174,7 @@ func draw_target():
 
 					target.from = card.global_position + pos
 					target.offender = card
+					target.offender_parent = player_table_top
 					targetting.modulate = color
 
 	if target.is_active:
@@ -185,7 +188,7 @@ func handle_cards_targetted():
 	if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
 		return
 	
-	# Targete on opponent
+	# Target on opponent
 	for card:Card in opp_table_top.get_children():
 		var rect = Rect2(card.position,card.size)
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -201,6 +204,8 @@ func handle_cards_targetted():
 	
 
 func clear_target()->void:
+	target.offender = null
+	target.victim = null
 	target.is_active = false
 	targetting.clear_points()
 
@@ -214,6 +219,7 @@ func find_victim()->void:
 		var rect = Rect2(card.position,card.size)
 		if rect.has_point(get_local_mouse_position() - opp_table_top.position):
 			target.victim = card
+			target.victim_parent = opp_table_top
 	
 	# clean the targetting if no victim is found
 	if target.victim :
@@ -225,9 +231,28 @@ func apply_damage()->void:
 		return
 	var offender :Card = target.offender
 	var victim :Card = target.victim
-	offender.take_damage(victim.attack)
+	offender.take_damage(victim.attack) 
 	victim.take_damage(offender.attack)
+	if victim.health<=0:
+		victim.play_animation(Card.Animations.Destroy)
+	if offender.health<=0:
+		offender.play_animation(Card.Animations.Destroy)
+
 	clear_target()
+
+func clear_cards()->void:
+	# clean opponent table top
+	for card:Card in opp_table_top.get_children():
+		if card.can_delete:
+			opp_table_top.remove_child(card)
+			card.queue_free()
+
+	# clean player table top
+	for card:Card in player_table_top.get_children():
+		if card.can_delete:
+			player_table_top.remove_child(card)
+			card.queue_free()
+	
 
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
@@ -236,7 +261,7 @@ func _physics_process(_delta: float) -> void:
 	draw_target()
 	find_victim()
 	handle_cards_targetted()
-	pass
+	clear_cards()
 
 func _on_back_pressed() -> void:
 

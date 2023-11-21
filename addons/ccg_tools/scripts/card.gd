@@ -1,7 +1,7 @@
 extends  Control
 class_name Card 
 
-enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget}
+enum Animations {ZoomIn, ZoomOut, OnTarget, OffTarget, Destroy}
 enum RotationState {RotatingIn, RotatingOut,Idle}
 enum MovingState {MovingIn, MovingOut,Idle}
 enum HoverState {Entered, Out}
@@ -15,6 +15,7 @@ var initial_position:Vector2
 var initial_scale:Vector2
 var initial_rotation:float
 var initial_z_index:int
+@export var can_delete := false
 var is_dragged := false
 var is_hovered := false
 var is_dropped := false
@@ -368,6 +369,9 @@ func play_animation(anim:Animations)->bool:
 			animation_player.play("on_target")
 		Animations.OffTarget:
 			animation_player.play("off_target")
+		Animations.Destroy:
+			animation_player.stop()
+			animation_player.play("destroy")
 		_:
 			print("Animation not found")
 			return false
