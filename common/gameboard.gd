@@ -230,7 +230,7 @@ func kill_other_active_hovers(exception:Card):
 
 func handle_card_hover_in_hand():
 	for card:Card in player_hand.get_children():
-		var rect = Rect2(card.position+Vector2(44+40,30),Vector2(44,300))
+		var rect = Rect2(card.position+Vector2(44+40,30),Vector2(64,300))
 		if card.rotation_state == Card.RotationState.Idle and card.moving_state == Card.MovingState.Idle \
 			and card.hover_state == Card.HoverState.Out:
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):

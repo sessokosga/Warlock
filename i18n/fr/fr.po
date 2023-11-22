@@ -122,6 +122,10 @@ msgstr "Enlève -1 d'attaque à une carte ennemi"
 
 #: card_data.gd
 msgid "Add +2 health to a random card of mine"
+msgstr "Ajoute +2 de vie à une de mes cartes"
+
+#: card_data.gd
+msgid "Add +2 attack to a random card of mine"
 msgstr "Ajoute +2 d'attaque à une de mes cartes"
 
 #: card_data.gd
@@ -167,6 +171,69 @@ msgstr "Nom du Deck"
 #: common/gameboard.tscn
 msgid "Game Board"
 msgstr "Table de jeu"
+
+#: common/gameboard.tscn
+msgid "Opponent"
+msgstr "Adversaire"
+
+#: common/gameboard.tscn
+msgid "End Turn"
+msgstr "Fin de tour"
+
+#: common/gameboard.tscn
+msgid "You"
+msgstr "Vous"
+
+#: common/gameboard.tscn
+msgid "You Won !"
+msgstr "Victoire !"
+
+#: common/gameboard.tscn
+msgid "You Loose !"
+msgstr "Echeck !"
+
+#: common/gameboard.tscn
+msgid "You Surrendered !"
+msgstr "Vous avez abandonné !"
+
+#: common/gameboard.tscn
+msgid "pause"
+msgstr "pause"
+
+#: common/gameboard.tscn
+msgid "OK"
+msgstr "OK"
+
+#: addons/ccg_tools/scripts/card.gd addons/ccg_tools/scenes/card.tscn
+msgid "Count:"
+msgstr "Somme :"
+
+#: addons/ccg_tools/scripts/card.gd addons/ccg_tools/scenes/card.tscn
+msgid "Selected"
+msgstr "Choisi"
+
+#: addons/ccg_tools/scripts/card.gd addons/ccg_tools/scenes/card.tscn
+msgid "Select"
+msgstr "Choisir"
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "- Remove"
+msgstr "- Retirer"
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Count : 0"
+msgstr "Somme : 0"
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "+ Add"
+msgstr "+ Ajouter"
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Revoked"
+msgstr "Rejeté"
+
+#~ msgid "Player"
+#~ msgstr "Jouer"
 
 #~ msgid "Graphics : "
 #~ msgstr "Graphiques : "

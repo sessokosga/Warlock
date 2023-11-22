@@ -252,7 +252,7 @@ func show_checkmark()->void:
 	$"%Checkmark".show()
 	
 func update_count_label(value):
-	$"%CountLabel".text = "Count: %d" % value
+	$"%CountLabel".text = str(tr("Count:") ," %d") % value
 	
 func enable_add(value):
 	$"%Add".disabled = not value

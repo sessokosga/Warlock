@@ -80,10 +80,10 @@ alignment = 1
 
 [node name="PlayerHero" type="HBoxContainer" parent="Player"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(1280, 0)
 layout_mode = 2
 offset_top = 574.0
-offset_right = 1280.0
-offset_bottom = 808.0
+offset_bottom = 574.0
 alignment = 1
 
 [node name="PlayerHand" parent="Player" instance=ExtResource("4_0nn2k")]
@@ -141,7 +141,6 @@ offset_bottom = 45.0
 [node name="OppManaTurn" type="Label" parent="Interface/UI/Opponent/Mana"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "3/4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -177,7 +176,7 @@ alignment = 2
 
 [node name="TurnBtn" type="Button" parent="Interface/UI/MarginContainer/Middle"]
 layout_mode = 2
-text = "Turn btn"
+text = "End Turn"
 
 [node name="Player" type="Control" parent="Interface/UI"]
 layout_mode = 2
@@ -193,7 +192,7 @@ offset_bottom = 301.0
 [node name="PlayerName" type="Label" parent="Interface/UI/Player/Name"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Player"
+text = "You"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -207,7 +206,6 @@ offset_bottom = 299.0
 [node name="PlayerManaTurn" type="Label" parent="Interface/UI/Player/Mana"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "3/4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -439,6 +437,7 @@ alignment = 1
 
 [node name="PickingCards" type="Control" parent="Interface"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

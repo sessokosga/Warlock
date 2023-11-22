@@ -18,6 +18,15 @@
 # res://common/deck_node.tscn
 # res://common/gameboard.gd
 # res://common/gameboard.tscn
+# res://common/back.gd
+# res://common/bg.gd
+# res://common/bg.tscn
+# res://addons/ccg_tools/scripts/card.gd
+# res://addons/ccg_tools/scripts/deck.gd
+# res://addons/ccg_tools/scripts/hand.gd
+# res://addons/ccg_tools/scenes/card.tscn
+# res://addons/ccg_tools/scenes/deck.tscn
+# res://addons/ccg_tools/scenes/hand.tscn
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -140,6 +149,10 @@ msgid "Add +2 health to a random card of mine"
 msgstr ""
 
 #: card_data.gd
+msgid "Add +2 attack to a random card of mine"
+msgstr ""
+
+#: card_data.gd
 msgid "Remove -1 health to all ennemy cards"
 msgstr ""
 
@@ -181,4 +194,67 @@ msgstr ""
 
 #: common/gameboard.tscn
 msgid "Game Board"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "Opponent"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "End Turn"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "You"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "You Won !"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "You Loose !"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "You Surrendered !"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "pause"
+msgstr ""
+
+#: common/gameboard.tscn
+msgid "OK"
+msgstr ""
+
+#: addons/ccg_tools/scripts/card.gd
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Count:"
+msgstr ""
+
+#: addons/ccg_tools/scripts/card.gd
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Selected"
+msgstr ""
+
+#: addons/ccg_tools/scripts/card.gd
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Select"
+msgstr ""
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "- Remove"
+msgstr ""
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Count : 0"
+msgstr ""
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "+ Add"
+msgstr ""
+
+#: addons/ccg_tools/scenes/card.tscn
+msgid "Revoked"
 msgstr ""

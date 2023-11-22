@@ -59,7 +59,8 @@ pause={
 [internationalization]
 
 locale/translations=PackedStringArray("res://i18n/fr/fr.mo")
-locale/translations_pot_files=PackedStringArray("res://common/back.tscn", "res://common/level_selection.gd", "res://common/level_selection.tscn", "res://common/main.gd", "res://common/main.tscn", "res://common/my_collection.gd", "res://common/my_collection.tscn", "res://card_data.gd", "res://common/utilities.gd", "res://common/credits.gd", "res://common/credits.tscn", "res://common/audio_player.gd", "res://common/audio_player.tscn", "res://common/my_label.gd", "res://common/my_label.tscn", "res://common/deck_node.gd", "res://common/deck_node.tscn", "res://common/gameboard.gd", "res://common/gameboard.tscn")
+locale/translations_pot_files=PackedStringArray("res://common/back.tscn", "res://common/level_selection.gd", "res://common/level_selection.tscn", "res://common/main.gd", "res://common/main.tscn", "res://common/my_collection.gd", "res://common/my_collection.tscn", "res://card_data.gd", "res://common/utilities.gd", "res://common/credits.gd", "res://common/credits.tscn", "res://common/audio_player.gd", "res://common/audio_player.tscn", "res://common/my_label.gd", "res://common/my_label.tscn", "res://common/deck_node.gd", "res://common/deck_node.tscn", "res://common/gameboard.gd", "res://common/gameboard.tscn", "res://common/back.gd", "res://common/bg.gd", "res://common/bg.tscn", "res://addons/ccg_tools/scripts/card.gd", "res://addons/ccg_tools/scripts/deck.gd", "res://addons/ccg_tools/scripts/hand.gd", "res://addons/ccg_tools/scenes/card.tscn", "res://addons/ccg_tools/scenes/deck.tscn", "res://addons/ccg_tools/scenes/hand.tscn")
+locale/test="fr"
 
 [rendering]
 
