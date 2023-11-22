@@ -59,7 +59,7 @@ var opp_turn : int:
 		opp_turn = value
 		update_mana_turn()
 
-
+@export var bypass_menu = false
 
 
 var game_state : GameState:
@@ -102,41 +102,53 @@ func _load_player()->void:
 	var id = Utilities.get_hero_deck()
 	player_deck = Utilities.load_deck_instance(id)
 	player_hero.add_child(player_deck.hero)
-	load_starting_cards()
+	if bypass_menu:
+		for i in range (1):
+			var card := player_deck.spells[i]
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
 
-	"""for i in range (3):
-		var card := player_deck.spells[i]
-		card._scale = Vector2(.7,.7)
-		card.initial_scale = card._scale
-		player_hand.add_child(card)
-		player_deck.remove_card(card)
-	for i in range (3):
-		var card := player_deck.minions[i]
-		card._scale = Vector2(.7,.7)
-		card.initial_scale = card._scale
-		player_hand.add_child(card)
-		player_deck.remove_card(card)
-	
-		for i in range (6):
-		var card := player_deck.minions[i]
-		card.mode = Card.Mode.Field
-		player_table_top.add_child(card)"""
+		for i in range (2):
+			var card := player_deck.minions[i]
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
+		
+		#for i in range (6):
+		#	var card := player_deck.minions[i]
+		#	card.mode = Card.Mode.Field
+		#	player_table_top.add_child(card)
+	else:
+		load_starting_cards()
+
 	
 	
 func _load_opponent()->void:
 	var id = Utilities.get_opponent_deck()
 	opp_deck = Utilities.load_deck_instance(id,true)
 	opp_hero.add_child(opp_deck.hero)
-	for i in range (6):
-		var card := opp_deck.spells[i]
-		card._scale = Vector2(.7,.7)
-		card.initial_scale = card._scale
-		card.show_back()
-		opp_hand.add_child(card)
-	for i in range (6):
-		var card := opp_deck.minions[i]
-		card.mode = Card.Mode.Field
-		opp_table_top.add_child(card)
+	if bypass_menu:
+		for i in range (3):
+			var card := opp_deck.spells[i]
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			card.show_back()
+			opp_hand.add_child(card)
+		for i in range (3):
+			var card := opp_deck.minions[i]
+			card.mode = Card.Mode.Field
+			opp_table_top.add_child(card)
+	else:
+		for i in range(3):
+			var card = get_random_card_in_deck(opp_deck,false)
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			card.show_back()
+			opp_hand.add_child(card)
+
 
 func update_mana_turn()->void:
 	player_mana_turn.text = "%d/%d" % [player_mana,player_turn]
@@ -171,28 +183,31 @@ func get_random_card_in_deck(deck:Deck,should_dis_card_revoked=true)->Card:
 	var card:Card = null
 	while found == false and attempts < 40:
 		card = deck.cards.pick_random()
-		deck.remove_card(card)
-		card._scale = Vector2(.9,.9)
-		card.initial_scale = card._scale
 		if starting_cards.get_children().has(card) or (card.is_revoked and should_dis_card_revoked):
 			found = false
 			attempts += 1
 		else:
 			found = true
+			deck.remove_card(card)
 	return card
 
 func load_starting_cards()->void:
 	for i in range (3):
 		var card:= get_random_card_in_deck(player_deck)
+		card._scale = Vector2(.9,.9)
+		card.initial_scale = card._scale
 		starting_cards.add_child(card)
 	
 
 func _ready() -> void:
-	Utilities.load_test_data()
+	if bypass_menu:
+		Utilities.load_test_data()
+		game_state = GameState.Playing
+	else:
+		game_state = GameState.StartingCards
 	_load_player()
 	_load_opponent()
 	init_mana_turn()
-	game_state = GameState.StartingCards
 	board_state = BoardState.None
 	randomize()
 	pick_turn_owner()
@@ -215,7 +230,7 @@ func kill_other_active_hovers(exception:Card):
 
 func handle_card_hover_in_hand():
 	for card:Card in player_hand.get_children():
-		var rect = Rect2(card.position+Vector2(44+40,30),Vector2(84,300))
+		var rect = Rect2(card.position+Vector2(44+40,30),Vector2(44,300))
 		if card.rotation_state == Card.RotationState.Idle and card.moving_state == Card.MovingState.Idle \
 			and card.hover_state == Card.HoverState.Out:
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
@@ -462,6 +477,7 @@ func _on_turn_btn_pressed() -> void:
 				var card:Card = opp_deck.cards.pick_random()
 				card._scale = Vector2(.7,.7)
 				card.initial_scale = card._scale
+				card.show_back()
 				opp_hand.add_child(card)
 				opp_deck.remove_card(card)
 		TurnOwnner.Opponent:
@@ -491,6 +507,8 @@ func _on_ok_btn_pressed() -> void:
 		if card.is_revoked:
 			var new_card = get_random_card_in_deck(player_deck)
 			starting_cards.add_child(new_card)
+			card._scale = Vector2(.9,.9)
+			card.initial_scale = card._scale
 			starting_cards.remove_child(card)
 			player_deck.add_card(card)
 			has_revoked = true

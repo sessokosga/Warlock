@@ -1,6 +1,6 @@
 extends Control
 
-var by_pass_menu = true
+@export var by_pass_menu = false
 @onready var language_btn :Button = $"%Language Option"
 
 func _ready() -> void:

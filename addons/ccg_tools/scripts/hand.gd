@@ -4,8 +4,8 @@ extends Control
 
 class_name Hand
 
-const CARD_FAN_SPACING = [0,40,80,120,160,200] 
-const CARD_FAN_ROTATION = [0,2,5,12,12,15] 
+const CARD_FAN_SPACING = [0,55,100,120,160,200] 
+const CARD_FAN_ROTATION = [0,2,3,12,12,15] 
 const CARD_FAN_HEIGHT = [0,10,15,25,35,40] 
 
 @export var curve_rotation : Curve
