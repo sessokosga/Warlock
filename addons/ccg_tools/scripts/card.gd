@@ -19,6 +19,7 @@ var initial_z_index:int
 @export var can_delete := false
 var is_dragged := false
 var is_hovered := false
+
 var is_dropped := false
 var is_queing_for_field := false
 var is_traveling := false
@@ -86,6 +87,14 @@ var mana:int:
 		return global_position
 	set(value):
 		global_position = value
+
+var is_revoked :bool:
+	set(value):
+		is_revoked = value
+		if is_revoked:
+			$"%Revoked".show()
+		else:
+			$"%Revoked".hide()
 
 
 var title:String :
@@ -301,6 +310,7 @@ func _ready():
 	moving_state = MovingState.Idle
 	hover_state = HoverState.Out
 	drag_state = DragState.Off
+	is_revoked = false
 	pass
 
 func update_moves(delta:float)->void:

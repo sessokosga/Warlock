@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b3168kgre3467"]
+[gd_scene load_steps=25 format=3 uid="uid://b3168kgre3467"]
 
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_kib8f"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://s4jditl3moh2" path="res://assets/fonts/BalooChettan2-Bold.ttf" id="11_4ahwq"]
 [ext_resource type="Texture2D" uid="uid://cahy3pv70jf05" path="res://assets/images/icon/checkmark.png" id="12_5n88u"]
 [ext_resource type="Texture2D" uid="uid://buevtshnep34t" path="res://assets/images/cards/card_template/health.png" id="12_ta40q"]
+[ext_resource type="Texture2D" uid="uid://c7tam44jhag1p" path="res://assets/images/icon/cross.png" id="13_xfu7m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w03s"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
@@ -584,6 +585,34 @@ unique_name_in_owner = true
 visible = false
 position = Vector2(65, 70)
 texture = ExtResource("12_5n88u")
+
+[node name="Revoked" type="Control" parent="FullMode"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_right = 40.0
+
+[node name="Cross" type="Sprite2D" parent="FullMode/Revoked"]
+modulate = Color(1, 0, 0.266667, 1)
+position = Vector2(152, 207)
+scale = Vector2(3.82, 3.82)
+texture = ExtResource("13_xfu7m")
+
+[node name="PanelContainer" type="PanelContainer" parent="FullMode/Revoked"]
+modulate = Color(1, 0, 0.411765, 1)
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+offset_left = 94.0
+offset_top = 410.0
+offset_right = 214.0
+offset_bottom = 455.0
+
+[node name="Label" type="Label" parent="FullMode/Revoked/PanelContainer"]
+layout_mode = 2
+text = "Revoked"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FieldMode" type="Control" parent="."]
 visible = false

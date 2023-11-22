@@ -18,11 +18,15 @@ extends Control
 @onready var player_mana_turn := $"%PlayerManaTurn" 
 @onready var opp_mana_turn := $"%OppManaTurn" 
 @onready var player_mana_diamonds := $"%ManaDiamonds" 
+@onready var starting_cards := $"%StartingCards" 
+@onready var picking_cards := $"%PickingCards" 
+@onready var ok_btn := $"%OkBtn" 
 
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
 
 enum BoardState{Drag,None}
 enum TurnOwnner {Player, Opponent}
+enum GameState {Victory, Failure, Surrender, Playing, Paused, StartingCards}
 
 var turn_owner : TurnOwnner
 var board_state:BoardState
@@ -56,7 +60,7 @@ var opp_turn : int:
 		update_mana_turn()
 
 
-enum GameState {Victory, Failure, Surrender, Playing, Paused}
+
 
 var game_state : GameState:
 	set(state):
@@ -68,6 +72,8 @@ var game_state : GameState:
 		ctlr_surrender.hide()
 		player.hide()
 		opp.hide()
+		picking_cards.hide()
+		game_state = state
 		match state:
 			GameState.Victory:
 				hbc_buttons.show()
@@ -82,6 +88,11 @@ var game_state : GameState:
 				ui.show()
 				player.show()
 				opp.show()
+			GameState.StartingCards:
+				ui.show()
+				player.show()
+				opp.show()
+				picking_cards.show()
 			GameState.Paused:
 				ctlr_pause.show()
 			_:
@@ -91,8 +102,9 @@ func _load_player()->void:
 	var id = Utilities.get_hero_deck()
 	player_deck = Utilities.load_deck_instance(id)
 	player_hero.add_child(player_deck.hero)
-	
-	for i in range (3):
+	load_starting_cards()
+
+	"""for i in range (3):
 		var card := player_deck.spells[i]
 		card._scale = Vector2(.7,.7)
 		card.initial_scale = card._scale
@@ -105,7 +117,7 @@ func _load_player()->void:
 		player_hand.add_child(card)
 		player_deck.remove_card(card)
 	
-		"""for i in range (6):
+		for i in range (6):
 		var card := player_deck.minions[i]
 		card.mode = Card.Mode.Field
 		player_table_top.add_child(card)"""
@@ -153,20 +165,46 @@ func pick_turn_owner()->void:
 		opp_mana = 1
 		turn_owner = TurnOwnner.Opponent
 
+func get_random_card_in_deck(deck:Deck,should_dis_card_revoked=true)->Card:
+	var found = false
+	var attempts = 0
+	var card:Card = null
+	while found == false and attempts < 40:
+		card = deck.cards.pick_random()
+		deck.remove_card(card)
+		card._scale = Vector2(.9,.9)
+		card.initial_scale = card._scale
+		if starting_cards.get_children().has(card) or (card.is_revoked and should_dis_card_revoked):
+			found = false
+			attempts += 1
+		else:
+			found = true
+	return card
+
+func load_starting_cards()->void:
+	for i in range (3):
+		var card:= get_random_card_in_deck(player_deck)
+		starting_cards.add_child(card)
+	
+
 func _ready() -> void:
 	Utilities.load_test_data()
 	_load_player()
 	_load_opponent()
 	init_mana_turn()
-	game_state = GameState.Playing
+	game_state = GameState.StartingCards
 	board_state = BoardState.None
 	randomize()
 	pick_turn_owner()
+	
 	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		game_state = GameState.Paused
+	if event.is_action_pressed("left_click"):
+		handle_card_replacement()
+
 
 func kill_other_active_hovers(exception:Card):
 	for card:Card in player_hand.get_children():
@@ -377,7 +415,13 @@ func handle_drag_n_drop():
 					elif card.type == CardData.Warlock.Type.Spell:
 						apply_spell_effect(card,player_table_top,opp_table_top)
 					
-				
+func handle_card_replacement()->void:
+	if game_state != GameState.StartingCards:
+		return
+	for card:Card in starting_cards.get_children():
+		var rect = Rect2(card.position,card.size)
+		if rect.has_point(get_local_mouse_position() - starting_cards.position):
+			card.is_revoked = not card.is_revoked
 
 func _physics_process(_delta: float) -> void:
 	handle_card_hover_in_hand()
@@ -388,6 +432,7 @@ func _physics_process(_delta: float) -> void:
 	handle_cards_targetted()
 	clear_cards()
 	handle_drag_n_drop()
+	
 
 func _on_back_pressed() -> void:
 
@@ -406,6 +451,8 @@ func _on_resume_was_pressed() -> void:
 
 
 func _on_turn_btn_pressed() -> void:
+	if game_state != GameState.Playing:
+		return
 	match turn_owner:
 		TurnOwnner.Player:
 			if opp_turn < 10:
@@ -430,3 +477,33 @@ func _on_turn_btn_pressed() -> void:
 		_:
 			pass
 
+func from_starting_cards_to_hand(card)->void:
+	card._scale = Vector2(0.7,0.7)
+	card.initial_scale = card._scale
+	card.position=Vector2.ZERO
+	starting_cards.remove_child(card)
+	player_hand.add_child(card)
+
+func _on_ok_btn_pressed() -> void:
+	var has_revoked = false
+	# Replace revoked cards
+	for card:Card in starting_cards.get_children():
+		if card.is_revoked:
+			var new_card = get_random_card_in_deck(player_deck)
+			starting_cards.add_child(new_card)
+			starting_cards.remove_child(card)
+			player_deck.add_card(card)
+			has_revoked = true
+	ok_btn.disabled = true
+	if has_revoked:
+		get_tree().create_timer(1).timeout.connect(func ()->void:
+			for card:Card in starting_cards.get_children():
+				if card.is_revoked == false:
+					from_starting_cards_to_hand(card)
+			game_state = GameState.Playing
+		)
+	else:
+		for card:Card in starting_cards.get_children():
+			if card.is_revoked == false:
+				from_starting_cards_to_hand(card)
+		game_state = GameState.Playing
