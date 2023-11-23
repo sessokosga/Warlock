@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bua8v13npwvv3"]
+[gd_scene load_steps=7 format=3 uid="uid://bua8v13npwvv3"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_lq4qw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_pdai7"]
 [ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="3_udp4f"]
 [ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="4_t6ov4"]
+[ext_resource type="PackedScene" uid="uid://buj753jo2gqtf" path="res://ai/conditions/has_mana.tscn" id="5_7oyg4"]
+[ext_resource type="PackedScene" uid="uid://c4f11cy4or2g0" path="res://ai/actions/pick_card.tscn" id="6_5lye8"]
 
 [node name="AI" type="Node"]
 script = ExtResource("1_lq4qw")
@@ -12,5 +14,9 @@ script = ExtResource("1_lq4qw")
 script = ExtResource("2_pdai7")
 
 [node name="HasTurn" parent="SequenceComposite" instance=ExtResource("3_udp4f")]
+
+[node name="HasMana" parent="SequenceComposite" instance=ExtResource("5_7oyg4")]
+
+[node name="PickCard" parent="SequenceComposite" instance=ExtResource("6_5lye8")]
 
 [node name="EndTurn" parent="SequenceComposite" instance=ExtResource("4_t6ov4")]

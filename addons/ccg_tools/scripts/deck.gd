@@ -8,17 +8,9 @@ var hero : Card
 var title : String
 var id :StringName
 var _card_list:Array[Card]
-var cards:Array[Card]:
-	get:
-		return _card_list.filter(is_valid)
-
-var minions : Array[Card] :
-	get:
-		return _card_list.filter(is_a_minion)
-
-var spells : Array[Card]:
-	get:
-		return _card_list.filter(is_a_spell)
+var cards:Array[Card]
+var minions : Array[Card]
+var spells : Array[Card]
 
 func is_a_minion(card:Card):
 	return card.type == CardData.Warlock.Type.Minion and card.is_removed_from_deck == false
@@ -35,6 +27,9 @@ static func get_instance()->Deck:
 func add_card(card:Card):
 	if _card_list.size()<MAX_DECK_SIZE:
 		_card_list.append(card)
+	cards = _card_list.filter(is_valid)
+	spells = _card_list.filter(is_a_spell)
+	minions = _card_list.filter(is_a_minion)
 
 func remove_card(card:Card):
 	card.is_removed_from_deck = true
@@ -42,3 +37,9 @@ func remove_card(card:Card):
 		if ca.id == card.id:
 			_card_list.remove_at(_card_list.find(ca))
 			break"""
+
+func _ready() -> void:
+	_card_list=[]
+	cards=[]
+	minions=[]
+	spells=[]

@@ -185,10 +185,10 @@ func get_random_card_in_deck(deck:Deck,not_in=null,should_dis_card_revoked=true)
 	var attempts = 0
 	var card:Card = null
 	while found == false and attempts < 40:
-		card = deck.cards.pick_random()
+		var count = deck.cards.size()
+		card = deck.cards[randi() % count]
 		if card.is_revoked and should_dis_card_revoked  \
 			or (not_in != null and not_in.get_children().has(card)):
-			found = false
 			attempts += 1
 		else:
 			found = true
@@ -204,6 +204,8 @@ func load_starting_cards()->void:
 	
 func register_data_to_blackboard()->void:
 	blackboard.set_value("has_turn",opp_has_turn)
+	blackboard.set_value("has_mana",opp_has_mana)
+	blackboard.set_value("pick_card",opp_pick_card)
 	blackboard.set_value("end_turn",_on_turn_btn_pressed)
 
 func _ready() -> void:
@@ -387,20 +389,23 @@ func apply_spell_effect(c:Card,offender_table, victim_table)->void:
 				card.attack +=1
 				card.play_animation(Card.Animations.Bless)
 		CardData.Warlock.Effect.Add2Attack:
-			var id = randi() % offender_table.get_child_count()
-			var card = offender_table.get_child(id)
-			card.attack+=2
-			card.play_animation(Card.Animations.Bless)
+			if offender_table.get_child_count() > 0:
+				var id = randi() % offender_table.get_child_count()
+				var card = offender_table.get_child(id)
+				card.attack+=2
+				card.play_animation(Card.Animations.Bless)
 		CardData.Warlock.Effect.Add2Health:
-			var id = randi() % offender_table.get_child_count()
-			var card : Card = offender_table.get_child(id)
-			card.health+=2
-			card.play_animation(Card.Animations.Bless)
+			if offender_table.get_child_count() > 0:
+				var id = randi() % offender_table.get_child_count()
+				var card : Card = offender_table.get_child(id)
+				card.health+=2
+				card.play_animation(Card.Animations.Bless)
 		CardData.Warlock.Effect.KillRandomOpp:
-			var id = randi() % victim_table.get_child_count()
-			var card : Card= victim_table.get_child(id)
-			card.take_damage(card.health)
-			card.play_animation(Card.Animations.Destroy)
+			if victim_table.get_child_count() > 0:
+				var id = randi() % victim_table.get_child_count()
+				var card : Card= victim_table.get_child(id)
+				card.take_damage(card.health)
+				card.play_animation(Card.Animations.Destroy)
 		CardData.Warlock.Effect.Rem1HealthToOppCards:
 			for card:Card in victim_table.get_children():
 				card.health -=1
@@ -409,13 +414,46 @@ func apply_spell_effect(c:Card,offender_table, victim_table)->void:
 				else:
 					card.play_animation(Card.Animations.Hurt)
 		CardData.Warlock.Effect.Remove1AttackToOpp:
-			var id = randi() % victim_table.get_child_count()
-			var card= victim_table.get_child(id)
-			card.attack -=1
-			card.play_animation(Card.Animations.Hurt)
+			if victim_table.get_child_count() > 0:
+				var id = randi() % victim_table.get_child_count()
+				var card= victim_table.get_child(id)
+				card.attack -=1
+				card.play_animation(Card.Animations.Hurt)
 		_:
 			pass
-		
+
+func add_card_to_table_top(card:Card,is_player=true)->Card:
+	var new_card:Card
+	var hand 
+	var table_top
+	var offender_table
+	var victim_table
+	if is_player:
+		hand = player_hand
+		table_top = player_table_top
+		player_mana -= card.mana
+		offender_table = player_table_top
+		victim_table = opp_table_top
+	else:
+		hand = opp_hand
+		table_top = opp_table_top
+		opp_mana -= card.mana
+		offender_table = opp_table_top
+		victim_table = player_table_top
+
+	card.drag_state = Card.DragState.Off
+	board_state = BoardState.None
+	hand.remove_child(card)
+	if card.type == CardData.Warlock.Type.Minion:
+		table_top.add_child(card)
+		new_card = table_top.get_child(table_top.get_child_count()-1)
+		card.mode = Card.Mode.Field
+		card._scale = Vector2.ONE
+	elif card.type == CardData.Warlock.Type.Spell:
+		apply_spell_effect(card,offender_table,victim_table)
+		new_card = card
+	return new_card
+
 func handle_drag_n_drop():
 	for card:Card in player_hand.get_children():
 		if card.hover_state == Card.HoverState.Entered:
@@ -427,16 +465,8 @@ func handle_drag_n_drop():
 					card.play_animation(Card.Animations.OnDrag)
 			else:
 				if card.drag_state == Card.DragState.On :
-					card.drag_state = Card.DragState.Off
-					board_state = BoardState.None
-					player_hand.remove_child(card)
-					player_mana -= card.mana
-					if card.type == CardData.Warlock.Type.Minion:
-						player_table_top.add_child(card)
-						card.mode = Card.Mode.Field
-						card._scale = Vector2.ONE
-					elif card.type == CardData.Warlock.Type.Spell:
-						apply_spell_effect(card,player_table_top,opp_table_top)
+					add_card_to_table_top(card)
+					
 					
 func handle_card_replacement()->void:
 	if game_state != GameState.StartingCards:
@@ -536,3 +566,37 @@ func _on_ok_btn_pressed() -> void:
 
 func opp_has_turn()->bool:
 	return turn_owner == TurnOwnner.Opponent
+
+func opp_has_mana()->bool:
+	for card:Card in opp_hand.get_children():
+		if card.mana <= opp_mana:
+			return true
+	return false
+
+func opp_pick_card()->bool:
+	var found = false
+	var attempts = 0
+	var card:Card
+	while not found and attempts < 40:
+		card = opp_hand.get_children().pick_random()
+		if card.mana <= opp_mana:
+			found = true
+		else:
+			attempts +=1
+	if found:
+		var new_card = add_card_to_table_top(card,false)
+		if new_card.type == CardData.Warlock.Type.Spell:
+			add_child(new_card)
+			get_tree().create_timer(3).timeout.connect(func (): 
+				remove_child(new_card)
+				new_card.queue_free()
+				pass
+			)
+		new_card.show_front()
+		new_card.rotation = 0
+		var detail := new_card.get_full_size()
+		detail.scale = Vector2(1.4,-1.4)
+		detail.show()
+		detail.global_position = Vector2(30,500)
+		
+	return found
