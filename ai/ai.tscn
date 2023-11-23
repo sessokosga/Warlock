@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://bua8v13npwvv3"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_lq4qw"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_pdai7"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="3_udp4f"]
+[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="4_t6ov4"]
+
+[node name="AI" type="Node"]
+script = ExtResource("1_lq4qw")
+
+[node name="SequenceComposite" type="Node" parent="."]
+script = ExtResource("2_pdai7")
+
+[node name="HasTurn" parent="SequenceComposite" instance=ExtResource("3_udp4f")]
+
+[node name="EndTurn" parent="SequenceComposite" instance=ExtResource("4_t6ov4")]

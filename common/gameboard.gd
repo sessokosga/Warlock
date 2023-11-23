@@ -21,6 +21,7 @@ extends Control
 @onready var starting_cards := $"%StartingCards" 
 @onready var picking_cards := $"%PickingCards" 
 @onready var ok_btn := $"%OkBtn" 
+@onready var blackboard :Blackboard = $"%Blackboard" 
 
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
 
@@ -198,6 +199,9 @@ func load_starting_cards()->void:
 		card.initial_scale = card._scale
 		starting_cards.add_child(card)
 	
+func register_data_to_blackboard()->void:
+	blackboard.set_value("has_turn",opp_has_turn)
+	blackboard.set_value("end_turn",_on_turn_btn_pressed)
 
 func _ready() -> void:
 	if bypass_menu:
@@ -205,6 +209,7 @@ func _ready() -> void:
 		game_state = GameState.Playing
 	else:
 		game_state = GameState.StartingCards
+	register_data_to_blackboard()
 	_load_player()
 	_load_opponent()
 	init_mana_turn()
@@ -525,3 +530,6 @@ func _on_ok_btn_pressed() -> void:
 			if card.is_revoked == false:
 				from_starting_cards_to_hand(card)
 		game_state = GameState.Playing
+
+func opp_has_turn()->bool:
+	return turn_owner == TurnOwnner.Opponent

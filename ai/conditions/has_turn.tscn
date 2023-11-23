@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqd8tnhjo3vtm"]
+
+[ext_resource type="Script" path="res://ai/conditions/has_turn.gd" id="1_jxuf8"]
+
+[node name="HasTurn" type="Node"]
+script = ExtResource("1_jxuf8")
