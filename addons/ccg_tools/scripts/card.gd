@@ -19,6 +19,7 @@ var initial_z_index:int
 @export var can_delete := false
 var is_dragged := false
 var is_hovered := false
+var is_removed_from_deck := false
 
 var is_dropped := false
 var is_queing_for_field := false

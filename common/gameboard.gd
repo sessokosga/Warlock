@@ -138,9 +138,11 @@ func _load_opponent()->void:
 			card.initial_scale = card._scale
 			card.show_back()
 			opp_hand.add_child(card)
+			opp_deck.remove_card(card)
 		for i in range (3):
 			var card := opp_deck.minions[i]
 			card.mode = Card.Mode.Field
+			opp_deck.remove_card(card)
 			opp_table_top.add_child(card)
 	else:
 		for i in range(3):
@@ -178,13 +180,14 @@ func pick_turn_owner()->void:
 		opp_mana = 1
 		turn_owner = TurnOwnner.Opponent
 
-func get_random_card_in_deck(deck:Deck,should_dis_card_revoked=true)->Card:
+func get_random_card_in_deck(deck:Deck,not_in=null,should_dis_card_revoked=true)->Card:
 	var found = false
 	var attempts = 0
 	var card:Card = null
 	while found == false and attempts < 40:
 		card = deck.cards.pick_random()
-		if starting_cards.get_children().has(card) or (card.is_revoked and should_dis_card_revoked):
+		if card.is_revoked and should_dis_card_revoked  \
+			or (not_in != null and not_in.get_children().has(card)):
 			found = false
 			attempts += 1
 		else:
@@ -479,7 +482,7 @@ func _on_turn_btn_pressed() -> void:
 				opp_turn +=1
 				opp_mana = opp_turn
 				turn_owner = TurnOwnner.Opponent
-				var card:Card = opp_deck.cards.pick_random()
+				var card:Card = get_random_card_in_deck(opp_deck)
 				card._scale = Vector2(.7,.7)
 				card.initial_scale = card._scale
 				card.show_back()
@@ -490,7 +493,7 @@ func _on_turn_btn_pressed() -> void:
 				player_turn +=1
 				player_mana = player_turn
 				turn_owner = TurnOwnner.Player
-				var card:Card = player_deck.cards.pick_random()
+				var card:Card = get_random_card_in_deck(player_deck)
 				card._scale = Vector2(.7,.7)
 				card.initial_scale = card._scale
 				player_hand.add_child(card)
