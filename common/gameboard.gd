@@ -21,6 +21,7 @@ extends Control
 @onready var starting_cards := $"%StartingCards" 
 @onready var picking_cards := $"%PickingCards" 
 @onready var ok_btn := $"%OkBtn" 
+@onready var turn_btn := $"%TurnBtn" 
 @onready var blackboard :Blackboard = $"%Blackboard" 
 
 @onready var screen_size := Vector2(get_window().size.x,get_window().size.y)
@@ -29,7 +30,15 @@ enum BoardState{Drag,None}
 enum TurnOwnner {Player, Opponent}
 enum GameState {Victory, Failure, Surrender, Playing, Paused, StartingCards}
 
-var turn_owner : TurnOwnner
+var turn_owner : TurnOwnner:
+	set(value):
+		turn_owner = value
+		if turn_owner == TurnOwnner.Player:
+			turn_btn.text = tr("End Turn")
+		else:
+			turn_btn.text = tr("Opp Turn")
+
+
 var board_state:BoardState
 var player_deck :Deck
 var opp_deck :Deck
@@ -136,14 +145,14 @@ func _load_opponent()->void:
 			var card := opp_deck.spells[i]
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
-			card.show_back()
+			#card.show_back()
 			opp_hand.add_child(card)
 			opp_deck.remove_card(card)
-		for i in range (3):
-			var card := opp_deck.minions[i]
-			card.mode = Card.Mode.Field
-			opp_deck.remove_card(card)
-			opp_table_top.add_child(card)
+		# for i in range (3):
+		# 	var card := opp_deck.minions[i]
+		# 	card.mode = Card.Mode.Field
+		# 	opp_deck.remove_card(card)
+		# 	opp_table_top.add_child(card)
 	else:
 		for i in range(3):
 			var card = get_random_card_in_deck(opp_deck,false)
@@ -205,7 +214,10 @@ func load_starting_cards()->void:
 func register_data_to_blackboard()->void:
 	blackboard.set_value("has_turn",opp_has_turn)
 	blackboard.set_value("has_mana",opp_has_mana)
+	blackboard.set_value("has_opp_can_on_field",has_opp_can_on_field)
 	blackboard.set_value("pick_card",opp_pick_card)
+	blackboard.set_value("pick_spell",opp_pick_spell)
+	blackboard.set_value("pick_minion",opp_pick_minion)
 	blackboard.set_value("end_turn",_on_turn_btn_pressed)
 
 func _ready() -> void:
@@ -600,3 +612,56 @@ func opp_pick_card()->bool:
 		detail.global_position = Vector2(30,500)
 		
 	return found
+
+func opp_pick_spell()->bool:
+	var found = false
+	var attempts = 0
+	var card:Card
+	while not found and attempts < 40:
+		card = opp_hand.get_children().pick_random()
+		if card.mana <= opp_mana and card.type == CardData.Warlock.Type.Spell:
+			found = true
+		else:
+			attempts +=1
+	if found:
+		var new_card = add_card_to_table_top(card,false)
+		add_child(new_card)
+		get_tree().create_timer(3).timeout.connect(func (): 
+			remove_child(new_card)
+			new_card.queue_free()
+			pass
+		)
+		new_card.show_front()
+		new_card.rotation = 0
+		var detail := new_card.get_full_size()
+		detail.scale = Vector2(1.4,-1.4)
+		detail.show()
+		detail.global_position = Vector2(30,500)
+
+	return found
+
+func opp_pick_minion()->bool:
+	var found = false
+	var attempts = 0
+	var card:Card
+	while not found and attempts < 40:
+		card = opp_hand.get_children().pick_random()
+		if card.mana <= opp_mana and card.type == CardData.Warlock.Type.Minion:
+			found = true
+		else:
+			attempts +=1
+	if found:
+		var new_card = add_card_to_table_top(card,false)
+		new_card.show_front()
+		new_card.rotation = 0
+		var detail := new_card.get_full_size()
+		detail.scale = Vector2(1.4,-1.4)
+		detail.show()
+		detail.global_position = Vector2(30,500)
+		
+	return found
+
+
+
+func has_opp_can_on_field()->bool:
+	return player_table_top.get_child_count() > 0

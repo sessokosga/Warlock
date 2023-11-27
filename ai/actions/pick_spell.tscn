@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cip1crl8jnmki"]
+
+[ext_resource type="Script" path="res://ai/actions/pick_spell.gd" id="1_trgea"]
+
+[node name="PickSpell" type="Node"]
+script = ExtResource("1_trgea")

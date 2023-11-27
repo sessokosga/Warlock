@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpg7dk1ku2fs8"]
+
+[ext_resource type="Script" path="res://ai/conditions/has_opp_card_on_field.gd" id="1_rxvi3"]
+
+[node name="HasOppCardOnField" type="Node"]
+script = ExtResource("1_rxvi3")

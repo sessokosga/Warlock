@@ -20,7 +20,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wgxgu")
-bypass_menu = true
 
 [node name="Title" type="Label" parent="."]
 unique_name_in_owner = true
@@ -184,8 +183,10 @@ layout_mode = 2
 alignment = 2
 
 [node name="TurnBtn" type="Button" parent="Interface/UI/MarginContainer/Middle"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-text = "End Turn"
+text = "Your Turn"
 
 [node name="Player" type="Control" parent="Interface/UI"]
 layout_mode = 2
