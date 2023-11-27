@@ -145,24 +145,46 @@ msgid "Hero"
 msgstr "Héro"
 
 #: common/credits.tscn
-msgid "Code : Sesso Kosga"
-msgstr "Code : Sesso Kosga"
+msgid ""
+"Code : \n"
+"Sesso Kosga"
+msgstr ""
+"Code : \n"
+"Sesso Kosga"
 
 #: common/credits.tscn
-msgid "SFX : "
-msgstr "SFX : "
+msgid ""
+"SFX : \n"
+"kenney.nl"
+msgstr ""
+"SFX : \n"
+"kenney.nl"
 
 #: common/credits.tscn
 msgid "UI : "
 msgstr "UI : "
 
 #: common/credits.tscn
-msgid "Voice Over : Kenney.nl"
-msgstr "Voix Off : Kenney.nl"
+msgid ""
+"Voice Over : \n"
+"Kenney.nl"
+msgstr ""
+"Voix Off : \n"
+"Kenney.nl"
 
 #: common/credits.tscn
 msgid "Cards images : "
 msgstr "Images des cartes : "
+
+#: common/credits.tscn
+msgid ""
+"Graphics : \n"
+"kenney.nl\n"
+"craftpix.net\n"
+msgstr ""
+"Graphiques : \n"
+"kenney.nl\n"
+"craftpix.net\n"
 
 #: common/deck_node.tscn
 msgid "Deck Name"
@@ -177,8 +199,8 @@ msgid "Opponent"
 msgstr "Adversaire"
 
 #: common/gameboard.tscn
-msgid "End Turn"
-msgstr "Fin de tour"
+msgid "Your Turn"
+msgstr "Votre Tour"
 
 #: common/gameboard.tscn
 msgid "You"
@@ -231,6 +253,12 @@ msgstr "+ Ajouter"
 #: addons/ccg_tools/scenes/card.tscn
 msgid "Revoked"
 msgstr "Rejeté"
+
+#~ msgid "SFX : "
+#~ msgstr "SFX : "
+
+#~ msgid "End Turn"
+#~ msgstr "Fin de tour"
 
 #~ msgid "Player"
 #~ msgstr "Jouer"

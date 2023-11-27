@@ -169,11 +169,15 @@ msgid "Hero"
 msgstr ""
 
 #: common/credits.tscn
-msgid "Code : Sesso Kosga"
+msgid ""
+"Code : \n"
+"Sesso Kosga"
 msgstr ""
 
 #: common/credits.tscn
-msgid "SFX : "
+msgid ""
+"SFX : \n"
+"kenney.nl"
 msgstr ""
 
 #: common/credits.tscn
@@ -181,11 +185,20 @@ msgid "UI : "
 msgstr ""
 
 #: common/credits.tscn
-msgid "Voice Over : Kenney.nl"
+msgid ""
+"Voice Over : \n"
+"Kenney.nl"
 msgstr ""
 
 #: common/credits.tscn
 msgid "Cards images : "
+msgstr ""
+
+#: common/credits.tscn
+msgid ""
+"Graphics : \n"
+"kenney.nl\n"
+"craftpix.net\n"
 msgstr ""
 
 #: common/deck_node.tscn
@@ -201,7 +214,7 @@ msgid "Opponent"
 msgstr ""
 
 #: common/gameboard.tscn
-msgid "End Turn"
+msgid "Your Turn"
 msgstr ""
 
 #: common/gameboard.tscn

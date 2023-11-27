@@ -60,16 +60,19 @@ alignment = 1
 [node name="Code" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Code : Sesso Kosga"
+text = "Code : 
+Sesso Kosga"
 horizontal_alignment = 1
 
 [node name="sfx" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "SFX : "
+text = "SFX : 
+kenney.nl"
 horizontal_alignment = 1
 
 [node name="UI" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "UI : "
@@ -78,13 +81,24 @@ horizontal_alignment = 1
 [node name="VoiceOver" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Voice Over : Kenney.nl"
+text = "Voice Over : 
+Kenney.nl"
 horizontal_alignment = 1
 
 [node name="CardsImages" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Cards images : "
+horizontal_alignment = 1
+
+[node name="Graphics" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Graphics : 
+kenney.nl
+craftpix.net
+"
 horizontal_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
