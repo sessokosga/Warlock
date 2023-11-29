@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5qvbu3hsm6lt"]
+
+[ext_resource type="Script" path="res://ai/conditions/has_cards_on_field.gd" id="1_g7vgl"]
+
+[node name="HasCardsOnField" type="Node"]
+script = ExtResource("1_g7vgl")

@@ -1,22 +1,56 @@
-[gd_scene load_steps=7 format=3 uid="uid://bua8v13npwvv3"]
+[gd_scene load_steps=14 format=3 uid="uid://bua8v13npwvv3"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_lq4qw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_pdai7"]
 [ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="3_udp4f"]
-[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="4_t6ov4"]
-[ext_resource type="PackedScene" uid="uid://buj753jo2gqtf" path="res://ai/conditions/has_mana.tscn" id="5_7oyg4"]
-[ext_resource type="PackedScene" uid="uid://briieni27wdd" path="res://ai/actions/pick_minion.tscn" id="5_n4fgf"]
+[ext_resource type="PackedScene" uid="uid://bt7vmsoxccx0g" path="res://ai/actions/attack_minion.tscn" id="6_8w6qh"]
+[ext_resource type="PackedScene" uid="uid://cteyili1lnbrj" path="res://ai/actions/target_minion.tscn" id="6_22p4n"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="6_rv1c4"]
+[ext_resource type="PackedScene" uid="uid://bpg7dk1ku2fs8" path="res://ai/conditions/has_opp_card_on_field.tscn" id="7_4ylgj"]
+[ext_resource type="PackedScene" uid="uid://b5qvbu3hsm6lt" path="res://ai/conditions/has_cards_on_field.tscn" id="7_7xxm6"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="7_gewhe"]
+[ext_resource type="PackedScene" uid="uid://cr31hak2ovm8l" path="res://ai/actions/wait.tscn" id="7_octys"]
+[ext_resource type="PackedScene" uid="uid://cvlb7l4d4grw3" path="res://ai/conditions/has_target.tscn" id="8_2vaxf"]
+[ext_resource type="PackedScene" uid="uid://bj0sbk4j11rpe" path="res://ai/conditions/is_waiting.tscn" id="11_tunwb"]
+[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="13_i7ya2"]
 
 [node name="AI" type="Node"]
 script = ExtResource("1_lq4qw")
 
-[node name="SequenceComposite" type="Node" parent="."]
+[node name="AttackMinion" type="Node" parent="."]
 script = ExtResource("2_pdai7")
 
-[node name="HasTurn" parent="SequenceComposite" instance=ExtResource("3_udp4f")]
+[node name="HasTurn" parent="AttackMinion" instance=ExtResource("3_udp4f")]
 
-[node name="HasMana" parent="SequenceComposite" instance=ExtResource("5_7oyg4")]
+[node name="HasCardsOnField" parent="AttackMinion" instance=ExtResource("7_7xxm6")]
 
-[node name="PickMinion" parent="SequenceComposite" instance=ExtResource("5_n4fgf")]
+[node name="HasOppCardOnField" parent="AttackMinion" instance=ExtResource("7_4ylgj")]
 
-[node name="EndTurn" parent="SequenceComposite" instance=ExtResource("4_t6ov4")]
+[node name="Either" type="Node" parent="AttackMinion"]
+script = ExtResource("6_rv1c4")
+
+[node name="TargetAndWait" type="Node" parent="AttackMinion/Either"]
+script = ExtResource("2_pdai7")
+
+[node name="HasNoTarget" type="Node" parent="AttackMinion/Either/TargetAndWait"]
+script = ExtResource("7_gewhe")
+
+[node name="HasTarget" parent="AttackMinion/Either/TargetAndWait/HasNoTarget" instance=ExtResource("8_2vaxf")]
+
+[node name="TargetMinion" parent="AttackMinion/Either/TargetAndWait" instance=ExtResource("6_22p4n")]
+
+[node name="Wait" parent="AttackMinion/Either/TargetAndWait" instance=ExtResource("7_octys")]
+
+[node name="Attack" type="Node" parent="AttackMinion/Either"]
+script = ExtResource("2_pdai7")
+
+[node name="HasTarget" parent="AttackMinion/Either/Attack" instance=ExtResource("8_2vaxf")]
+
+[node name="HasFinishedWaiting" type="Node" parent="AttackMinion/Either/Attack"]
+script = ExtResource("7_gewhe")
+
+[node name="IsWaiting" parent="AttackMinion/Either/Attack/HasFinishedWaiting" instance=ExtResource("11_tunwb")]
+
+[node name="AttackMinion" parent="AttackMinion/Either/Attack" instance=ExtResource("6_8w6qh")]
+
+[node name="EndTurn" parent="AttackMinion/Either/Attack" instance=ExtResource("13_i7ya2")]

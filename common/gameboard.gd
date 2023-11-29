@@ -42,15 +42,8 @@ var turn_owner : TurnOwnner:
 var board_state:BoardState
 var player_deck :Deck
 var opp_deck :Deck
-var target := {
-	from = Vector2.ZERO,
-	to = Vector2.ZERO,
-	victim=null,
-	offender=null,
-	is_active = false,
-	victim_parent = null,
-	offender_parent = null
-}
+var target :Target= Target.new()
+var opp_is_waiting = false
 
 var player_mana :int:
 	set(value):
@@ -113,24 +106,24 @@ func _load_player()->void:
 	player_deck = Utilities.load_deck_instance(id)
 	player_hero.add_child(player_deck.hero)
 	if bypass_menu:
-		for i in range (1):
-			var card := player_deck.spells[i]
-			card._scale = Vector2(.7,.7)
-			card.initial_scale = card._scale
-			player_hand.add_child(card)
-			player_deck.remove_card(card)
+		# for i in range (1):
+		# 	var card := player_deck.spells[i]
+		# 	card._scale = Vector2(.7,.7)
+		# 	card.initial_scale = card._scale
+		# 	player_hand.add_child(card)
+		# 	player_deck.remove_card(card)
 
-		for i in range (2):
-			var card := player_deck.minions[i]
-			card._scale = Vector2(.7,.7)
-			card.initial_scale = card._scale
-			player_hand.add_child(card)
-			player_deck.remove_card(card)
+		# for i in range (2):
+		# 	var card := player_deck.minions[i]
+		# 	card._scale = Vector2(.7,.7)
+		# 	card.initial_scale = card._scale
+		# 	player_hand.add_child(card)
+		# 	player_deck.remove_card(card)
 		
-		#for i in range (6):
-		#	var card := player_deck.minions[i]
-		#	card.mode = Card.Mode.Field
-		#	player_table_top.add_child(card)
+		for i in range (3):
+			var card := player_deck.minions[i]
+			card.mode = Card.Mode.Field
+			player_table_top.add_child(card)
 	else:
 		load_starting_cards()
 
@@ -141,18 +134,25 @@ func _load_opponent()->void:
 	opp_deck = Utilities.load_deck_instance(id,true)
 	opp_hero.add_child(opp_deck.hero)
 	if bypass_menu:
-		for i in range (3):
-			var card := opp_deck.spells[i]
-			card._scale = Vector2(.7,.7)
-			card.initial_scale = card._scale
-			#card.show_back()
-			opp_hand.add_child(card)
-			opp_deck.remove_card(card)
-		# for i in range (3):
-		# 	var card := opp_deck.minions[i]
-		# 	card.mode = Card.Mode.Field
+		# for i in range (1):
+		# 	var card := opp_deck.spells[i]
+		# 	card._scale = Vector2(.7,.7)
+		# 	card.initial_scale = card._scale
+		# 	#card.show_back()
+		# 	opp_hand.add_child(card)
 		# 	opp_deck.remove_card(card)
-		# 	opp_table_top.add_child(card)
+		# for i in range (2):
+		# 	var card := opp_deck.minions[i]
+		# 	card._scale = Vector2(.7,.7)
+		# 	card.initial_scale = card._scale
+		# 	#card.show_back()
+		# 	opp_hand.add_child(card)
+		# 	opp_deck.remove_card(card)
+
+		for i in range (3):
+			var card := opp_deck.minions[i]
+			card.mode = Card.Mode.Field
+			opp_table_top.add_child(card)
 	else:
 		for i in range(3):
 			var card = get_random_card_in_deck(opp_deck,false)
@@ -179,7 +179,8 @@ func init_mana_turn()->void:
 		diamond.hide()
 
 func pick_turn_owner()->void:
-	var pick_turn = randi() %1000
+	var pick_turn = 3
+	#var pick_turn = randi() %1000
 	if pick_turn % 2 == 0 :
 		player_turn = 1
 		player_mana = 1
@@ -188,6 +189,7 @@ func pick_turn_owner()->void:
 		opp_turn = 1
 		opp_mana = 1
 		turn_owner = TurnOwnner.Opponent
+	
 
 func get_random_card_in_deck(deck:Deck,not_in=null,should_dis_card_revoked=true)->Card:
 	var found = false
@@ -214,10 +216,16 @@ func load_starting_cards()->void:
 func register_data_to_blackboard()->void:
 	blackboard.set_value("has_turn",opp_has_turn)
 	blackboard.set_value("has_mana",opp_has_mana)
-	blackboard.set_value("has_opp_can_on_field",has_opp_can_on_field)
+	blackboard.set_value("has_opp_card_on_field",has_player_can_on_field)
+	blackboard.set_value("has_card_on_field",has_opp_card_on_field)
+	blackboard.set_value("has_target",has_opp_targetted)
 	blackboard.set_value("pick_card",opp_pick_card)
 	blackboard.set_value("pick_spell",opp_pick_spell)
 	blackboard.set_value("pick_minion",opp_pick_minion)
+	blackboard.set_value("target_minion",opp_target_minion)
+	blackboard.set_value("attack_minion",opp_attack_minion)
+	blackboard.set_value("wait",opp_wait)
+	blackboard.set_value("is_waiting",is_opp_waitting)
 	blackboard.set_value("end_turn",_on_turn_btn_pressed)
 
 func _ready() -> void:
@@ -297,6 +305,17 @@ func show_card_details():
 			else:
 				detail.hide()
 	
+func set_target_offender(card:Card) -> void:
+	var pos = card.size/2 - Vector2(0,9)
+	var image :=card.get_profile_texture().get_image()
+	var ratio = card.size/Vector2( image.get_size())
+	var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
+	target.from = card.global_position + pos
+	target.offender = card
+	target.offender_parent = player_table_top
+	targetting.modulate = color
+	target.is_active = true
+
 func draw_target():
 	if board_state != BoardState.None:
 		return
@@ -307,23 +326,23 @@ func draw_target():
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 				if rect.has_point(get_local_mouse_position() - player_table_top.position) \
 					and target.is_active == false:
-					target.is_active = true
-					var pos = card.size/2 - Vector2(0,9)
-					var image :=card.get_profile_texture().get_image()
-					var ratio = card.size/Vector2( image.get_size())
-					var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
-
-					target.from = card.global_position + pos
-					target.offender = card
-					target.offender_parent = player_table_top
-					targetting.modulate = color
+					set_target_offender(card)
 
 	if target.is_active:
-		target.to = get_local_mouse_position()
-		var curve = Curve2D.new()
-		curve.add_point(target.from)
-		curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
-		targetting.points = curve.get_baked_points()
+		if turn_owner == TurnOwnner.Player:
+			target.to = get_local_mouse_position()
+			var curve = Curve2D.new()
+			curve.add_point(target.from)
+			curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
+			targetting.points = curve.get_baked_points()
+		else:
+			var curve = Curve2D.new()
+			curve.add_point(target.from)
+			#curve.add_point(target.to,Vector2(0,0),Vector2(0,0))
+			curve.add_point(target.to,Vector2(0,-140),Vector2(00,00))
+			targetting.points = curve.get_baked_points()
+	
+
 
 func handle_cards_targetted():
 	if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
@@ -352,7 +371,8 @@ func clear_target()->void:
 
 func find_victim()->void:
 	if target.is_active == false or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) \
-		or Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
+		or Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false \
+		or turn_owner != TurnOwnner.Player:
 		return
 	
 	# Attack on opponent
@@ -362,8 +382,9 @@ func find_victim()->void:
 			target.victim = card
 			target.victim_parent = opp_table_top
 	
-	# clean the targetting if no victim is found
+	# Apply damages when a victim is found
 	if target.victim :
+		pass
 		apply_damage()
 	clear_target()
 
@@ -648,8 +669,7 @@ func opp_pick_minion()->bool:
 		card = opp_hand.get_children().pick_random()
 		if card.mana <= opp_mana and card.type == CardData.Warlock.Type.Minion:
 			found = true
-		else:
-			attempts +=1
+		attempts +=1
 	if found:
 		var new_card = add_card_to_table_top(card,false)
 		new_card.show_front()
@@ -661,7 +681,42 @@ func opp_pick_minion()->bool:
 		
 	return found
 
-
-
-func has_opp_can_on_field()->bool:
+func has_player_can_on_field()->bool:
 	return player_table_top.get_child_count() > 0
+
+func has_opp_card_on_field()->bool:
+	return opp_table_top.get_child_count() > 0
+
+func opp_attack_minion()->bool:
+	if not has_player_can_on_field() or not has_opp_card_on_field() or not target.is_active:
+		return false
+	apply_damage()
+	return true
+
+func opp_target_minion()->bool:
+	if not has_player_can_on_field() or not has_opp_card_on_field():
+		return false
+	# var victim = player_table_top.get_children()[2]
+	# var offender = opp_table_top.get_children()[1]
+	var victim = player_table_top.get_children().pick_random()
+	var offender = opp_table_top.get_children().pick_random()
+	set_target_offender(offender)
+	target.victim = victim
+	var pos = target.victim.size/2 - Vector2(0,9)
+	target.to = target.victim.global_position + pos
+	return true
+
+func opp_wait()->bool:
+	opp_is_waiting = true
+	get_tree().create_timer(1).timeout.connect(
+		func():
+			opp_is_waiting = false
+	)
+	return true
+
+func is_opp_waitting()->bool:
+	return opp_is_waiting
+
+func has_opp_targetted()->bool:
+	return turn_owner == TurnOwnner.Opponent and target.is_active
+

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cteyili1lnbrj"]
+
+[ext_resource type="Script" path="res://ai/actions/target_minion.gd" id="1_vocg0"]
+
+[node name="TargetMinion" type="Node"]
+script = ExtResource("1_vocg0")
