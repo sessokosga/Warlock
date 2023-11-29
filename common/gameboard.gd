@@ -216,14 +216,16 @@ func load_starting_cards()->void:
 func register_data_to_blackboard()->void:
 	blackboard.set_value("has_turn",opp_has_turn)
 	blackboard.set_value("has_mana",opp_has_mana)
-	blackboard.set_value("has_opp_card_on_field",has_player_can_on_field)
+	blackboard.set_value("has_opp_card_on_field",has_player_card_on_field)
 	blackboard.set_value("has_card_on_field",has_opp_card_on_field)
 	blackboard.set_value("has_target",has_opp_targetted)
 	blackboard.set_value("pick_card",opp_pick_card)
 	blackboard.set_value("pick_spell",opp_pick_spell)
 	blackboard.set_value("pick_minion",opp_pick_minion)
 	blackboard.set_value("target_minion",opp_target_minion)
+	blackboard.set_value("target_hero",opp_target_hero)
 	blackboard.set_value("attack_minion",opp_attack_minion)
+	blackboard.set_value("attack_hero",opp_attack_hero)
 	blackboard.set_value("wait",opp_wait)
 	blackboard.set_value("is_waiting",is_opp_waitting)
 	blackboard.set_value("end_turn",_on_turn_btn_pressed)
@@ -412,7 +414,8 @@ func apply_damage()->void:
 		return
 	var offender :Card = target.offender
 	var victim :Card = target.victim
-	offender.take_damage(victim.attack) 
+	if victim.type == CardData.Warlock.Type.Minion:
+		offender.take_damage(victim.attack) 
 	victim.take_damage(offender.attack)
 	if victim.health<=0:
 		victim.play_animation(Card.Animations.Destroy)
@@ -700,14 +703,14 @@ func opp_pick_minion()->bool:
 		
 	return found
 
-func has_player_can_on_field()->bool:
+func has_player_card_on_field()->bool:
 	return player_table_top.get_child_count() > 0
 
 func has_opp_card_on_field()->bool:
 	return opp_table_top.get_child_count() > 0
 
 func opp_attack_minion()->bool:
-	if not has_player_can_on_field() or not has_opp_card_on_field() or not target.is_active:
+	if not has_player_card_on_field() or not has_opp_card_on_field() or not target.is_active:
 		return false
 	var victim = target.victim
 	if victim.scale > Vector2.ONE:
@@ -715,8 +718,18 @@ func opp_attack_minion()->bool:
 	apply_damage()
 	return true
 
+func opp_attack_hero()->bool:
+	if not has_opp_card_on_field() or not target.is_active:
+		return false
+	var victim = target.victim
+	if victim.scale > Vector2.ONE:
+		victim.play_animation(Card.Animations.OffTarget)
+	apply_damage()
+	return true
+
+
 func opp_target_minion()->bool:
-	if not has_player_can_on_field() or not has_opp_card_on_field():
+	if not has_player_card_on_field() or not has_opp_card_on_field():
 		return false
 	# var victim = player_table_top.get_children()[2]
 	# var offender = opp_table_top.get_children()[1]
@@ -728,8 +741,22 @@ func opp_target_minion()->bool:
 	target.to = target.victim.global_position + pos
 	if victim.scale <=Vector2.ONE:
 		victim.play_animation(Card.Animations.OnTarget)
-
 	return true
+
+func opp_target_hero()->bool:
+	if not has_opp_card_on_field():
+		return false
+	
+	var victim = player_deck.hero
+	var offender = opp_table_top.get_children().pick_random()
+	set_target_offender(offender)
+	target.victim = victim
+	var pos = target.victim.size/2 - Vector2(0,9)
+	target.to = target.victim.global_position + pos
+	if victim.scale <=Vector2.ONE:
+		victim.play_animation(Card.Animations.OnTarget)
+	return true
+
 
 func opp_wait()->bool:
 	opp_is_waiting = true
@@ -745,3 +772,4 @@ func is_opp_waitting()->bool:
 func has_opp_targetted()->bool:
 	return turn_owner == TurnOwnner.Opponent and target.is_active
 
+	

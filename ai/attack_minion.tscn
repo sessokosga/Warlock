@@ -1,0 +1,52 @@
+[gd_scene load_steps=13 format=3 uid="uid://cb4pb2q0v6lg4"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_1utf0"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="2_p4xqy"]
+[ext_resource type="PackedScene" uid="uid://b5qvbu3hsm6lt" path="res://ai/conditions/has_cards_on_field.tscn" id="3_vdbxq"]
+[ext_resource type="PackedScene" uid="uid://bpg7dk1ku2fs8" path="res://ai/conditions/has_opp_card_on_field.tscn" id="4_c4uhk"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_gqkx2"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="6_4r7ga"]
+[ext_resource type="PackedScene" uid="uid://cvlb7l4d4grw3" path="res://ai/conditions/has_target.tscn" id="7_eldn4"]
+[ext_resource type="PackedScene" uid="uid://cteyili1lnbrj" path="res://ai/actions/target_minion.tscn" id="8_h7yat"]
+[ext_resource type="PackedScene" uid="uid://cr31hak2ovm8l" path="res://ai/actions/wait.tscn" id="9_4wvpe"]
+[ext_resource type="PackedScene" uid="uid://bj0sbk4j11rpe" path="res://ai/conditions/is_waiting.tscn" id="10_ox1bd"]
+[ext_resource type="PackedScene" uid="uid://bt7vmsoxccx0g" path="res://ai/actions/attack_minion.tscn" id="11_v4l4h"]
+[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="12_5icn2"]
+
+[node name="AttackMinion" type="Node"]
+script = ExtResource("1_1utf0")
+
+[node name="HasTurn" parent="." instance=ExtResource("2_p4xqy")]
+
+[node name="HasCardsOnField" parent="." instance=ExtResource("3_vdbxq")]
+
+[node name="HasOppCardOnField" parent="." instance=ExtResource("4_c4uhk")]
+
+[node name="Either" type="Node" parent="."]
+script = ExtResource("5_gqkx2")
+
+[node name="TargetAndWait" type="Node" parent="Either"]
+script = ExtResource("1_1utf0")
+
+[node name="HasNoTarget" type="Node" parent="Either/TargetAndWait"]
+script = ExtResource("6_4r7ga")
+
+[node name="HasTarget" parent="Either/TargetAndWait/HasNoTarget" instance=ExtResource("7_eldn4")]
+
+[node name="TargetMinion" parent="Either/TargetAndWait" instance=ExtResource("8_h7yat")]
+
+[node name="Wait" parent="Either/TargetAndWait" instance=ExtResource("9_4wvpe")]
+
+[node name="Attack" type="Node" parent="Either"]
+script = ExtResource("1_1utf0")
+
+[node name="HasTarget" parent="Either/Attack" instance=ExtResource("7_eldn4")]
+
+[node name="HasFinishedWaiting" type="Node" parent="Either/Attack"]
+script = ExtResource("6_4r7ga")
+
+[node name="IsWaiting" parent="Either/Attack/HasFinishedWaiting" instance=ExtResource("10_ox1bd")]
+
+[node name="AttackMinion" parent="Either/Attack" instance=ExtResource("11_v4l4h")]
+
+[node name="EndTurn" parent="Either/Attack" instance=ExtResource("12_5icn2")]
