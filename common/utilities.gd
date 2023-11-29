@@ -91,6 +91,7 @@ func load_deck_instance(id:String,is_opponent=false)->Deck:
 		deck.id = dk.id
 		deck.title = dk.title
 		deck.hero = load_card(CardData.table_warlock.get_value(dk.hero))
+		deck.hero.show_health()
 		deck.hero.mode = Card.Mode.Field
 		for c_id in dk.cards:
 			var row := CardData.table_warlock.get_value(c_id)
@@ -110,14 +111,13 @@ func load_card(row:CardData.Warlock.Row)->Card:
 	card.back = row.back
 	card.sample = row.sample
 	card.type = row.type
+	card.attack = row.attack
+	card.health = row.health
+		
 	if row.type != CardData.Warlock.Type.Minion:
 		card.hide_attack()
 		card.hide_health()
 		card.effect = row.effect
-	else:
-		card.attack = row.attack
-		card.health = row.health
-		
 
 	return card
 

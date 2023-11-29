@@ -348,7 +348,7 @@ func handle_cards_targetted():
 	if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()) == false:
 		return
 	
-	# Target on opponent
+	# Target on opponent minions
 	for card:Card in opp_table_top.get_children():
 		var rect = Rect2(card.position,card.size)
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and target.is_active:
@@ -361,6 +361,20 @@ func handle_cards_targetted():
 		else:
 			if card.scale > Vector2.ONE:
 				card.play_animation(Card.Animations.OffTarget)
+	
+	# Target on opponent hero
+	var hero = opp_deck.hero
+	var rect = Rect2(hero.position,hero.size)
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and target.is_active:
+		if rect.has_point(get_local_mouse_position() - opp_hero.position):
+			if hero.scale <=Vector2.ONE:
+				hero.play_animation(Card.Animations.OnTarget)
+		else:
+			if hero.scale > Vector2.ONE:
+				hero.play_animation(Card.Animations.OffTarget)
+	else:
+		if hero.scale > Vector2.ONE:
+			hero.play_animation(Card.Animations.OffTarget)
 	
 
 func clear_target()->void:
@@ -375,16 +389,21 @@ func find_victim()->void:
 		or turn_owner != TurnOwnner.Player:
 		return
 	
-	# Attack on opponent
+	# Attack on opponent minions
 	for card:Card in opp_table_top.get_children():
 		var rect = Rect2(card.position,card.size)
 		if rect.has_point(get_local_mouse_position() - opp_table_top.position):
 			target.victim = card
 			target.victim_parent = opp_table_top
 	
+	# Attack on opponent hero
+	var hero = opp_deck.hero
+	var rect_hero = Rect2(hero.position,hero.size)
+	if rect_hero.has_point(get_local_mouse_position() - opp_hero.position):
+		target.victim = hero
+	
 	# Apply damages when a victim is found
 	if target.victim :
-		pass
 		apply_damage()
 	clear_target()
 
@@ -690,6 +709,9 @@ func has_opp_card_on_field()->bool:
 func opp_attack_minion()->bool:
 	if not has_player_can_on_field() or not has_opp_card_on_field() or not target.is_active:
 		return false
+	var victim = target.victim
+	if victim.scale > Vector2.ONE:
+		victim.play_animation(Card.Animations.OffTarget)
 	apply_damage()
 	return true
 
@@ -704,6 +726,9 @@ func opp_target_minion()->bool:
 	target.victim = victim
 	var pos = target.victim.size/2 - Vector2(0,9)
 	target.to = target.victim.global_position + pos
+	if victim.scale <=Vector2.ONE:
+		victim.play_animation(Card.Animations.OnTarget)
+
 	return true
 
 func opp_wait()->bool:

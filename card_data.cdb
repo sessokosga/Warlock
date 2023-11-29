@@ -287,7 +287,7 @@
 					"id": "DemonicBargain",
 					"title": "Demonic Bargain",
 					"type": 0,
-					"health": 0,
+					"health": 20,
 					"decoration": "assets/images/cards/decoration_hero.png",
 					"mana": 0,
 					"attack": 1,
@@ -295,14 +295,14 @@
 					"back": "assets/images/cards/backs/Alternate_3.png",
 					"profile": "assets/images/cards/profiles/hero_2.png",
 					"emblem": "assets/images/cards/emblem/emblem_1.png",
-					"sample": 4,
+					"sample": 1,
 					"effect": 0
 				},
 				{
 					"id": "RadiantCrusader",
 					"title": "Radiant Crusader",
 					"type": 0,
-					"health": 0,
+					"health": 20,
 					"decoration": "assets/images/cards/decoration_hero.png",
 					"mana": 0,
 					"attack": 1,
@@ -310,7 +310,7 @@
 					"back": "assets/images/cards/backs/minion_1.png",
 					"profile": "assets/images/cards/profiles/hero_1.png",
 					"emblem": "assets/images/cards/emblem/emblem_1.png",
-					"sample": 4,
+					"sample": 1,
 					"effect": 0
 				}
 			],
