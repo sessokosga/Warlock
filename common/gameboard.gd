@@ -32,6 +32,8 @@ enum BoardState{Drag,None}
 enum TurnOwnner {Player, Opponent}
 enum GameState {Victory, Failure, Surrender, Playing, Paused, StartingCards}
 
+const STARTING_CARDS_NUMBER = 3
+
 var turn_owner : TurnOwnner:
 	set(value):
 		turn_owner = value
@@ -66,8 +68,8 @@ var opp_turn : int:
 		opp_turn = value
 		update_mana_turn()
 
-@export var bypass_menu = false
-
+@export var bypass_starting_cards = false
+@export var bypass_deck_selection = false
 
 var game_state : GameState:
 	set(state):
@@ -114,26 +116,25 @@ func _load_player()->void:
 	var id = Utilities.get_hero_deck()
 	player_deck = Utilities.load_deck_instance(id)
 	player_hero.add_child(player_deck.hero)
-	if bypass_menu:
-		load_starting_cards()
-		# for i in range (2):
-		# 	var card := player_deck.spells[i]
-		# 	card._scale = Vector2(.7,.7)
-		# 	card.initial_scale = card._scale
-		# 	player_hand.add_child(card)
-		# 	player_deck.remove_card(card)
+	if bypass_starting_cards:
+		for i in range (2):
+			var card := player_deck.spells[i]
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
 
-		# for i in range (4):
-		# 	var card := player_deck.minions[i]
-		# 	card._scale = Vector2(.7,.7)
-		# 	card.initial_scale = card._scale
-		# 	player_hand.add_child(card)
-		# 	player_deck.remove_card(card)
+		for i in range (4):
+			var card := player_deck.minions[i]
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
 		
-		# for i in range (4):
-		# 	var card := player_deck.spells[0]
-		# 	card.mode = Card.Mode.Field
-		# 	player_table_top.add_child(card)
+		for i in range (4):
+			var card := player_deck.spells[0]
+			card.mode = Card.Mode.Field
+			player_table_top.add_child(card)
 	else:
 		load_starting_cards()
 
@@ -143,7 +144,7 @@ func _load_opponent()->void:
 	var id = Utilities.get_opponent_deck()
 	opp_deck = Utilities.load_deck_instance(id,true)
 	opp_hero.add_child(opp_deck.hero)
-	if bypass_menu:
+	if bypass_starting_cards:
 		for i in range (2):
 			var card := opp_deck.spells[i]
 			card._scale = Vector2(.7,.7)
@@ -159,17 +160,24 @@ func _load_opponent()->void:
 			opp_hand.add_child(card)
 			opp_deck.remove_card(card)
 
-		# for i in range (3):
+		# for i in range (STARTING_CARDS_NUMBER):
 		# 	var card := opp_deck.minions[i]
 		# 	card.mode = Card.Mode.Field
 		# 	opp_table_top.add_child(card)
 	else:
-		for i in range(3):
-			var card = get_random_card_in_deck_bis(opp_deck,false)
+		for i in range(STARTING_CARDS_NUMBER-1):
+			var card = get_random_card_in_deck(opp_deck,false,CardData.Warlock.Type.Minion)
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
 			card.show_back()
 			opp_hand.add_child(card)
+		for i in range(STARTING_CARDS_NUMBER-2):
+			var card = get_random_card_in_deck(opp_deck,false,CardData.Warlock.Type.Minion)
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			card.show_back()
+			opp_hand.add_child(card)
+		
 
 
 func update_mana_turn()->void:
@@ -189,8 +197,7 @@ func init_mana_turn()->void:
 		diamond.hide()
 
 func pick_turn_owner()->void:
-	var pick_turn = 3
-	#var pick_turn = randi() %1000
+	var pick_turn = randi() %1000
 	if pick_turn % 2 == 0 :
 		player_turn = 1
 		player_mana = 1
@@ -199,30 +206,19 @@ func pick_turn_owner()->void:
 		opp_turn = 1
 		opp_mana = 1
 		turn_owner = TurnOwnner.Opponent
+	add_card_to_hand()
 	
 
-func get_random_card_in_deck(deck:Deck,not_in=null,should_dis_card_revoked=true)->Card:
+func get_random_card_in_deck(deck:Deck,should_dis_card_revoked=true,card_type:CardData.Warlock.Type=CardData.Warlock.Type.Minion)->Card:
 	var found = false
 	var attempts = 0
 	var card:Card = null
 	while found == false and attempts < 40:
-		var count = deck.cards.size()
-		card = deck.cards[randi() % count]
-		if card.is_revoked and should_dis_card_revoked  \
-			or (not_in != null and not_in.get_children().has(card)):
-			attempts += 1
-		else:
-			found = true
-			deck.remove_card(card)
-	return card
+		if card_type == CardData.Warlock.Type.Minion:
+			card = deck.minions.pick_random()
+		elif card_type == CardData.Warlock.Type.Spell:
+			card = deck.spells.pick_random()
 
-func get_random_card_in_deck_bis(deck:Deck,should_dis_card_revoked=true)->Card:
-	var found = false
-	var attempts = 0
-	var card:Card = null
-	while found == false and attempts < 40:
-		var count = deck.cards.size()
-		card = deck.cards[randi() % count]
 		if card.is_revoked  and should_dis_card_revoked :
 			attempts += 1
 		else:
@@ -234,11 +230,19 @@ func get_random_card_in_deck_bis(deck:Deck,should_dis_card_revoked=true)->Card:
 
 
 func load_starting_cards()->void:
-	for i in range (3):
-		var card:= get_random_card_in_deck_bis(player_deck)
+	for i in range (STARTING_CARDS_NUMBER-1):
+		var card:= get_random_card_in_deck(player_deck,false,CardData.Warlock.Type.Minion)
 		card._scale = Vector2(.9,.9)
 		card.initial_scale = card._scale
 		starting_cards.add_child(card)
+	
+	for i in range (STARTING_CARDS_NUMBER-2):
+		var card:= get_random_card_in_deck(player_deck,false,CardData.Warlock.Type.Spell)
+		card._scale = Vector2(.9,.9)
+		card.initial_scale = card._scale
+		starting_cards.add_child(card)
+	
+	
 	
 func register_data_to_blackboard()->void:
 	blackboard.set_value("has_turn",opp_has_turn)
@@ -261,11 +265,14 @@ func register_data_to_blackboard()->void:
 	blackboard.set_value("end_turn",_on_turn_btn_pressed)
 
 func _ready() -> void:
-	if bypass_menu:
+	if bypass_starting_cards:
 		Utilities.load_test_data()
 		game_state = GameState.Playing
 	else:
 		game_state = GameState.StartingCards
+	if bypass_deck_selection:
+		Utilities.load_test_data()
+
 	register_data_to_blackboard()
 	_load_player()
 	_load_opponent()
@@ -337,16 +344,18 @@ func show_card_details():
 			else:
 				detail.hide()
 	
-func set_target_offender(card:Card) -> void:
-	var pos = card.size/2 - Vector2(0,9)
-	var image :=card.get_profile_texture().get_image()
-	var ratio = card.size/Vector2( image.get_size())
-	var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
-	target.from = card.global_position + pos
-	target.offender = card
-	target.offender_parent = player_table_top
-	targetting.modulate = color
-	target.is_active = true
+func set_target_offender(card:Card) -> bool:
+	if card.can_attack:
+		var pos = card.size/2 - Vector2(0,9)
+		var image :=card.get_profile_texture().get_image()
+		var ratio = card.size/Vector2( image.get_size())
+		var color := image.get_pixel(pos.x/ratio.x,pos.y/ratio.y)
+		target.from = card.global_position + pos
+		target.offender = card
+		target.offender_parent = player_table_top
+		targetting.modulate = color
+		target.is_active = true
+	return card.can_attack
 
 func draw_target():
 	if board_state != BoardState.None:
@@ -522,13 +531,13 @@ func add_card_to_table_top(card:Card,is_player=true)->Card:
 	if is_player:
 		hand = player_hand
 		table_top = player_table_top
-		# player_mana -= card.mana
+		player_mana -= card.mana
 		offender_table = player_table_top
 		victim_table = opp_table_top
 	else:
 		hand = opp_hand
 		table_top = opp_table_top
-		# opp_mana -= card.mana
+		opp_mana -= card.mana
 		offender_table = opp_table_top
 		victim_table = player_table_top
 
@@ -593,6 +602,15 @@ func _on_resume_was_pressed() -> void:
 	player.show()
 	opp.show()
 
+func allow_existing_minions_to_attack()->void:
+	# Allow player minions
+	for card:Card in player_table_top.get_children():
+		card.can_attack = true
+
+	# Allow opponent minions
+	for card:Card in opp_table_top.get_children():
+		card.can_attack = true
+	
 
 func _on_turn_btn_pressed() -> void:
 	if game_state != GameState.Playing:
@@ -603,22 +621,28 @@ func _on_turn_btn_pressed() -> void:
 				opp_turn +=1
 				opp_mana = opp_turn
 				turn_owner = TurnOwnner.Opponent
-				var card:Card = get_random_card_in_deck_bis(opp_deck)
-				card._scale = Vector2(.7,.7)
-				card.initial_scale = card._scale
-				card.show_back()
-				opp_hand.add_child(card)
-				opp_deck.remove_card(card)
 		TurnOwnner.Opponent:
 			if player_turn < 10:
 				player_turn +=1
 				player_mana = player_turn
 				turn_owner = TurnOwnner.Player
-				var card:Card = get_random_card_in_deck_bis(player_deck)
-				card._scale = Vector2(.7,.7)
-				card.initial_scale = card._scale
-				player_hand.add_child(card)
-				player_deck.remove_card(card)
+		_:
+			pass
+	allow_existing_minions_to_attack()
+	add_card_to_hand()
+
+func add_card_to_hand():
+	var card:Card = get_random_card_in_deck(opp_deck)
+	card._scale = Vector2(.7,.7)
+	card.initial_scale = card._scale
+	match turn_owner:
+		TurnOwnner.Player:
+			card.show_back()
+			opp_hand.add_child(card)
+			opp_deck.remove_card(card)
+		TurnOwnner.Opponent:
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
 		_:
 			pass
 
@@ -634,7 +658,7 @@ func _on_ok_btn_pressed() -> void:
 	# Replace revoked cards
 	for card:Card in starting_cards.get_children():
 		if card.is_revoked:
-			var new_card = get_random_card_in_deck_bis(player_deck)
+			var new_card = get_random_card_in_deck(player_deck)
 			starting_cards.add_child(new_card)
 			card._scale = Vector2(.9,.9)
 			card.initial_scale = card._scale
@@ -745,6 +769,7 @@ func opp_pick_minion()->bool:
 			found = true
 		attempts +=1
 	if found:
+		card.show_front()
 		add_card_to_table_top(card,false)
 
 	return found
@@ -781,13 +806,16 @@ func opp_target_minion()->bool:
 	# var offender = opp_table_top.get_children()[1]
 	var victim = player_table_top.get_children().pick_random()
 	var offender = opp_table_top.get_children().pick_random()
-	set_target_offender(offender)
-	target.victim = victim
-	var pos = target.victim.size/2 - Vector2(0,9)
-	target.to = target.victim.global_position + pos
-	if victim.scale <=Vector2.ONE:
-		victim.play_animation(Card.Animations.OnTarget)
-	return true
+	if set_target_offender(offender):
+		target.victim = victim
+		var pos = target.victim.size/2 - Vector2(0,9)
+		target.to = target.victim.global_position + pos
+		if victim.scale <=Vector2.ONE:
+			victim.play_animation(Card.Animations.OnTarget)
+		return true
+	else:
+		return false
+
 
 func opp_target_hero()->bool:
 	if not has_opp_card_on_field():
@@ -795,13 +823,15 @@ func opp_target_hero()->bool:
 	
 	var victim = player_deck.hero
 	var offender = opp_table_top.get_children().pick_random()
-	set_target_offender(offender)
-	target.victim = victim
-	var pos = target.victim.size/2 - Vector2(0,9)
-	target.to = target.victim.global_position + pos
-	if victim.scale <=Vector2.ONE:
-		victim.play_animation(Card.Animations.OnTarget)
-	return true
+	if set_target_offender(offender):
+		target.victim = victim
+		var pos = target.victim.size/2 - Vector2(0,9)
+		target.to = target.victim.global_position + pos
+		if victim.scale <=Vector2.ONE:
+			victim.play_animation(Card.Animations.OnTarget)
+		return true
+	else:
+		return false
 
 
 func opp_wait()->bool:

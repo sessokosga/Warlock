@@ -4,6 +4,11 @@ enum Sfx{
 	Click
 }
 
+enum VoiceOver{
+	GameOver,
+	FinalRound
+}
+
 var click = preload("res://assets/sfx/interface/click_003.ogg")
 
 func play_sfx(id:Sfx)->void:
@@ -21,3 +26,10 @@ func play_sfx(id:Sfx)->void:
 	asp.play()
 	await asp.finished
 	asp.queue_free()
+
+func play_voice_over(id:VoiceOver)->void:
+	match id:
+		VoiceOver.GameOver:
+			pass
+		VoiceOver.FinalRound:
+			pass
