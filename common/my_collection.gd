@@ -94,6 +94,8 @@ func load_spells(parent,show_sample:bool=false)->void:
 			card.add_child(label)
 		parent.add_child(card)
 
+
+
 func load_cards_choice()->void:
 	home.hide()
 	cards_choice.show()
@@ -124,7 +126,7 @@ func load_home()->void:
 	hero_choice.hide()
 
 	clean_children(deck_list)
-
+	set_screen_state(ScreenState.Home)
 	for id in decks:
 		var btn := btn_node.instantiate()
 		var deck = decks[id]
@@ -308,6 +310,7 @@ func reset_cards_sample()->void:
 		card.sample = 3
 
 func _on_new_deck_pressed() -> void:
+	clean_children(cards_list)
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)
 	set_screen_state(ScreenState.HeroChoice)
 	home.hide()
@@ -316,9 +319,6 @@ func _on_new_deck_pressed() -> void:
 	lab_title.text = "New Deck"
 	clean_children(cards_in_deck)
 	reset_cards_sample()
-	
-	pass # Replace with function body.
-
 
 
 func _on_delete_pressed() -> void:

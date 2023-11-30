@@ -48,7 +48,6 @@ var player_deck :Deck
 var opp_deck :Deck
 var target :Target= Target.new()
 var opp_is_waiting = false
-var rng = RandomNumberGenerator.new()
 
 var player_mana :int:
 	set(value):
@@ -264,7 +263,7 @@ func register_data_to_blackboard()->void:
 func _ready() -> void:
 	if bypass_menu:
 		Utilities.load_test_data()
-		game_state = GameState.StartingCards
+		game_state = GameState.Playing
 	else:
 		game_state = GameState.StartingCards
 	register_data_to_blackboard()
@@ -272,11 +271,7 @@ func _ready() -> void:
 	_load_opponent()
 	init_mana_turn()
 	board_state = BoardState.None
-	#rng.randomize()
-	seed(-1924884825454642676)
-	#print(rng.seed)
-	
-	print()
+	randomize()
 	pick_turn_owner()
 	
 	
@@ -705,7 +700,7 @@ func opp_pick_card()->bool:
 		new_card.show_front()
 		new_card.rotation = 0
 		var detail := new_card.get_full_size()
-		detail.scale = Vector2(1.4,-1.4)
+		detail.scale = Vector2(1,1)
 		detail.show()
 		detail.global_position = Vector2(30,500)
 		
@@ -730,6 +725,8 @@ func opp_pick_spell()->bool:
 			pass
 		)
 		new_card.show_front()
+		new_card.hide_attack()
+		new_card.hide_health()
 		new_card.rotation = 0
 		var detail := new_card.get_full_size()
 		detail.scale = Vector2(1.4,-1.4)
@@ -748,14 +745,8 @@ func opp_pick_minion()->bool:
 			found = true
 		attempts +=1
 	if found:
-		var new_card = add_card_to_table_top(card,false)
-		new_card.show_front()
-		new_card.rotation = 0
-		var detail := new_card.get_full_size()
-		detail.scale = Vector2(1.4,-1.4)
-		detail.show()
-		detail.global_position = Vector2(30,500)
-		
+		add_card_to_table_top(card,false)
+
 	return found
 
 func has_player_card_on_field()->bool:

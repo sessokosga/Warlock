@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="6_6kllh"]
 [ext_resource type="Texture2D" uid="uid://c50paqeogjqdt" path="res://assets/images/ui/You_Lose/Star_02.png" id="6_unutp"]
 [ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="7_wg6fd"]
-[ext_resource type="PackedScene" uid="uid://c0iiehvjh6vyn" path="res://ai/pick_card.tscn" id="8_t4df5"]
+[ext_resource type="PackedScene" uid="uid://cip1crl8jnmki" path="res://ai/actions/pick_spell.tscn" id="8_l7dne"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="9_da5nb"]
 [ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="9_obbaw"]
 
@@ -25,7 +25,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wgxgu")
-bypass_menu = true
 
 [node name="Title" type="Label" parent="."]
 unique_name_in_owner = true
@@ -79,7 +78,6 @@ blackboard = NodePath("../../Blackboard")
 
 [node name="BeehaveTree" type="Node" parent="Opponent" node_paths=PackedStringArray("blackboard")]
 script = ExtResource("5_bd6ar")
-enabled = false
 blackboard = NodePath("../../Blackboard")
 
 [node name="SequenceComposite" type="Node" parent="Opponent/BeehaveTree"]
@@ -87,7 +85,7 @@ script = ExtResource("6_6kllh")
 
 [node name="HasTurn" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("7_wg6fd")]
 
-[node name="PickCard" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("8_t4df5")]
+[node name="PickSpell" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("8_l7dne")]
 
 [node name="EndTurn" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("9_obbaw")]
 
