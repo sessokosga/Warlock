@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv8ywusqd8085"]
+
+[ext_resource type="Script" path="res://ai/conditions/is_game_playing.gd" id="1_4xwma"]
+
+[node name="IsGamePlaying" type="Node"]
+script = ExtResource("1_4xwma")

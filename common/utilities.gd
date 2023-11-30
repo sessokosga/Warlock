@@ -134,6 +134,6 @@ func get_opponent_deck()->StringName:
 	return selected.opp_deck
 
 func load_test_data()->void:
-	set_hero_deck("deck_2409")
+	set_hero_deck("deck_5946")
 	set_opponent_deck("deck_2548")
 	

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6wfu3psen1xw"]
+
+[ext_resource type="Script" path="res://ai/conditions/has_mana_for_spell.gd" id="1_fj5dp"]
+
+[node name="HasManaForSpell" type="Node"]
+script = ExtResource("1_fj5dp")

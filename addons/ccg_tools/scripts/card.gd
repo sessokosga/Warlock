@@ -142,8 +142,7 @@ var health:int:
 		$"%Description".text = value
 		description = value
 var sample : int=0
-	
-	
+
 var back:String:
 	get:
 		return back

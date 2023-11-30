@@ -33,10 +33,14 @@ func add_card(card:Card):
 
 func remove_card(card:Card):
 	card.is_removed_from_deck = true
-	"""for ca in _card_list:
-		if ca.id == card.id:
-			_card_list.remove_at(_card_list.find(ca))
-			break"""
+	cards = _card_list.filter(is_valid)
+	spells = _card_list.filter(is_a_spell)
+	minions = _card_list.filter(is_a_minion)
+
+func revoke_card(id:StringName)->void:
+	for card:Card in _card_list:
+		if card.id == id:
+			card.is_revoked = true
 
 func _ready() -> void:
 	_card_list=[]

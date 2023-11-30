@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cb4pb2q0v6lg4"]
+[gd_scene load_steps=12 format=3 uid="uid://cb4pb2q0v6lg4"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_1utf0"]
 [ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="2_p4xqy"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://cr31hak2ovm8l" path="res://ai/actions/wait.tscn" id="9_4wvpe"]
 [ext_resource type="PackedScene" uid="uid://bj0sbk4j11rpe" path="res://ai/conditions/is_waiting.tscn" id="10_ox1bd"]
 [ext_resource type="PackedScene" uid="uid://bt7vmsoxccx0g" path="res://ai/actions/attack_minion.tscn" id="11_v4l4h"]
-[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="12_5icn2"]
 
 [node name="AttackMinion" type="Node"]
 script = ExtResource("1_1utf0")
@@ -48,5 +47,3 @@ script = ExtResource("6_4r7ga")
 [node name="IsWaiting" parent="Either/Attack/HasFinishedWaiting" instance=ExtResource("10_ox1bd")]
 
 [node name="AttackMinion" parent="Either/Attack" instance=ExtResource("11_v4l4h")]
-
-[node name="EndTurn" parent="Either/Attack" instance=ExtResource("12_5icn2")]

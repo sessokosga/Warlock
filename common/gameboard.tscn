@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4x453hq8a26i"]
+[gd_scene load_steps=17 format=3 uid="uid://c4x453hq8a26i"]
 
 [ext_resource type="Script" path="res://common/gameboard.gd" id="1_wgxgu"]
 [ext_resource type="Script" path="res://common/Opponent.gd" id="2_5jqmv"]
@@ -8,9 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://ccug2dsgo3vpl" path="res://addons/ccg_tools/scenes/hand.tscn" id="4_0nn2k"]
 [ext_resource type="PackedScene" uid="uid://c276jum1r5rh4" path="res://common/bg.tscn" id="4_8ccbc"]
 [ext_resource type="Texture2D" uid="uid://couksnf0r8hgl" path="res://assets/images/icon/imbricated-arrows.png" id="4_sn1gk"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="5_bd6ar"]
 [ext_resource type="Texture2D" uid="uid://dkfauxw568bgm" path="res://assets/images/ui/Pause/Hangar_BTN.png" id="5_xsmka"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="6_6kllh"]
 [ext_resource type="Texture2D" uid="uid://c50paqeogjqdt" path="res://assets/images/ui/You_Lose/Star_02.png" id="6_unutp"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="7_wg6fd"]
+[ext_resource type="PackedScene" uid="uid://c0iiehvjh6vyn" path="res://ai/pick_card.tscn" id="8_t4df5"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="9_da5nb"]
+[ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="9_obbaw"]
 
 [node name="Gameboard" type="Control"]
 layout_mode = 3
@@ -68,8 +73,23 @@ offset_bottom = 283.0
 alignment = 1
 
 [node name="AI" parent="Opponent" node_paths=PackedStringArray("blackboard") instance=ExtResource("3_hqkox")]
+enabled = false
 actor_node_path = NodePath("..")
 blackboard = NodePath("../../Blackboard")
+
+[node name="BeehaveTree" type="Node" parent="Opponent" node_paths=PackedStringArray("blackboard")]
+script = ExtResource("5_bd6ar")
+enabled = false
+blackboard = NodePath("../../Blackboard")
+
+[node name="SequenceComposite" type="Node" parent="Opponent/BeehaveTree"]
+script = ExtResource("6_6kllh")
+
+[node name="HasTurn" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("7_wg6fd")]
+
+[node name="PickCard" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("8_t4df5")]
+
+[node name="EndTurn" parent="Opponent/BeehaveTree/SequenceComposite" instance=ExtResource("9_obbaw")]
 
 [node name="Player" type="Control" parent="."]
 unique_name_in_owner = true
@@ -311,7 +331,7 @@ texture = ExtResource("5_xsmka")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Victory" type="Control" parent="Interface"]
+[node name="Screens" type="Control" parent="Interface"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 3
@@ -321,7 +341,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Interface/Victory"]
+[node name="DarkBack" type="Panel" parent="Interface/Screens"]
+unique_name_in_owner = true
+modulate = Color(0.396078, 0.396078, 0.396078, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Victory" type="Control" parent="Interface/Screens"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Interface/Screens/Victory"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -332,17 +372,17 @@ text = "You Won !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Failure" type="Control" parent="Interface"]
+[node name="Failure" type="Control" parent="Interface/Screens"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Interface/Failure"]
+[node name="Label" type="Label" parent="Interface/Screens/Failure"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -353,17 +393,17 @@ text = "You Loose !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Surrender" type="Control" parent="Interface"]
+[node name="Surrender" type="Control" parent="Interface/Screens"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Interface/Surrender"]
+[node name="Label" type="Label" parent="Interface/Screens/Surrender"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -374,17 +414,17 @@ text = "You Surrendered !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pause" type="Control" parent="Interface"]
+[node name="Pause" type="Control" parent="Interface/Screens"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Interface/Pause"]
+[node name="Label" type="Label" parent="Interface/Screens/Pause"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -395,7 +435,7 @@ text = "pause"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Pause"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Screens/Pause"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
 anchors_preset = 12
@@ -409,22 +449,22 @@ grow_vertical = 0
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Resume" parent="Interface/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
+[node name="Resume" parent="Interface/Screens/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "resume"
 icon = null
 alignment = 1
 
-[node name="Menu" parent="Interface/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
+[node name="Menu" parent="Interface/Screens/Pause/HBoxContainer" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "Menu"
 icon = null
 alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Interface"]
+[node name="Buttons" type="HBoxContainer" parent="Interface/Screens"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -436,28 +476,19 @@ grow_vertical = 0
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="PlayAgain" parent="Interface/Buttons" instance=ExtResource("3_pjh5d")]
+[node name="PlayAgain" parent="Interface/Screens/Buttons" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "play again"
 
-[node name="Menu" parent="Interface/Buttons" instance=ExtResource("3_pjh5d")]
+[node name="Menu" parent="Interface/Screens/Buttons" instance=ExtResource("3_pjh5d")]
 layout_mode = 2
 text = "menu"
 icon = null
 alignment = 1
 
-[node name="PickingCards" type="Control" parent="Interface"]
+[node name="PickingCards" type="Control" parent="Interface/Screens"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Interface/PickingCards"]
-modulate = Color(0.396078, 0.396078, 0.396078, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -465,7 +496,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/PickingCards"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Screens/PickingCards"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -475,14 +506,14 @@ grow_vertical = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="StartingCards" type="HBoxContainer" parent="Interface/PickingCards/VBoxContainer"]
+[node name="StartingCards" type="HBoxContainer" parent="Interface/Screens/PickingCards/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="OkBtn" type="Button" parent="Interface/PickingCards/VBoxContainer"]
+[node name="OkBtn" type="Button" parent="Interface/Screens/PickingCards/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
@@ -496,8 +527,8 @@ unique_name_in_owner = true
 script = ExtResource("9_da5nb")
 
 [connection signal="pressed" from="Interface/UI/MarginContainer/Middle/TurnBtn" to="." method="_on_turn_btn_pressed"]
-[connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Resume" to="." method="_on_resume_was_pressed"]
-[connection signal="was_pressed" from="Interface/Pause/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="Interface/Buttons/PlayAgain" to="." method="_on_back_pressed"]
-[connection signal="was_pressed" from="Interface/Buttons/Menu" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="Interface/PickingCards/VBoxContainer/OkBtn" to="." method="_on_ok_btn_pressed"]
+[connection signal="was_pressed" from="Interface/Screens/Pause/HBoxContainer/Resume" to="." method="_on_resume_was_pressed"]
+[connection signal="was_pressed" from="Interface/Screens/Pause/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Interface/Screens/Buttons/PlayAgain" to="." method="_on_back_pressed"]
+[connection signal="was_pressed" from="Interface/Screens/Buttons/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Interface/Screens/PickingCards/VBoxContainer/OkBtn" to="." method="_on_ok_btn_pressed"]

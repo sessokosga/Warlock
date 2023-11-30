@@ -305,7 +305,7 @@ func _on_done_pressed() -> void:
 
 func reset_cards_sample()->void:
 	for card :Card in cards_list.get_children():
-		card.sample = 4
+		card.sample = 3
 
 func _on_new_deck_pressed() -> void:
 	AudioPlayer.play_sfx(AudioPlayer.Sfx.Click)

@@ -1,53 +1,32 @@
-[gd_scene load_steps=13 format=3 uid="uid://bua8v13npwvv3"]
+[gd_scene load_steps=9 format=3 uid="uid://bua8v13npwvv3"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_lq4qw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_pdai7"]
-[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="3_udp4f"]
-[ext_resource type="PackedScene" uid="uid://7kwn5pihe65b" path="res://ai/actions/target_hero.tscn" id="5_8xafn"]
+[ext_resource type="PackedScene" uid="uid://bv8ywusqd8085" path="res://ai/conditions/is_game_playing.tscn" id="3_pjcfy"]
+[ext_resource type="PackedScene" uid="uid://lvkubpblls33" path="res://ai/attack_hero.tscn" id="4_ncsuw"]
+[ext_resource type="PackedScene" uid="uid://c0iiehvjh6vyn" path="res://ai/pick_card.tscn" id="5_c7krr"]
+[ext_resource type="PackedScene" uid="uid://cb4pb2q0v6lg4" path="res://ai/attack_minion.tscn" id="6_l1gxe"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="6_rv1c4"]
-[ext_resource type="PackedScene" uid="uid://b5qvbu3hsm6lt" path="res://ai/conditions/has_cards_on_field.tscn" id="7_7xxm6"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="7_gewhe"]
-[ext_resource type="PackedScene" uid="uid://cr31hak2ovm8l" path="res://ai/actions/wait.tscn" id="7_octys"]
-[ext_resource type="PackedScene" uid="uid://cvlb7l4d4grw3" path="res://ai/conditions/has_target.tscn" id="8_2vaxf"]
-[ext_resource type="PackedScene" uid="uid://cjtpauqgm8med" path="res://ai/actions/attack_hero.tscn" id="11_jkb2k"]
-[ext_resource type="PackedScene" uid="uid://bj0sbk4j11rpe" path="res://ai/conditions/is_waiting.tscn" id="11_tunwb"]
 [ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="13_i7ya2"]
 
 [node name="AI" type="Node"]
 script = ExtResource("1_lq4qw")
 
-[node name="AttackHero" type="Node" parent="."]
+[node name="SequenceComposite" type="Node" parent="."]
 script = ExtResource("2_pdai7")
 
-[node name="HasTurn" parent="AttackHero" instance=ExtResource("3_udp4f")]
+[node name="IsGamePlaying" parent="SequenceComposite" instance=ExtResource("3_pjcfy")]
 
-[node name="HasCardsOnField" parent="AttackHero" instance=ExtResource("7_7xxm6")]
-
-[node name="Either" type="Node" parent="AttackHero"]
+[node name="Either" type="Node" parent="SequenceComposite"]
 script = ExtResource("6_rv1c4")
 
-[node name="TargetAndWait" type="Node" parent="AttackHero/Either"]
-script = ExtResource("2_pdai7")
+[node name="PickCard" parent="SequenceComposite/Either" instance=ExtResource("5_c7krr")]
 
-[node name="HasNoTarget" type="Node" parent="AttackHero/Either/TargetAndWait"]
-script = ExtResource("7_gewhe")
+[node name="Attack" type="Node" parent="SequenceComposite/Either"]
+script = ExtResource("6_rv1c4")
 
-[node name="HasTarget" parent="AttackHero/Either/TargetAndWait/HasNoTarget" instance=ExtResource("8_2vaxf")]
+[node name="AttackHero" parent="SequenceComposite/Either/Attack" instance=ExtResource("4_ncsuw")]
 
-[node name="TargetHero" parent="AttackHero/Either/TargetAndWait" instance=ExtResource("5_8xafn")]
+[node name="AttackMinion" parent="SequenceComposite/Either/Attack" instance=ExtResource("6_l1gxe")]
 
-[node name="Wait" parent="AttackHero/Either/TargetAndWait" instance=ExtResource("7_octys")]
-
-[node name="Attack" type="Node" parent="AttackHero/Either"]
-script = ExtResource("2_pdai7")
-
-[node name="HasTarget" parent="AttackHero/Either/Attack" instance=ExtResource("8_2vaxf")]
-
-[node name="HasFinishedWaiting" type="Node" parent="AttackHero/Either/Attack"]
-script = ExtResource("7_gewhe")
-
-[node name="IsWaiting" parent="AttackHero/Either/Attack/HasFinishedWaiting" instance=ExtResource("11_tunwb")]
-
-[node name="AttackHero" parent="AttackHero/Either/Attack" instance=ExtResource("11_jkb2k")]
-
-[node name="EndTurn" parent="AttackHero/Either/Attack" instance=ExtResource("13_i7ya2")]
+[node name="EndTurn" parent="SequenceComposite" instance=ExtResource("13_i7ya2")]

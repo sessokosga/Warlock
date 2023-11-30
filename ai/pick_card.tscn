@@ -1,0 +1,43 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0iiehvjh6vyn"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_iho7f"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="2_03yiv"]
+[ext_resource type="PackedScene" uid="uid://buj753jo2gqtf" path="res://ai/conditions/has_mana.tscn" id="3_jvqb3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_cqd46"]
+[ext_resource type="PackedScene" uid="uid://c6wfu3psen1xw" path="res://ai/conditions/has_mana_for_spell.tscn" id="5_qn8dd"]
+[ext_resource type="PackedScene" uid="uid://bpg7dk1ku2fs8" path="res://ai/conditions/has_opp_card_on_field.tscn" id="5_v2yyc"]
+[ext_resource type="PackedScene" uid="uid://cip1crl8jnmki" path="res://ai/actions/pick_spell.tscn" id="6_b50o3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="7_p6w8i"]
+[ext_resource type="PackedScene" uid="uid://briieni27wdd" path="res://ai/actions/pick_minion.tscn" id="8_21mjr"]
+[ext_resource type="PackedScene" uid="uid://ckeb8t87pq0p6" path="res://ai/conditions/has_mana_for_minion.tscn" id="8_wxchx"]
+
+[node name="PickCard" type="Node"]
+script = ExtResource("1_iho7f")
+
+[node name="HasTurn" parent="." instance=ExtResource("2_03yiv")]
+
+[node name="HasMana" parent="." instance=ExtResource("3_jvqb3")]
+
+[node name="Either" type="Node" parent="."]
+script = ExtResource("4_cqd46")
+
+[node name="PickSpell" type="Node" parent="Either"]
+script = ExtResource("1_iho7f")
+
+[node name="HasManaForSpell" parent="Either/PickSpell" instance=ExtResource("5_qn8dd")]
+
+[node name="HasOppCardOnField" parent="Either/PickSpell" instance=ExtResource("5_v2yyc")]
+
+[node name="PickSpell" parent="Either/PickSpell" instance=ExtResource("6_b50o3")]
+
+[node name="PickMinion" type="Node" parent="Either"]
+script = ExtResource("1_iho7f")
+
+[node name="HasManaForMinion" parent="Either/PickMinion" instance=ExtResource("8_wxchx")]
+
+[node name="HasNoOppCardOnField" type="Node" parent="Either/PickMinion"]
+script = ExtResource("7_p6w8i")
+
+[node name="HasOppCardOnField" parent="Either/PickMinion/HasNoOppCardOnField" instance=ExtResource("5_v2yyc")]
+
+[node name="PickMinion" parent="Either/PickMinion" instance=ExtResource("8_21mjr")]

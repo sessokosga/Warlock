@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=3 uid="uid://lvkubpblls33"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="1_xyvkr"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="2_ve1na"]
+[ext_resource type="PackedScene" uid="uid://b5qvbu3hsm6lt" path="res://ai/conditions/has_cards_on_field.tscn" id="3_88p80"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_glauy"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="5_d1n35"]
+[ext_resource type="PackedScene" uid="uid://cvlb7l4d4grw3" path="res://ai/conditions/has_target.tscn" id="6_f53lx"]
+[ext_resource type="PackedScene" uid="uid://7kwn5pihe65b" path="res://ai/actions/target_hero.tscn" id="7_u8dp5"]
+[ext_resource type="PackedScene" uid="uid://cr31hak2ovm8l" path="res://ai/actions/wait.tscn" id="8_dtk38"]
+[ext_resource type="PackedScene" uid="uid://bj0sbk4j11rpe" path="res://ai/conditions/is_waiting.tscn" id="9_5metg"]
+[ext_resource type="PackedScene" uid="uid://cjtpauqgm8med" path="res://ai/actions/attack_hero.tscn" id="10_atjci"]
+
+[node name="AttackHero" type="Node"]
+script = ExtResource("1_xyvkr")
+
+[node name="HasTurn" parent="." instance=ExtResource("2_ve1na")]
+
+[node name="HasCardsOnField" parent="." instance=ExtResource("3_88p80")]
+
+[node name="Either" type="Node" parent="."]
+script = ExtResource("4_glauy")
+
+[node name="TargetAndWait" type="Node" parent="Either"]
+script = ExtResource("1_xyvkr")
+
+[node name="HasNoTarget" type="Node" parent="Either/TargetAndWait"]
+script = ExtResource("5_d1n35")
+
+[node name="HasTarget" parent="Either/TargetAndWait/HasNoTarget" instance=ExtResource("6_f53lx")]
+
+[node name="TargetHero" parent="Either/TargetAndWait" instance=ExtResource("7_u8dp5")]
+
+[node name="Wait" parent="Either/TargetAndWait" instance=ExtResource("8_dtk38")]
+
+[node name="Attack" type="Node" parent="Either"]
+script = ExtResource("1_xyvkr")
+
+[node name="HasTarget" parent="Either/Attack" instance=ExtResource("6_f53lx")]
+
+[node name="HasFinishedWaiting" type="Node" parent="Either/Attack"]
+script = ExtResource("5_d1n35")
+
+[node name="IsWaiting" parent="Either/Attack/HasFinishedWaiting" instance=ExtResource("9_5metg")]
+
+[node name="AttackHero" parent="Either/Attack" instance=ExtResource("10_atjci")]
