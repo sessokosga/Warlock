@@ -18,6 +18,7 @@ var initial_rotation:float
 var initial_z_index:int
 @export var can_delete := false
 var can_attack := false
+var can_pick := false
 var is_dragged := false
 var is_hovered := false
 var is_removed_from_deck := false
@@ -49,7 +50,7 @@ var speed := {
 	move = 4
 }
 
-@onready var select_box := $"%SelectBox"
+@onready var select_box := $"%SelectBox" 
 @onready var animation_player := $AnimationPlayer
 
 
@@ -188,6 +189,23 @@ var decoration : String:
 	set(file_name):
 		decoration = file_name
 		$"%Decoration".texture = load(file_name)
+
+func set_field_outline(val:bool)->void:
+	can_attack = val
+	if can_attack:
+		$"%ProfileField".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,1))
+	else:
+		$"%ProfileField".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,0))
+
+func set_full_outline(val:bool)->void:
+	can_pick = val
+	if can_pick:
+		$"%Back".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,1))
+		$"%Decoration".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,1))
+	else:
+		$"%Back".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,0))
+		$"%Decoration".material.set_shader_parameter("line_color",Vector4(.36,.81,.39,0))
+		
 
 func show_back():
 	if mode == Mode.Full:

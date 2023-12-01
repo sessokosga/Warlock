@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b3168kgre3467"]
+[gd_scene load_steps=29 format=3 uid="uid://b3168kgre3467"]
 
 [ext_resource type="Theme" uid="uid://bs00b53m5f3ue" path="res://common/theme/default_theme.tres" id="1_kib8f"]
 [ext_resource type="Script" path="res://addons/ccg_tools/scripts/card.gd" id="2_dndha"]
@@ -10,12 +10,31 @@
 [ext_resource type="Texture2D" uid="uid://u8wqprko3gg0" path="res://addons/ccg_tools/assets/images/emblem_2.png" id="8_bc6pn"]
 [ext_resource type="Texture2D" uid="uid://c5h1onmye487f" path="res://assets/images/cards/card_template/attack.png" id="10_wsymt"]
 [ext_resource type="FontFile" uid="uid://s4jditl3moh2" path="res://assets/fonts/BalooChettan2-Bold.ttf" id="11_4ahwq"]
+[ext_resource type="Shader" path="res://addons/ccg_tools/scenes/card.gdshader" id="11_6hnat"]
 [ext_resource type="Texture2D" uid="uid://cahy3pv70jf05" path="res://assets/images/icon/checkmark.png" id="12_5n88u"]
 [ext_resource type="Texture2D" uid="uid://buevtshnep34t" path="res://assets/images/cards/card_template/health.png" id="12_ta40q"]
 [ext_resource type="Texture2D" uid="uid://c7tam44jhag1p" path="res://assets/images/icon/cross.png" id="13_xfu7m"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ml3yy"]
+resource_local_to_scene = true
+shader = ExtResource("11_6hnat")
+shader_parameter/line_color = Color(0.36, 0.81, 0.39, 0)
+shader_parameter/line_thickness = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fm7xu"]
+resource_local_to_scene = true
+shader = ExtResource("11_6hnat")
+shader_parameter/line_color = Color(0.36, 0.81, 0.39, 0)
+shader_parameter/line_thickness = 5.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w03s"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ocr1w"]
+resource_local_to_scene = true
+shader = ExtResource("11_6hnat")
+shader_parameter/line_color = Color(0.36, 0.81, 0.39, 0)
+shader_parameter/line_thickness = 5.0
 
 [sub_resource type="Animation" id="Animation_yjg7a"]
 length = 0.001
@@ -369,6 +388,7 @@ offset_bottom = 388.0
 
 [node name="Back" type="TextureRect" parent="FullMode/BackNode"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ml3yy")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -429,6 +449,7 @@ offset_bottom = 416.0
 
 [node name="Decoration" type="TextureRect" parent="FullMode/DecorationNode" groups=["Minion"]]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_fm7xu")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -623,6 +644,7 @@ offset_bottom = 40.0
 
 [node name="ProfileField" type="TextureRect" parent="FieldMode"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ocr1w")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

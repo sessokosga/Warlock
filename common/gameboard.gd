@@ -55,6 +55,7 @@ var player_mana :int:
 	set(value):
 		player_mana = value
 		update_mana_turn()
+		update_cards_outline()
 var player_turn : int:
 	set(value):
 		player_turn = value
@@ -178,6 +179,12 @@ func _load_opponent()->void:
 			card.show_back()
 			opp_hand.add_child(card)
 		
+func update_cards_outline()->void:
+	for card:Card in player_hand.get_children():
+		if player_mana >= card.mana:
+			card.set_full_outline(true)
+		else:
+			card.set_full_outline(false)
 
 
 func update_mana_turn()->void:
@@ -606,6 +613,7 @@ func allow_existing_minions_to_attack()->void:
 	# Allow player minions
 	for card:Card in player_table_top.get_children():
 		card.can_attack = true
+		card.set_field_outline(true)
 
 	# Allow opponent minions
 	for card:Card in opp_table_top.get_children():
