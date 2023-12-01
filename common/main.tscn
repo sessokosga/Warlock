@@ -13,7 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_btn2o")
 script = ExtResource("1_iifbm")
-by_pass_menu = true
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -21,9 +20,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -244.0
-offset_top = 8.0
+offset_top = 40.0
 offset_right = 244.0
-offset_bottom = 112.0
+offset_bottom = 144.0
 grow_horizontal = 2
 theme_type_variation = &"GiantLabel"
 text = "Warlock"
@@ -36,10 +35,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -34.0
-offset_right = 48.0
-offset_bottom = 34.0
+offset_left = -236.0
+offset_top = -90.0
+offset_right = 236.0
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
@@ -55,6 +54,7 @@ theme_type_variation = &"BigButton"
 text = "My Collection"
 
 [node name="Leaderboard" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_type_variation = &"BigButton"
 text = "Leaderboard"

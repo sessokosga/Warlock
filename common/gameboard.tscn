@@ -24,7 +24,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wgxgu")
-bypass_deck_selection = true
 
 [node name="Title" type="Label" parent="."]
 unique_name_in_owner = true
