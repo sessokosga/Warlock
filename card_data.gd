@@ -4,7 +4,7 @@ extends Node
 # DO NOT EDIT BY MANUAL
 
 class Warlock extends CastleDB:
-	enum Type {Hero,Minion,Spell,}
+	enum Type {Hero,Minion,Spell,Any}
 	enum Effect {KillRandomOpp,Add1AttackToCards,Remove1AttackToOpp,Add2Health,Add2Attack,Rem1HealthToOppCards,}
 	enum EffectOnActor {Help_Me,Harm_Opponent,}
 

@@ -48,7 +48,7 @@ func fan():
 			idx=CARD_FAN_SPACING.size()-1
 		width=curve_spacing.sample(card_ratio) * CARD_FAN_SPACING[idx]
 		var card_size = card.size.x * card._scale.x*2
-		card.position.x = (screen_size.x - card_size)/2 + width
+		card.position.x = (screen_size.x - card_size)/2 + width + 30
 		if type == HandType.Opponent:
 			card.position.y = -250
 			#card.position.y = -420

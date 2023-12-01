@@ -56,6 +56,13 @@ var player_mana :int:
 		player_mana = value
 		update_mana_turn()
 		update_cards_outline()
+		var max_mana = player_turn
+		if player_turn>10:
+			max_mana=10
+		for i in range(max_mana - player_mana):
+			var diamond :TextureRect= player_mana_diamonds.get_child(max_mana-1-i)
+			diamond.modulate = Color(.64,.64,.64,1)
+			diamond.show()
 var player_turn : int:
 	set(value):
 		player_turn = value
@@ -116,6 +123,7 @@ var game_state : GameState:
 func _load_player()->void:
 	var id = Utilities.get_hero_deck()
 	player_deck = Utilities.load_deck_instance(id)
+	player_deck.hero._scale = Vector2.ONE
 	player_hero.add_child(player_deck.hero)
 	if bypass_starting_cards:
 		for i in range (2):
@@ -144,6 +152,7 @@ func _load_player()->void:
 func _load_opponent()->void:
 	var id = Utilities.get_opponent_deck()
 	opp_deck = Utilities.load_deck_instance(id,true)
+	player_deck.hero._scale = Vector2.ONE
 	opp_hero.add_child(opp_deck.hero)
 	if bypass_starting_cards:
 		for i in range (2):
@@ -167,13 +176,13 @@ func _load_opponent()->void:
 		# 	opp_table_top.add_child(card)
 	else:
 		for i in range(STARTING_CARDS_NUMBER-1):
-			var card = get_random_card_in_deck(opp_deck,false,CardData.Warlock.Type.Minion)
+			var card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Minion,false)
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
 			card.show_back()
 			opp_hand.add_child(card)
 		for i in range(STARTING_CARDS_NUMBER-2):
-			var card = get_random_card_in_deck(opp_deck,false,CardData.Warlock.Type.Minion)
+			var card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Minion,false)
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
 			card.show_back()
@@ -191,7 +200,8 @@ func update_mana_turn()->void:
 	player_mana_turn.text = "%d/%d" % [player_mana,player_turn]
 	opp_mana_turn.text = "%d/%d" % [opp_mana,opp_turn]
 	for i in range(player_mana):
-		var diamond = player_mana_diamonds.get_child(i)
+		var diamond :TextureRect= player_mana_diamonds.get_child(i)
+		diamond.modulate = Color(1,.89,.65,1)
 		diamond.show()
 	
 
@@ -213,38 +223,43 @@ func pick_turn_owner()->void:
 		opp_turn = 1
 		opp_mana = 1
 		turn_owner = TurnOwnner.Opponent
-	add_card_to_hand()
+	
 	
 
-func get_random_card_in_deck(deck:Deck,should_dis_card_revoked=true,card_type:CardData.Warlock.Type=CardData.Warlock.Type.Minion)->Card:
+func get_random_card_in_deck(deck:Deck,card_type:CardData.Warlock.Type,should_dis_card_revoked=true)->Card:
 	var found = false
 	var attempts = 0
 	var card:Card = null
 	while found == false and attempts < 40:
-		if card_type == CardData.Warlock.Type.Minion:
-			card = deck.minions.pick_random()
-		elif card_type == CardData.Warlock.Type.Spell:
-			card = deck.spells.pick_random()
+		match card_type:
+			CardData.Warlock.Type.Minion:
+				card = deck.minions.pick_random()
+			CardData.Warlock.Type.Spell:
+				card = deck.spells.pick_random()
+			_:
+				card = deck.cards.pick_random()
 
-		if card.is_revoked  and should_dis_card_revoked :
-			attempts += 1
-		else:
-			found = true
-			deck.remove_card(card)
-			return card
+		if card != null:
+			if not should_dis_card_revoked or not card.is_revoked:
+				found = true
+				deck.remove_card(card)
+				return card
+		attempts += 1
+		print(attempts)
+	print("Card not found")
 	return null
 
 
 
 func load_starting_cards()->void:
 	for i in range (STARTING_CARDS_NUMBER-1):
-		var card:= get_random_card_in_deck(player_deck,false,CardData.Warlock.Type.Minion)
+		var card:= get_random_card_in_deck(player_deck,CardData.Warlock.Type.Minion,false)
 		card._scale = Vector2(.9,.9)
 		card.initial_scale = card._scale
 		starting_cards.add_child(card)
 	
 	for i in range (STARTING_CARDS_NUMBER-2):
-		var card:= get_random_card_in_deck(player_deck,false,CardData.Warlock.Type.Spell)
+		var card:= get_random_card_in_deck(player_deck,CardData.Warlock.Type.Spell,false)
 		card._scale = Vector2(.9,.9)
 		card.initial_scale = card._scale
 		starting_cards.add_child(card)
@@ -373,7 +388,7 @@ func draw_target():
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			if Rect2(Vector2.ZERO,screen_size).has_point(get_local_mouse_position()):
 				if rect.has_point(get_local_mouse_position() - player_table_top.position) \
-					and target.is_active == false:
+					and target.is_active == false and turn_owner == TurnOwnner.Player:
 					set_target_offender(card)
 
 	if target.is_active:
@@ -412,9 +427,9 @@ func handle_cards_targetted():
 	
 	# Target on opponent hero
 	var hero = opp_deck.hero
-	var rect = Rect2(hero.position,hero.size)
+	var rect = Rect2(hero.global_position,hero.size-Vector2(0,hero.size.y/2))
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and target.is_active:
-		if rect.has_point(get_local_mouse_position() - opp_hero.position):
+		if rect.has_point(get_local_mouse_position()):
 			if hero.scale <=Vector2.ONE:
 				hero.play_animation(Card.Animations.OnTarget)
 		else:
@@ -473,7 +488,7 @@ func apply_damage()->void:
 				game_state = GameState.Failure
 	if offender.health<=0:
 		offender.play_animation(Card.Animations.Destroy)
-
+	offender.set_field_outline(false)
 	clear_target()
 
 func clear_cards()->void:
@@ -626,31 +641,43 @@ func _on_turn_btn_pressed() -> void:
 	match turn_owner:
 		TurnOwnner.Player:
 			if opp_turn < 10:
-				opp_turn +=1
 				opp_mana = opp_turn
-				turn_owner = TurnOwnner.Opponent
+			else:
+				opp_mana = 10
+			opp_turn +=1
+			turn_owner = TurnOwnner.Opponent
 		TurnOwnner.Opponent:
 			if player_turn < 10:
-				player_turn +=1
 				player_mana = player_turn
-				turn_owner = TurnOwnner.Player
+			else:
+				player_mana=10
+			player_turn +=1
+			turn_owner = TurnOwnner.Player
 		_:
 			pass
 	allow_existing_minions_to_attack()
 	add_card_to_hand()
 
 func add_card_to_hand():
-	var card:Card = get_random_card_in_deck(opp_deck)
-	card._scale = Vector2(.7,.7)
-	card.initial_scale = card._scale
+	
 	match turn_owner:
 		TurnOwnner.Player:
+			if player_deck.cards.size()<=0:
+				return
+			var card:Card = get_random_card_in_deck(player_deck,CardData.Warlock.Type.Any)
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
+			player_hand.add_child(card)
+			player_deck.remove_card(card)
+		TurnOwnner.Opponent:
+			if opp_deck.cards.size()<=0:
+				return
+			var card:Card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Any)
+			card._scale = Vector2(.7,.7)
+			card.initial_scale = card._scale
 			card.show_back()
 			opp_hand.add_child(card)
 			opp_deck.remove_card(card)
-		TurnOwnner.Opponent:
-			player_hand.add_child(card)
-			player_deck.remove_card(card)
 		_:
 			pass
 
@@ -666,7 +693,7 @@ func _on_ok_btn_pressed() -> void:
 	# Replace revoked cards
 	for card:Card in starting_cards.get_children():
 		if card.is_revoked:
-			var new_card = get_random_card_in_deck(player_deck)
+			var new_card = get_random_card_in_deck(player_deck,CardData.Warlock.Type.Any)
 			starting_cards.add_child(new_card)
 			card._scale = Vector2(.9,.9)
 			card.initial_scale = card._scale
@@ -680,12 +707,14 @@ func _on_ok_btn_pressed() -> void:
 				if card.is_revoked == false:
 					from_starting_cards_to_hand(card)
 			game_state = GameState.Playing
+			add_card_to_hand()
 		)
 	else:
 		for card:Card in starting_cards.get_children():
 			if card.is_revoked == false:
 				from_starting_cards_to_hand(card)
 		game_state = GameState.Playing
+		add_card_to_hand()
 
 func opp_has_turn()->bool:
 	return turn_owner == TurnOwnner.Opponent
@@ -859,4 +888,5 @@ func is_game_playing()->bool:
 func has_opp_targetted()->bool:
 	return turn_owner == TurnOwnner.Opponent and target.is_active
 
-	
+func _on_surrender_pressed() -> void:
+	game_state = GameState.Surrender

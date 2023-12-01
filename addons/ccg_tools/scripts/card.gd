@@ -179,6 +179,10 @@ var type : CardData.Warlock.Type:
 	set(value):
 		type = value
 		$"%Type".text = Utilities.card_type_string(type)
+		if type == CardData.Warlock.Type.Hero:
+			$"%HealthbackField".custom_minimum_size = Vector2(53,46)
+			$"%HealthbackField".size = Vector2(53,46)
+			$"%HealthbackField".position.x-=10
 	
 var emblem:String :
 	set(file_name):

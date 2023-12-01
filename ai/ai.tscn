@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bua8v13npwvv3"]
+[gd_scene load_steps=10 format=3 uid="uid://bua8v13npwvv3"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_lq4qw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_pdai7"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c0iiehvjh6vyn" path="res://ai/pick_card.tscn" id="5_c7krr"]
 [ext_resource type="PackedScene" uid="uid://cb4pb2q0v6lg4" path="res://ai/attack_minion.tscn" id="6_l1gxe"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="6_rv1c4"]
+[ext_resource type="PackedScene" uid="uid://bqd8tnhjo3vtm" path="res://ai/conditions/has_turn.tscn" id="8_p6vrc"]
 [ext_resource type="PackedScene" uid="uid://b5u6yr43xvfe8" path="res://ai/actions/end_turn.tscn" id="13_i7ya2"]
 
 [node name="AI" type="Node"]
@@ -29,4 +30,9 @@ script = ExtResource("6_rv1c4")
 
 [node name="AttackMinion" parent="SequenceComposite/Either/Attack" instance=ExtResource("6_l1gxe")]
 
-[node name="EndTurn" parent="SequenceComposite" instance=ExtResource("13_i7ya2")]
+[node name="EndTurn" type="Node" parent="SequenceComposite/Either"]
+script = ExtResource("2_pdai7")
+
+[node name="HasTurn" parent="SequenceComposite/Either/EndTurn" instance=ExtResource("8_p6vrc")]
+
+[node name="EndTurn" parent="SequenceComposite/Either/EndTurn" instance=ExtResource("13_i7ya2")]
