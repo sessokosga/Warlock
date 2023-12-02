@@ -79,6 +79,7 @@ text = "UI : "
 horizontal_alignment = 1
 
 [node name="VoiceOver" type="Label" parent="CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Voice Over : 

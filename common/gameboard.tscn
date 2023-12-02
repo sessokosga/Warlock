@@ -71,7 +71,6 @@ offset_bottom = 283.0
 alignment = 1
 
 [node name="AI" parent="Opponent" node_paths=PackedStringArray("blackboard") instance=ExtResource("3_hqkox")]
-enabled = false
 actor_node_path = NodePath("..")
 blackboard = NodePath("../../Blackboard")
 

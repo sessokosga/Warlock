@@ -3,6 +3,23 @@ extends Node
 const FOLDER_NAME = "deck"
 const OPP_DIR = "res://opp_decks"
 var selected ={}
+var opp_decks = {
+	"deck_2028":{
+		"cards": ["Gigant", "Gigant", "Hammer", "Hammer", "Summoner", "Summoner", "Sneak", "Sneak", "Nimble", "Nimble", "Ambush", "Ambush", "GoblinJunk", "GoblinJunk", "Redemption", "Redemption", "ShadowBolt", "ShadowBolt", "DeadlyStrike", "DeadlyStrike"],
+		"file_name": "deck_2028",
+		"hero": "DemonicBargain",
+		"id": "deck_2028",
+		"title": "Demonic Bargain"
+	},
+	"deck_2548":{
+		"cards": ["Hammer", "Hammer", "Retributor", "Retributor", "Nimble", "Nimble", "DeadlyStrike", "DeadlyStrike", "ShadowBolt", "ShadowBolt", "ShadowBolt", "ShadowBolt", "Sneak", "Sneak", "Sneak", "Sneak", "Gigant", "Gigant", "Gigant", "Gigant"],
+		"file_name": "deck_2548",
+		"hero": "RadiantCrusader",
+		"id": "deck_2548",
+		"title": "Radiant Crusader"
+	}
+}
+
 
 func card_type_string(id:int)->String:
 	match id:
@@ -74,7 +91,11 @@ func load_deck(id:String,is_opponent=false)->Dictionary:
 
 func load_decks_instances_hero_only(is_opponent=false)->Array[Deck]:
 	var result :Array[Deck] = []
-	var d = load_decks(is_opponent)
+	var d:Dictionary
+	if is_opponent:
+		d = opp_decks
+	else:
+		d = load_decks(is_opponent)
 	for id in d:
 		var dk = d[id]
 		var deck := Deck.get_instance()
