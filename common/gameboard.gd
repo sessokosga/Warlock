@@ -699,7 +699,8 @@ func _on_ok_btn_pressed() -> void:
 			card.initial_scale = card._scale
 			starting_cards.remove_child(card)
 			player_deck.add_card(card)
-			player_deck.revoke_card(card.id)
+			card.is_revoked = true
+			#player_deck.revoke_card(card.id)
 	ok_btn.disabled = true
 	if has_revoked:
 		get_tree().create_timer(1).timeout.connect(func ()->void:
