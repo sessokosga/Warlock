@@ -176,13 +176,15 @@ func _load_opponent()->void:
 		# 	opp_table_top.add_child(card)
 	else:
 		for i in range(STARTING_CARDS_NUMBER-1):
+			#var card = opp_deck.minions[i]
 			var card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Minion,false)
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
 			card.show_back()
 			opp_hand.add_child(card)
 		for i in range(STARTING_CARDS_NUMBER-2):
-			var card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Minion,false)
+			#var card = opp_deck.spells[i]
+			var card = get_random_card_in_deck(opp_deck,CardData.Warlock.Type.Spell,false)
 			card._scale = Vector2(.7,.7)
 			card.initial_scale = card._scale
 			card.show_back()
@@ -252,14 +254,8 @@ func get_random_card_in_deck(deck:Deck,card_type:CardData.Warlock.Type,should_di
 
 
 func load_starting_cards()->void:
-	for i in range (STARTING_CARDS_NUMBER-1):
-		var card:= get_random_card_in_deck(player_deck,CardData.Warlock.Type.Minion,false)
-		card._scale = Vector2(.9,.9)
-		card.initial_scale = card._scale
-		starting_cards.add_child(card)
-	
-	for i in range (STARTING_CARDS_NUMBER-2):
-		var card:= get_random_card_in_deck(player_deck,CardData.Warlock.Type.Spell,false)
+	for i in range (STARTING_CARDS_NUMBER):
+		var card:= get_random_card_in_deck(player_deck,CardData.Warlock.Type.Any,false)
 		card._scale = Vector2(.9,.9)
 		card.initial_scale = card._scale
 		starting_cards.add_child(card)
@@ -699,8 +695,7 @@ func _on_ok_btn_pressed() -> void:
 			card.initial_scale = card._scale
 			starting_cards.remove_child(card)
 			player_deck.add_card(card)
-			card.is_revoked = true
-			#player_deck.revoke_card(card.id)
+			player_deck.revoke_card(card.id)
 	ok_btn.disabled = true
 	if has_revoked:
 		get_tree().create_timer(1).timeout.connect(func ()->void:
