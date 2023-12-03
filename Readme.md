@@ -15,4 +15,12 @@ I hope you'll enjoy the experience.
 ##### Genre : Collectible Card Game
 ##### Controls : Mouse
 ##### Game mode : Solo
+##### Screenshots
+![Home](assets/images/docs/home.png)
+![Home](assets/images/docs/new_game_deck_choics.png)
+![Home](assets/images/docs/new_game_opp_choics.png)
+![Home](assets/images/docs/starting_cards.png)
+![Home](assets/images/docs/playing.png)
+![Home](assets/images/docs/my_collection.png)
+![Home](assets/images/docs/my_collection_edit.png)
 
