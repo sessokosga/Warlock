@@ -106,7 +106,11 @@ func load_decks_instances_hero_only(is_opponent=false)->Array[Deck]:
 	return result
 
 func load_deck_instance(id:String,is_opponent=false)->Deck:
-	var dk = load_deck(id,is_opponent)
+	var dk :Dictionary
+	if is_opponent:
+		dk = opp_decks[id]
+	else:
+		dk = load_deck(id,is_opponent)
 	var deck = Deck.get_instance()
 	if dk.has("id"):
 		deck.id = dk.id

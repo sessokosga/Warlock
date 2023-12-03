@@ -27,13 +27,18 @@ static func get_instance()->Deck:
 func add_card(card:Card):
 	if _card_list.size()<MAX_DECK_SIZE:
 		_card_list.append(card)
-	cards = _card_list.filter(is_valid)
+	cards = _card_list
+	#cards = _card_list.filter(is_valid)
 	spells = _card_list.filter(is_a_spell)
 	minions = _card_list.filter(is_a_minion)
 
 func remove_card(card:Card):
 	card.is_removed_from_deck = true
-	cards = _card_list.filter(is_valid)
+	var idx = _card_list.find(card)
+	if idx>=0 :
+		_card_list.remove_at(idx)
+	cards = _card_list
+	#cards = _card_list.filter(is_valid)
 	spells = _card_list.filter(is_a_spell)
 	minions = _card_list.filter(is_a_minion)
 

@@ -423,9 +423,9 @@ func handle_cards_targetted():
 	
 	# Target on opponent hero
 	var hero = opp_deck.hero
-	var rect = Rect2(hero.global_position,hero.size-Vector2(0,hero.size.y/2))
+	var rect2 = Rect2(hero.global_position,hero.size-Vector2(0,hero.size.y/2))
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and target.is_active:
-		if rect.has_point(get_local_mouse_position()):
+		if rect2.has_point(get_local_mouse_position()):
 			if hero.scale <=Vector2.ONE:
 				hero.play_animation(Card.Animations.OnTarget)
 		else:
