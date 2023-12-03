@@ -18,7 +18,7 @@ msgstr ""
 
 #: common/back.tscn
 msgid "Back"
-msgstr "Retour"
+msgstr "Précédent"
 
 #: common/level_selection.tscn
 msgid "New Game"
@@ -212,7 +212,11 @@ msgstr "Victoire !"
 
 #: common/gameboard.tscn
 msgid "You Loose !"
-msgstr "Echeck !"
+msgstr "Vous avez perdu !"
+
+#: common/gameboard.tscn
+msgid "Draw !"
+msgstr "Match Nul !"
 
 #: common/gameboard.tscn
 msgid "You Surrendered !"

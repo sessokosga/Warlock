@@ -230,6 +230,10 @@ msgid "You Loose !"
 msgstr ""
 
 #: common/gameboard.tscn
+msgid "Draw !"
+msgstr ""
+
+#: common/gameboard.tscn
 msgid "You Surrendered !"
 msgstr ""
 

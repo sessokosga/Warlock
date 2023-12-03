@@ -11,6 +11,7 @@ extends Control
 @onready var ctlr_pause : = $"%Pause"
 @onready var ctlr_victory : = $"%Victory"
 @onready var ctlr_failure : = $"%Failure"
+@onready var ctlr_draw : = $"%Draw"
 @onready var ctlr_surrender : = $"%Surrender"
 @onready var hbc_buttons : = $"%Buttons"
 @onready var ui : = $"%UI"
@@ -30,9 +31,10 @@ extends Control
 
 enum BoardState{Drag,None}
 enum TurnOwnner {Player, Opponent}
-enum GameState {Victory, Failure, Surrender, Playing, Paused, StartingCards}
+enum GameState {Victory, Failure,Draw, Surrender, Playing, Paused, StartingCards}
 
 const STARTING_CARDS_NUMBER = 3
+const MAX_TURN = 30
 
 var turn_owner : TurnOwnner:
 	set(value):
@@ -102,6 +104,9 @@ var game_state : GameState:
 			GameState.Failure:
 				hbc_buttons.show()
 				ctlr_failure.show()
+			GameState.Draw:
+				hbc_buttons.show()
+				ctlr_draw.show()
 			GameState.Surrender:
 				hbc_buttons.show()
 				ctlr_surrender.show()
@@ -651,8 +656,17 @@ func _on_turn_btn_pressed() -> void:
 			turn_owner = TurnOwnner.Player
 		_:
 			pass
-	allow_existing_minions_to_attack()
-	add_card_to_hand()
+	if player_turn > MAX_TURN and opp_turn > MAX_TURN:
+		if opp_deck.hero.health < player_deck.hero.health:
+			game_state = GameState.Victory
+		elif opp_deck.hero.health > player_deck.hero.health:
+			game_state = GameState.Failure
+		else:
+			game_state = GameState.Draw
+	else:
+		allow_existing_minions_to_attack()
+		add_card_to_hand()
+
 
 func add_card_to_hand():
 	
